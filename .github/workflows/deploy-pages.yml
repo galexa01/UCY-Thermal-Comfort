@@ -1,0 +1,48 @@
+name: Deploy UCY Thermal Comfort
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify forecast package
+        run: |
+          test -f index.html
+          test -f forecast/index.html
+          test -f forecast/forecast_v5.json
+          test "$(find forecast/maps_v5 -name '*.png' | wc -l)" -eq 96
+          test "$(find forecast/wind -name '*.png' | wc -l)" -eq 48
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
