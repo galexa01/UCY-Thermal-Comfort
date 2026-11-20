@@ -1,0 +1,53 @@
+/* UCY Heat cinematic v2: isolated styles, foreground overlay only. */
+#ucy-heat-splash { display:none !important; }
+#ucy-cinema-v2, #ucy-cinema-v2 * { box-sizing:border-box; }
+#ucy-cinema-v2 {
+  position:fixed; z-index:2147483646; inset:0; width:100%; height:100%; height:100dvh;
+  pointer-events:none; overflow:hidden; background:#020a18; color:#f2f5ff;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  isolation:isolate; opacity:1; transform:scale(1);
+  transition:opacity 980ms cubic-bezier(.22,.65,.22,1), filter 980ms ease, transform 980ms ease;
+}
+#ucy-cinema-v2.ucy-cinema-exit { opacity:0; filter:blur(7px); transform:scale(1.075); }
+#ucy-cinema-v2 .ucy-cinema-ambient {
+  position:absolute; inset:-12%; background:
+    radial-gradient(ellipse 70% 40% at 50% 65%,rgba(244,111,26,.15),transparent 65%),
+    radial-gradient(ellipse 85% 60% at 51% 40%,rgba(28,68,118,.25),transparent 75%),
+    #020a18;
+  animation:ucy-ambient-pulse 4s ease-in-out both;
+}
+#ucy-cinema-v2 .ucy-cinema-stage {position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+#ucy-cinema-v2 .ucy-cinema-film {
+  width:min(100vw,calc(100dvh * 552 / 830)); height:100dvh;
+  object-fit:contain; display:block; transform:scale(1.01);
+  filter:contrast(1.06) saturate(1.07); animation:ucy-film-push 4.2s cubic-bezier(.2,.7,.2,1) both;
+}
+#ucy-cinema-v2 .ucy-cinema-vignette {
+  position:absolute;inset:0;box-shadow:inset 0 0 min(20vh,130px) rgba(0,0,0,.38);pointer-events:none;
+  background:linear-gradient(90deg,rgba(2,10,24,.08),transparent 30%,transparent 70%,rgba(2,10,24,.08));
+}
+#ucy-cinema-v2 .ucy-cinema-flare {
+  position:absolute;left:-35%;top:57%;width:170%;height:2px;opacity:0;
+  transform:rotate(-11deg);filter:blur(1px);
+  background:linear-gradient(90deg,transparent 15%,rgba(255,142,52,.03) 25%,#ffe9a9 50%,rgba(255,154,50,.18) 63%,transparent 84%);
+  box-shadow:0 0 24px 4px rgba(255,151,46,.3);
+  animation:ucy-flare-fly 1400ms 1950ms ease-in-out both;
+}
+#ucy-cinema-v2 .ucy-cinema-wordmark {
+  position:absolute;bottom:max(13%,env(safe-area-inset-bottom));left:50%;transform:translate(-50%,14px);
+  font-weight:650;font-size:clamp(12px,2.2vh,16px);letter-spacing:.19em;white-space:nowrap;
+  text-shadow:0 2px 12px rgba(1,7,15,.95);opacity:0;
+  animation:ucy-wordmark-in 700ms 2850ms ease-out forwards;
+}
+#ucy-cinema-v2 .ucy-cinema-wordmark span {color:#ffbb6d}
+@keyframes ucy-ambient-pulse {0% {filter:brightness(.8)} 60%{filter:brightness(1.25)} 100%{filter:brightness(1)}}
+@keyframes ucy-film-push {0%{transform:scale(.97)} 60%{transform:scale(1.02)}100%{transform:scale(1.075)}}
+@keyframes ucy-flare-fly {0%{opacity:0;transform:translateX(-16%) rotate(-11deg)}45%{opacity:.87}100%{opacity:0;transform:translateX(22%) rotate(-11deg)}}
+@keyframes ucy-wordmark-in {to{opacity:1;transform:translate(-50%,0)}}
+@media(prefers-reduced-motion:reduce){
+ #ucy-cinema-v2, #ucy-cinema-v2 *{animation:none!important;transition:none!important}
+ #ucy-cinema-v2 .ucy-cinema-wordmark{opacity:1;transform:translate(-50%,0)}
+}
+
+/* Accessible static end-card for reduced-motion preference. */
+#ucy-cinema-v2.ucy-cinema-reduced .ucy-cinema-stage{background:#06142c url("ucy-cinematic-poster.jpg") center / contain no-repeat}

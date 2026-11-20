@@ -838,6 +838,10 @@ body.v9-nowcast #v83MeanCard{display:block!important}
       content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="UCY Heat">
 
+
+<!-- UCY Heat cinematic v2 + campus bounds bridge -->
+<link rel="stylesheet" href="../pwa/ucy-cinematic.css?v=20261121">
+<script defer src="../pwa/ucy-cinematic.js?v=20261121"></script>
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
@@ -2265,6 +2269,50 @@ function buildTicker(){const entries=v6.timestamps;
  const track=$('tickerTrack');track.replaceChildren();const twice=[...messages,...messages];twice.forEach(s=>{const span=document.createElement('span');span.textContent=s;track.append(span)})
 }
 function fitCampus(){if(!map||!bounds)return;const mobile=innerWidth<780;map.fitBounds(bounds,{pitch:0,bearing:0,duration:650,padding:mobile?{top:80,bottom:190,left:22,right:22}:{top:94,bottom:150,left:370,right:80}})}
+/* UCY_HEAT_CAMPUS_ZOOM_BRIDGE_V2 */
+(function () {
+  var requested = false, completed = false, tries = 0;
+  function focus() {
+    if (completed || !requested) return;
+    try {
+      if (!map || !bounds || typeof map.cameraForBounds !== 'function' || typeof map.flyTo !== 'function') {
+        if (++tries < 35) setTimeout(focus, 180);
+        else if (window.__UCY_CINEMA_V2) window.__UCY_CINEMA_V2.zoomStatus='map-or-bounds-unavailable';
+        return;
+      }
+      var mobile = window.innerWidth < 780;
+      var padding = mobile
+        ? {top:80,bottom:190,left:22,right:22}
+        : {top:94,bottom:150,left:370,right:80};
+      var target = map.cameraForBounds(bounds, {padding:padding,pitch:0,bearing:0});
+      if (!target || !Number.isFinite(target.zoom)) {
+        if (++tries < 35) setTimeout(focus,180);
+        else if (window.__UCY_CINEMA_V2) window.__UCY_CINEMA_V2.zoomStatus='camera-for-bounds-unavailable';
+        return;
+      }
+      var maxZoom = (typeof map.getMaxZoom==='function') ? map.getMaxZoom() : 22;
+      var closeZoom = Math.min(Number.isFinite(maxZoom)?maxZoom:22, target.zoom + 0.75);
+      var distantZoom = Math.max(0, closeZoom - 1.65);
+      // First place the hidden map at a wider view; the splash is still opaque.
+      // Then fly in as the cinematic layer dissolves. No invented coordinates.
+      completed = true;
+      map.jumpTo({center:target.center, zoom:distantZoom, pitch:0,bearing:0});
+      requestAnimationFrame(function(){
+        map.flyTo({center:target.center, zoom:closeZoom, pitch:0,bearing:0,
+                   duration:2150, essential:true});
+      });
+      if (window.__UCY_CINEMA_V2) {
+        window.__UCY_CINEMA_V2.zoomStatus='campus-bounds-zoom-started';
+        window.__UCY_CINEMA_V2.targetZoom=closeZoom;
+      }
+    } catch (e) {
+      if (window.__UCY_CINEMA_V2) window.__UCY_CINEMA_V2.zoomStatus='zoom-error: '+(e.message||e);
+      // Do not block or alter the map if a camera API fails.
+    }
+  }
+  window.addEventListener('ucyheat:cinema:focus',function(){requested=true;focus();});
+})();
+
 function set3d(on){if(!map)return;map.easeTo({pitch:on?57:0,bearing:on?-26:0,duration:550});$('button2d').classList.toggle('active',!on);$('button3d').classList.toggle('active',on);$('button2d').setAttribute('aria-pressed',String(!on));$('button3d').setAttribute('aria-pressed',String(on))}
 function collapseSide(next){sidebarClosed=next;$('sidebar').classList.toggle('closed',next);document.body.classList.toggle('sidebar-closed',next);$('collapseToggle').classList.toggle('collapsed',next);$('collapseToggle').setAttribute('aria-expanded',String(!next));$('collapseToggle').setAttribute('aria-label',next?'Expand sidebar':'Collapse sidebar');$('collapseIcon').innerHTML='<use href="'+(next?'#i-right':'#i-left')+'"/>';if(map)setTimeout(()=>map.resize(),360)}
 function showLayerSettings(){if(sidebarClosed)collapseSide(false);const el=$('layerBody');el.hidden=!el.hidden;$('layerToggle').setAttribute('aria-expanded',String(!el.hidden));if(!el.hidden)$('layerToggle').scrollIntoView({block:'nearest',behavior:'smooth'})}
