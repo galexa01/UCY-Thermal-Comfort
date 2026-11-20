@@ -400,6 +400,17 @@ body.v9-nowcast #v83MeanCard{display:block!important}
 <style id="ucy-v91-mobile-css">
 /* UCY MOBILE V9.2 - mobile only */
 
+/* Hide obsolete sidebar toggle on mobile */
+@media (max-width:768px) {
+  #collapseToggle,
+  .collapse-toggle {
+    display:none!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+  }
+}
+
+
 #ucyMobileMenu,
 #ucyMobileLegend,
 #ucyMobileTools,
