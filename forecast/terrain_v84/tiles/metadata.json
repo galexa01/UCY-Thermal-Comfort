@@ -1,0 +1,21 @@
+{
+  "source": "campus_terrain_1km_5m.tif",
+  "format": "Terrain-RGB",
+  "encoding": "mapbox",
+  "tileSize": 256,
+  "minzoom": 12,
+  "maxzoom": 15,
+  "tile_counts": {
+    "12": 2,
+    "13": 4,
+    "14": 9,
+    "15": 24
+  },
+  "total_tiles": 39,
+  "mercator_bounds": [
+    3716532.422421922,
+    4181493.7999766697,
+    3721902.79915748,
+    4185849.251267951
+  ]
+}
