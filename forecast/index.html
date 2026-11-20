@@ -772,8 +772,94 @@ body.v9-nowcast #v83MeanCard{display:block!important}
 
 </style>
 
+<style id="ucy-heat-splash-css">
+#ucy-heat-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg,#081c38,#173d65);
+  transition: opacity .55s ease, visibility .55s ease;
+}
+#ucy-heat-splash.done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.ucyh-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.ucyh-logo {
+  width: min(46vw,185px);
+  height: min(46vw,185px);
+  object-fit: contain;
+  animation: ucyh-appear 1.2s cubic-bezier(.2,.8,.2,1) both;
+}
+.ucyh-title {
+  color: #f2f7ff;
+  font: 700 30px system-ui,sans-serif;
+  letter-spacing: -.8px;
+  animation: ucyh-title .7s ease .65s both;
+}
+.ucyh-line {
+  width: 90px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg,#466d9b,#89cfff);
+  transform-origin: left;
+  animation: ucyh-line 1.4s ease both;
+}
+@keyframes ucyh-appear {
+  from {opacity:0;transform:scale(.65) rotate(-8deg);filter:blur(10px)}
+  to {opacity:1;transform:scale(1) rotate(0);filter:blur(0)}
+}
+@keyframes ucyh-title {
+  from {opacity:0;transform:translateY(15px)}
+  to {opacity:1;transform:translateY(0)}
+}
+@keyframes ucyh-line {
+  from {transform:scaleX(0)}
+  to {transform:scaleX(1)}
+}
+@media(prefers-reduced-motion:reduce) {
+  #ucy-heat-splash * {animation:none!important}
+}
+</style>
+
+<link rel="manifest" href="../pwa/manifest.webmanifest">
+<link rel="apple-touch-icon" href="../pwa/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="UCY Heat">
+
 </head>
 <body>
+<div id="ucy-heat-splash" aria-label="UCY Heat loading">
+  <div class="ucyh-content">
+    <img class="ucyh-logo"
+         src="../pwa/ucy-mark.png"
+         alt="UCY Heat">
+    <div class="ucyh-title">UCY Heat</div>
+    <div class="ucyh-line"></div>
+  </div>
+</div>
+<script id="ucy-heat-splash-js">
+(function(){
+  function dismiss(){
+    const el=document.getElementById('ucy-heat-splash');
+    if(!el)return;
+    el.classList.add('done');
+    window.setTimeout(()=>el.remove(),650);
+  }
+  window.setTimeout(dismiss,1900);
+})();
+</script>
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
  <symbol id="i-temp" viewBox="0 0 24 24"><path d="M14 14.7V5a4 4 0 0 0-8 0v9.7a6 6 0 1 0 8 0Z"/><path d="M10 10v10"/></symbol>
  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.4"/><path d="M4 21v-3a8 8 0 0 1 16 0v3H4Z"/></symbol>
