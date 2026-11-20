@@ -396,154 +396,270 @@ body.v9-nowcast #v83MeanCard{display:block!important}
 </style>
 
 
+
 <style id="ucy-v91-mobile-css">
-/* UCY_V91_MOBILE_LAYOUT_20261120 */
+/* UCY MOBILE V9.2 - mobile only */
+
 #ucyMobileMenu,
-#ucyMobileLegend{
+#ucyMobileLegend,
+#ucyMobileTools,
+#ucyMobileBackdrop {
   display:none;
 }
 
-@media (max-width:768px){
-  html,body{
-    width:100%;
+@media(max-width:768px){
+
+  html,body {
     max-width:100%;
     overflow-x:hidden;
   }
 
-  /* The desktop components remain intact. */
-  .ucy-mobile-sidebar{
+  /* Full mobile map; existing desktop rules untouched */
+
+  .sidebar,
+  .ucy-mobile-sidebar {
     position:fixed!important;
     top:0!important;
-    left:0!important;
     bottom:0!important;
-    width:min(88vw,360px)!important;
+    left:0!important;
+    width:min(88vw,350px)!important;
     max-width:88vw!important;
     height:100dvh!important;
     max-height:100dvh!important;
+    margin:0!important;
     overflow-y:auto!important;
-    transform:translateX(-110%)!important;
-    transition:transform .24s ease!important;
-    z-index:10021!important;
     box-sizing:border-box!important;
+    z-index:9030!important;
+    transform:translateX(-110%)!important;
+    opacity:0!important;
+    visibility:hidden!important;
     pointer-events:none!important;
+    transition:transform .22s ease,opacity .22s ease!important;
   }
 
-  body.ucy-mobile-menu-open .ucy-mobile-sidebar{
+  body.ucy-mobile-menu-open .sidebar,
+  body.ucy-mobile-menu-open .ucy-mobile-sidebar {
     transform:translateX(0)!important;
+    opacity:1!important;
+    visibility:visible!important;
     pointer-events:auto!important;
   }
 
-  .ucy-mobile-legend{
+  /* Map legend as an independent drawer */
+
+  #mapLegend,
+  .legend,
+  .ucy-mobile-legend {
     position:fixed!important;
-    top:112px!important;
+    top:75px!important;
+    bottom:auto!important;
+    right:8px!important;
+    left:auto!important;
+    width:min(82vw,270px)!important;
+    max-width:82vw!important;
+    max-height:calc(100dvh - 180px)!important;
+    overflow-y:auto!important;
+    box-sizing:border-box!important;
+    z-index:9030!important;
+    transform:translateX(calc(100% + 25px))!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+    transition:transform .22s ease,opacity .22s ease!important;
+  }
+
+  body.ucy-mobile-legend-open #mapLegend,
+  body.ucy-mobile-legend-open .legend,
+  body.ucy-mobile-legend-open .ucy-mobile-legend {
+    transform:translateX(0)!important;
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+  }
+
+  /* Top-right desktop controls become a Tools drawer */
+
+  .top-controls,
+  .ucy-mobile-toolbar {
+    position:fixed!important;
+    top:65px!important;
     right:8px!important;
     left:auto!important;
     bottom:auto!important;
-    width:min(76vw,240px)!important;
-    max-width:76vw!important;
-    max-height:calc(100dvh - 190px)!important;
-    overflow:auto!important;
-    transform:translateX(calc(100% + 20px))!important;
-    transition:transform .24s ease!important;
-    z-index:10020!important;
-    pointer-events:none!important;
-  }
-
-  body.ucy-mobile-legend-open .ucy-mobile-legend{
-    transform:translateX(0)!important;
+    width:min(92vw,350px)!important;
+    max-width:92vw!important;
+    max-height:calc(100dvh - 180px)!important;
+    overflow-x:auto!important;
+    overflow-y:auto!important;
+    box-sizing:border-box!important;
+    margin:0!important;
+    padding:10px!important;
+    display:none!important;
+    flex-wrap:wrap!important;
+    gap:7px!important;
+    transform:none!important;
+    opacity:1!important;
+    z-index:9030!important;
     pointer-events:auto!important;
   }
 
-  .ucy-mobile-toolbar{
-    position:fixed!important;
-    top:55px!important;
-    left:50%!important;
-    right:auto!important;
-    width:max-content!important;
-    max-width:calc(100vw - 12px)!important;
-    transform:translateX(-50%)!important;
-    z-index:10015!important;
-    overflow-x:auto!important;
-    overflow-y:hidden!important;
-    scrollbar-width:none!important;
-    box-sizing:border-box!important;
+  body.ucy-mobile-tools-open .top-controls,
+  body.ucy-mobile-tools-open .ucy-mobile-toolbar {
+    display:flex!important;
   }
 
-  .ucy-mobile-toolbar::-webkit-scrollbar{
-    display:none;
+  /* Keep the time slider accessible in Forecast */
+
+  body:not(.v9-nowcast) #bottomPanel {
+    position:fixed!important;
+    left:6px!important;
+    right:6px!important;
+    bottom:calc(5px + env(safe-area-inset-bottom,0px))!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    transform:none!important;
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+    z-index:9010!important;
   }
 
-  .ucy-mobile-mode-switch{
+  body:not(.v9-nowcast) #bottomPanel .timeline {
+    padding:9px 10px!important;
+    margin:0!important;
+    min-height:0!important;
+  }
+
+  body:not(.v9-nowcast) #bottomPanel .timeline-header {
+    display:flex!important;
+    flex-wrap:wrap!important;
+    gap:4px!important;
+    margin-bottom:7px!important;
+  }
+
+  body:not(.v9-nowcast) #bottomPanel .timeline-main {
+    display:flex!important;
+    align-items:center!important;
+    gap:6px!important;
+    min-width:0!important;
+  }
+
+  body:not(.v9-nowcast) #hourRange {
+    display:block!important;
+    flex:1 1 auto!important;
+    min-width:50px!important;
+    width:auto!important;
+    height:28px!important;
+    position:relative!important;
+    z-index:9011!important;
+    pointer-events:auto!important;
+    touch-action:pan-y!important;
+  }
+
+  body:not(.v9-nowcast) #bottomPanel button,
+  body:not(.v9-nowcast) #bottomPanel input {
+    pointer-events:auto!important;
+  }
+
+  /* Undo old mobile CSS disabling the timebar
+     whenever the desktop sidebar is open */
+
+  body:not(.v9-nowcast) .bottom-panel {
+    opacity:1!important;
+    pointer-events:auto!important;
+  }
+
+  .sidebar:not(.closed) ~ .bottom-panel {
+    pointer-events:auto!important;
+  }
+
+  /* Hide old desktop sidebar toggle on mobile */
+
+  .collapse-toggle {
+    display:none!important;
+  }
+
+  /* Mobile buttons sit above the actual timeline */
+
+  #ucyMobileButtons {
     position:fixed!important;
-    top:6px!important;
-    left:50%!important;
-    right:auto!important;
-    transform:translateX(-50%)!important;
-    z-index:10016!important;
-    max-width:calc(100vw - 12px)!important;
+    display:flex!important;
+    justify-content:space-between!important;
+    gap:7px!important;
+    left:8px!important;
+    right:8px!important;
+    bottom:calc(
+      var(--ucy-mobile-bottom-height,150px) + 8px
+    )!important;
+    z-index:9050!important;
+    pointer-events:none!important;
   }
 
   #ucyMobileMenu,
-  #ucyMobileLegend{
-    position:fixed!important;
+  #ucyMobileLegend,
+  #ucyMobileTools {
     display:flex!important;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    bottom:68px!important;
-    min-height:42px;
-    padding:0 14px;
-    background:#102b48;
-    color:#f4f9ff;
-    border:1px solid #69b9e4;
-    border-radius:12px;
-    box-shadow:0 3px 16px #07162799;
-    font:700 13px/1.2 system-ui,sans-serif;
-    cursor:pointer;
-    z-index:10030!important;
-    touch-action:manipulation;
+    position:relative!important;
+    flex:1 1 0!important;
+    min-width:0!important;
+    min-height:40px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:7px 5px!important;
+    background:#102b48!important;
+    border:1px solid #69b9e4!important;
+    border-radius:11px!important;
+    color:#f4f9ff!important;
+    font:700 12px system-ui,sans-serif!important;
+    box-shadow:0 3px 15px #07162780!important;
+    cursor:pointer!important;
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    white-space:nowrap!important;
   }
-
-  #ucyMobileMenu{left:12px!important}
-  #ucyMobileLegend{right:12px!important}
 
   #ucyMobileMenu[aria-expanded="true"],
-  #ucyMobileLegend[aria-expanded="true"]{
-    background:#2475a4;
+  #ucyMobileLegend[aria-expanded="true"],
+  #ucyMobileTools[aria-expanded="true"] {
+    background:#287cad!important;
   }
 
-  #ucyMobileBackdrop{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:#04152699;
-    z-index:10018;
+  #ucyMobileBackdrop {
+    position:fixed!important;
+    inset:0!important;
+    background:#061827a8!important;
+    z-index:9020!important;
   }
 
   body.ucy-mobile-menu-open #ucyMobileBackdrop,
-  body.ucy-mobile-legend-open #ucyMobileBackdrop{
-    display:block;
+  body.ucy-mobile-legend-open #ucyMobileBackdrop,
+  body.ucy-mobile-tools-open #ucyMobileBackdrop {
+    display:block!important;
+  }
+
+  /* Floating mode toggle from the original viewer */
+
+  .ucy-mobile-mode-switch {
+    z-index:9055!important;
+  }
+
+  /* Prevent map controls from covering the timeline */
+
+  #bottomPanel .timeline,
+  #bottomPanel .timeline * {
+    box-sizing:border-box;
   }
 }
 
-@media (max-width:380px){
-  .ucy-mobile-toolbar{
-    top:54px!important;
-    max-width:calc(100vw - 8px)!important;
+@media(min-width:769px){
+  #ucyMobileButtons,
+  #ucyMobileBackdrop {
+    display:none!important;
   }
-  #ucyMobileMenu,
-  #ucyMobileLegend{
-    bottom:62px!important;
-    font-size:12px;
-    min-height:40px;
-    padding:0 11px;
-  }
-}
-
-@media (min-width:769px){
-  #ucyMobileBackdrop{display:none!important}
 }
 </style>
+
 </head>
 <body>
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
@@ -2657,271 +2773,218 @@ $('v84MyLocation').addEventListener('click',v84Locate);
 init();
 </script>
 
+
 <script id="ucy-v91-mobile-js">
-/* UCY_V91_MOBILE_LAYOUT_20261120 */
+/* UCY MOBILE V9.2 */
 (function(){
   'use strict';
 
-  const mq=window.matchMedia('(max-width:768px)');
-  let sidebar=null;
-  let legend=null;
-  let toolbar=null;
-  let modes=null;
+  const breakpoint=window.matchMedia('(max-width:768px)');
+  let resizeObserver=null;
 
-  const menu=document.createElement('button');
-  menu.id='ucyMobileMenu';
-  menu.type='button';
-  menu.textContent='☰  Menu';
-  menu.setAttribute('aria-label','Open data and layer panel');
-  menu.setAttribute('aria-expanded','false');
+  function el(id){return document.getElementById(id)}
 
-  const legendButton=document.createElement('button');
-  legendButton.id='ucyMobileLegend';
-  legendButton.type='button';
-  legendButton.textContent='▥  Legend';
-  legendButton.setAttribute('aria-label','Open map legend');
-  legendButton.setAttribute('aria-expanded','false');
-
-  const backdrop=document.createElement('div');
-  backdrop.id='ucyMobileBackdrop';
-
-  function closeAll(){
+  function closePanels(){
     document.body.classList.remove(
       'ucy-mobile-menu-open',
-      'ucy-mobile-legend-open'
+      'ucy-mobile-legend-open',
+      'ucy-mobile-tools-open'
     );
-    menu.setAttribute('aria-expanded','false');
-    legendButton.setAttribute('aria-expanded','false');
+
+    for(const id of [
+      'ucyMobileMenu',
+      'ucyMobileLegend',
+      'ucyMobileTools'
+    ]){
+      const b=el(id);
+      if(b)b.setAttribute('aria-expanded','false');
+    }
   }
 
-  function findSidebar(){
-    const selectors=[
-      '#sidebar','.sidebar',
-      '#sidePanel','.side-panel',
-      '.left-sidebar','aside'
-    ];
+  function updateTimelineOffset(){
+    const timeline=el('bottomPanel');
+    const buttons=el('ucyMobileButtons');
+    if(!timeline||!buttons)return;
 
-    for(const selector of selectors){
-      for(const el of document.querySelectorAll(selector)){
-        if(el.contains(document.getElementById('collapseToggle')) ||
-           el.contains(document.getElementById('v83MeanUTCI'))){
-          return el;
-        }
-      }
-    }
+    const visible=
+      breakpoint.matches &&
+      !document.body.classList.contains('v9-nowcast') &&
+      getComputedStyle(timeline).display!=='none';
 
-    const anchor=document.getElementById('v83MeanUTCI');
-    if(anchor){
-      let el=anchor;
-      while(el&&el!==document.body){
-        const r=el.getBoundingClientRect();
-        if(r.width>=230 && r.width<=410 &&
-           r.height>350 && r.left<70){
-          return el;
-        }
-        el=el.parentElement;
-      }
-    }
-    return null;
-  }
+    let height=0;
 
-  function findLegend(){
-    const selectors=[
-      '#legendPanel','#legend',
-      '.legend-panel','.legend-container',
-      '.legend','.right-panel',
-      '#v83Legend'
-    ];
-
-    const candidates=[];
-
-    for(const selector of selectors){
-      for(const el of document.querySelectorAll(selector)){
-        if(el===sidebar||sidebar?.contains(el))continue;
-        const r=el.getBoundingClientRect();
-
-        if(r.width>=100 && r.width<=380 &&
-           r.height>=140 &&
-           r.right>window.innerWidth-100){
-          candidates.push(el);
-        }
-      }
-    }
-
-    if(candidates.length){
-      candidates.sort((a,b)=>
-        b.getBoundingClientRect().height-
-        a.getBoundingClientRect().height
+    if(visible){
+      const r=timeline.getBoundingClientRect();
+      height=Math.max(0,
+        window.innerHeight-r.top
       );
-      return candidates[0];
     }
 
-    // Fallback: find the smallest right-hand container
-    // that contains the displayed temperature colour scale.
-    const possible=[];
-    for(const el of document.querySelectorAll('div,aside,section')){
-      if(el===sidebar||sidebar?.contains(el))continue;
+    buttons.style.setProperty(
+      '--ucy-mobile-bottom-height',
+      height+'px'
+    );
+  }
 
-      const r=el.getBoundingClientRect();
-      if(r.width<110||r.width>380||
-         r.height<210||
-         r.right<window.innerWidth-85)continue;
+  function createButton(id,label,cls){
+    let button=el(id);
 
-      const text=(el.innerText||'').slice(0,1800);
+    if(!button){
+      button=document.createElement('button');
+      button.type='button';
+      button.id=id;
+      button.textContent=label;
+    }
 
-      if(
-        (/Index|Stress|°C|Temperature/i.test(text)) &&
-        (/legend|scale|color|colour/i.test(
-          (el.id||'')+' '+String(el.className||'')
-        ))
-      ){
-        possible.push(el);
+    button.setAttribute('aria-expanded','false');
+
+    button.addEventListener('click',function(){
+      const active=document.body.classList.contains(cls);
+
+      closePanels();
+
+      if(!active){
+        document.body.classList.add(cls);
+        button.setAttribute('aria-expanded','true');
       }
-    }
+    });
 
-    possible.sort((a,b)=>
-      a.getBoundingClientRect().width*
-      a.getBoundingClientRect().height-
-      b.getBoundingClientRect().width*
-      b.getBoundingClientRect().height
-    );
-
-    return possible[0]||null;
+    return button;
   }
-
-  function commonControlContainer(a,b){
-    if(!a||!b)return null;
-    let el=a.parentElement;
-
-    while(el&&el!==document.body){
-      if(el.contains(b) &&
-         el.querySelectorAll('button').length<=14 &&
-         el.getBoundingClientRect().height<180){
-        return el;
-      }
-      el=el.parentElement;
-    }
-    return null;
-  }
-
-  function findToolbar(){
-    return commonControlContainer(
-      document.getElementById('button2d'),
-      document.getElementById('button3d')
-    );
-  }
-
-  function findModeSwitch(){
-    const buttons=Array.from(
-      document.querySelectorAll('button')
-    );
-
-    const now=buttons.find(b=>
-      b.textContent.trim()==='Nowcast'
-    );
-    const forecast=buttons.find(b=>
-      b.textContent.trim()==='Forecast'
-    );
-
-    return commonControlContainer(now,forecast);
-  }
-
-  function initialize(){
-    sidebar=findSidebar();
-    legend=findLegend();
-    toolbar=findToolbar();
-    modes=findModeSwitch();
-
-    if(sidebar)sidebar.classList.add('ucy-mobile-sidebar');
-    if(legend)legend.classList.add('ucy-mobile-legend');
-
-    if(toolbar &&
-       toolbar!==sidebar &&
-       !sidebar?.contains(toolbar)){
-      toolbar.classList.add('ucy-mobile-toolbar');
-    }
-
-    if(modes &&
-       modes!==sidebar &&
-       !sidebar?.contains(modes)){
-      modes.classList.add('ucy-mobile-mode-switch');
-    }
-
-    legendButton.style.display=legend?'':'none';
-
-    document.body.dataset.ucyMobileSidebar=
-      sidebar?'found':'missing';
-    document.body.dataset.ucyMobileLegend=
-      legend?'found':'missing';
-  }
-
-  menu.addEventListener('click',function(){
-    if(!sidebar)return;
-
-    const open=!document.body.classList.contains(
-      'ucy-mobile-menu-open'
-    );
-
-    closeAll();
-    if(open){
-      document.body.classList.add('ucy-mobile-menu-open');
-      menu.setAttribute('aria-expanded','true');
-    }
-  });
-
-  legendButton.addEventListener('click',function(){
-    if(!legend)return;
-
-    const open=!document.body.classList.contains(
-      'ucy-mobile-legend-open'
-    );
-
-    closeAll();
-    if(open){
-      document.body.classList.add('ucy-mobile-legend-open');
-      legendButton.setAttribute('aria-expanded','true');
-    }
-  });
-
-  backdrop.addEventListener('click',closeAll);
-
-  document.addEventListener('keydown',function(e){
-    if(e.key==='Escape')closeAll();
-  });
-
-  mq.addEventListener('change',function(){
-    closeAll();
-  });
 
   function start(){
+    const sidebar=document.querySelector('.sidebar');
+    const legend=el('mapLegend') ||
+                 document.querySelector('.legend');
+    const tools=document.querySelector('.top-controls');
+
+    if(!sidebar||!legend||!tools||!el('bottomPanel')){
+      console.warn(
+        'UCY mobile: one or more layout components missing',
+        {
+          sidebar:!!sidebar,
+          legend:!!legend,
+          tools:!!tools,
+          timeline:!!el('bottomPanel')
+        }
+      );
+    }
+
+    const oldButtons=el('ucyMobileButtons');
+    if(oldButtons)oldButtons.remove();
+
+    // Remove old detached buttons, if present.
+    for(const id of ['ucyMobileMenu','ucyMobileLegend']){
+      const old=el(id);
+      if(old)old.remove();
+    }
+
+    const oldBackdrop=el('ucyMobileBackdrop');
+    if(oldBackdrop)oldBackdrop.remove();
+
+    // Remove classes set by the previous dynamic patch.
+    document.querySelectorAll(
+      '.ucy-mobile-sidebar,.ucy-mobile-legend,'+
+      '.ucy-mobile-toolbar,.ucy-mobile-mode-switch'
+    ).forEach(node=>{
+      node.classList.remove(
+        'ucy-mobile-sidebar',
+        'ucy-mobile-legend',
+        'ucy-mobile-toolbar',
+        'ucy-mobile-mode-switch'
+      );
+    });
+
+    const buttons=document.createElement('div');
+    buttons.id='ucyMobileButtons';
+
+    buttons.appendChild(createButton(
+      'ucyMobileMenu','☰ Menu',
+      'ucy-mobile-menu-open'
+    ));
+
+    buttons.appendChild(createButton(
+      'ucyMobileLegend','▥ Legend',
+      'ucy-mobile-legend-open'
+    ));
+
+    buttons.appendChild(createButton(
+      'ucyMobileTools','⚙ Tools',
+      'ucy-mobile-tools-open'
+    ));
+
+    document.body.appendChild(buttons);
+
+    for(const [id,target] of [
+      ['ucyMobileMenu',sidebar],
+      ['ucyMobileLegend',legend],
+      ['ucyMobileTools',tools]
+    ]){
+      const btn=el(id);
+      if(btn&&!target)btn.disabled=true;
+    }
+
+    const backdrop=document.createElement('div');
+    backdrop.id='ucyMobileBackdrop';
+    backdrop.addEventListener('click',closePanels);
     document.body.appendChild(backdrop);
-    document.body.appendChild(menu);
-    document.body.appendChild(legendButton);
 
-    initialize();
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape')closePanels();
+    });
 
-    // Some map controls are initialized after page load.
-    let attempts=0;
-    const retry=setInterval(function(){
-      attempts++;
-      if(!sidebar||!legend||!toolbar||!modes){
-        initialize();
+    breakpoint.addEventListener('change',function(){
+      closePanels();
+      updateTimelineOffset();
+    });
+
+    window.addEventListener(
+      'resize',updateTimelineOffset,{passive:true}
+    );
+
+    const timeline=el('bottomPanel');
+
+    if(timeline&&window.ResizeObserver){
+      resizeObserver=new ResizeObserver(
+        updateTimelineOffset
+      );
+      resizeObserver.observe(timeline);
+    }
+
+    if(window.MutationObserver){
+      const obs=new MutationObserver(
+        updateTimelineOffset
+      );
+      obs.observe(document.body,{
+        attributes:true,
+        attributeFilter:['class']
+      });
+      if(timeline){
+        obs.observe(timeline,{
+          attributes:true,
+          attributeFilter:['class','style']
+        });
       }
-      if(attempts>=12 ||
-         (sidebar&&legend&&toolbar&&modes)){
-        clearInterval(retry);
-      }
-    },1000);
+    }
+
+    updateTimelineOffset();
+
+    // Initial layout and delayed map initialization.
+    requestAnimationFrame(updateTimelineOffset);
+    window.addEventListener(
+      'load',updateTimelineOffset,{once:true}
+    );
   }
 
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',start,{
-      once:true
-    });
+    document.addEventListener(
+      'DOMContentLoaded',start,{once:true}
+    );
   }else{
     start();
   }
 })();
 </script>
+
 </body>
 </html>
