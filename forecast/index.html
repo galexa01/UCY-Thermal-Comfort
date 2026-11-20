@@ -669,6 +669,107 @@ body.v9-nowcast #v83MeanCard{display:block!important}
     display:none!important;
   }
 }
+
+
+/* UCY_V93_MOBILE_LEGEND_FIX */
+@media (max-width:768px){
+
+  /* The arrow belongs to the old legend controller.
+     Mobile users now have the Legend button. */
+  #v83LegendToggle,
+  .v83-legend-toggle {
+    display:none!important;
+    visibility:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }
+
+  /* Keep the original desktop legend unaffected.
+     On mobile, the new Legend button controls visibility. */
+  #mapLegend {
+    position:fixed!important;
+    top:68px!important;
+    right:8px!important;
+    bottom:auto!important;
+    left:auto!important;
+    width:min(82vw,290px)!important;
+    max-width:calc(100vw - 16px)!important;
+    height:min(67dvh,540px)!important;
+    max-height:calc(100dvh - 145px)!important;
+    padding:12px!important;
+    margin:0!important;
+    box-sizing:border-box!important;
+    z-index:9030!important;
+    overflow:hidden!important;
+    border-radius:15px!important;
+    flex-direction:column!important;
+    transform:none!important;
+    transition:none!important;
+  }
+
+  /* Override old v83-closed styling while mobile
+     Legend is open. */
+  body.ucy-mobile-legend-open #mapLegend,
+  body.ucy-mobile-legend-open #mapLegend.v83-closed {
+    display:flex!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none!important;
+    pointer-events:auto!important;
+  }
+
+  /* Fully remove the legend from hit testing
+     when the mobile drawer is closed. */
+  body:not(.ucy-mobile-legend-open) #mapLegend {
+    display:none!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    pointer-events:none!important;
+  }
+
+  #mapLegend #legendTitle {
+    flex:0 0 auto!important;
+    margin-bottom:9px!important;
+    font-size:12px!important;
+    line-height:1.35!important;
+  }
+
+  /* The legend content is scrollable on short screens,
+     rather than being cut off. */
+  #mapLegend #legendContent {
+    flex:1 1 auto!important;
+    min-height:0!important;
+    max-height:100%!important;
+    width:100%!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    scrollbar-width:thin;
+  }
+
+  /* Restore legible labels for stress classes. */
+  #mapLegend #legendContent.stress-mode .legend-row b {
+    font-size:10px!important;
+    line-height:1.3!important;
+  }
+
+  #mapLegend #legendContent.stress-mode
+  .legend-row span:last-child {
+    font-size:9px!important;
+    line-height:1.3!important;
+  }
+
+  #mapLegend .legend-row {
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+
+  /* Preserve access to Menu, Legend and Tools
+     above the forecast time slider. */
+  #ucyMobileButtons {
+    z-index:9050!important;
+  }
+}
+
 </style>
 
 </head>
