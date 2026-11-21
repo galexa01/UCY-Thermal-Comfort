@@ -2334,7 +2334,19 @@ function fitCampus(){if(!map||!bounds)return;const mobile=innerWidth<780;map.fit
         var startZ=Math.max(minZ,Math.min(maxZ,camera.zoom+1.05));
         var finalZ=Math.max(startZ,Math.min(maxZ,camera.zoom+1.90));
         var maxP=typeof map.getMaxPitch==='function'?map.getMaxPitch():60;
-        active={center:camera.center,startZoom:startZ,endZoom:finalZ,pitch:Math.min(55,maxP)};
+        /* UCY_HEAT_MOBILE_CAMERA_V3_2 */
+        var focusCenter=camera.center;
+        if(mobile){
+          var bb=maplibregl.LngLatBounds.convert(bounds);
+          var northShift=(bb.getNorth()-bb.getSouth())*0.12;
+          focusCenter=[
+            camera.center.lng,
+            Math.min(bb.getNorth(),camera.center.lat+northShift)
+          ];
+          startZ=Math.min(maxZ,startZ+0.15);
+          finalZ=Math.min(maxZ,finalZ+0.25);
+        }
+        active={center:focusCenter,startZoom:startZ,endZoom:finalZ,pitch:Math.min(55,maxP)};
       }
       if(!prepared){
         map.stop();
