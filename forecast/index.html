@@ -842,6 +842,9 @@ body.v9-nowcast #v83MeanCard{display:block!important}
 <!-- UCY Heat cinematic v2 + campus bounds bridge -->
 <link rel="stylesheet" href="../pwa/ucy-luxury-v3.css?v=20261121">
 <script defer src="../pwa/ucy-luxury-v3.js?v=20261121"></script>
+<!-- UCY_HEAT_WEB_V4 -->
+<link rel="stylesheet" href="../pwa/ucy-web-v4.css?v=4.0.0">
+<script defer src="../pwa/ucy-web-v4.js?v=4.0.0"></script>
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
@@ -921,8 +924,8 @@ body.v9-nowcast #v83MeanCard{display:block!important}
    <label class="toggle-row">3D buildings <input id="showBuildings" type="checkbox" checked></label>
    <label class="toggle-row">3D vegetation <input id="showVegetation" type="checkbox" checked></label>
    <div class="range-row"><div class="range-top"><span>Forecast overlay</span><strong id="rasterOpacityValue">100%</strong></div><input type="range" id="rasterOpacity" min="0" max="100" value="100"></div>
-   <div class="range-row"><div class="range-top"><span>Buildings</span><strong id="buildingOpacityValue">100%</strong></div><input type="range" id="buildingOpacity" min="0" max="100" value="100"></div>
-   <div class="range-row"><div class="range-top"><span>Vegetation</span><strong id="vegetationOpacityValue">100%</strong></div><input type="range" id="vegetationOpacity" min="0" max="100" value="100"></div>
+   <div class="range-row"><div class="range-top"><span>Buildings</span><strong id="buildingOpacityValue">70%</strong></div><input type="range" id="buildingOpacity" min="0" max="100" value="70"></div>
+   <div class="range-row"><div class="range-top"><span>Vegetation</span><strong id="vegetationOpacityValue">70%</strong></div><input type="range" id="vegetationOpacity" min="0" max="100" value="70"></div>
   </div>
 
   <!-- V8.3: domain-wide mean UTCI based on valid numerical raster cells -->
@@ -1216,7 +1219,7 @@ function updateMap(){if(!mapReady)return;const e=metricEntry();if(!e||!Array.isA
    Magnitude: hourly UROCK HWS at 1.5 m.
    HWD convention: inferred as flow-towards, pending source verification.
 */
-let v85On=false,v85Seq=0,v85Manifest=null;
+let v85On=true,v85Seq=0,v85Manifest=null;
 const v85Cache=new Map();
 const v85Empty=()=>({type:'FeatureCollection',features:[]});
 
@@ -2053,7 +2056,7 @@ function v85ParticleTarget(W,H){
 
  return Math.max(
   120,
-  Math.min(850,Math.round(area/areaPerParticle))
+  Math.min(1050,Math.round(area/(areaPerParticle*0.88)))
  );
 }
 
@@ -2157,7 +2160,7 @@ v85FlowDraw=function(timestamp){
 
   ctx.globalAlpha=alpha;
   ctx.strokeStyle=field.color;
-  ctx.lineWidth=1.65;
+  ctx.lineWidth=1.95;
 
   ctx.beginPath();
   ctx.moveTo(p.x,p.y);
@@ -2977,7 +2980,7 @@ async function init(){try{
  // Initialize with the earliest forecast hour >= the viewer's current time.
  firstVisible=-1;refreshAvailableHours();
  if(firstVisible>=v6.timestamps.length)return;
- selectMetric('Stress');
+ selectMetric('UTCI');
  map=new maplibregl.Map({container:'map',style:{version:8,sources:{
  osm:{type:'raster',tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],tileSize:256,attribution:'© OpenStreetMap contributors'},
  satellite:{type:'raster',tiles:['https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'],tileSize:256,attribution:'Imagery © Esri and its imagery providers'},
@@ -2993,7 +2996,7 @@ async function init(){try{
   map.addLayer({id:'field-layer',type:'raster',source:'field-image',paint:{'raster-opacity':1,'raster-fade-duration':0}});
   map.addSource('buildings-data',{type:'geojson',data:buildings});map.addLayer({id:'buildings-3d',type:'fill-extrusion',source:'buildings-data',paint:{'fill-extrusion-color':'#acb9b6','fill-extrusion-height':['get','height_m'],'fill-extrusion-base':0,'fill-extrusion-opacity':1}});
   map.addSource('vegetation-data',{type:'geojson',data:vegetation});map.addLayer({id:'vegetation-3d',type:'fill-extrusion',source:'vegetation-data',paint:{'fill-extrusion-color':'#2d835f','fill-extrusion-height':['get','height_m'],'fill-extrusion-base':0,'fill-extrusion-opacity':1}});
-  v84InitTerrain();mapReady=true;v85InitArrows();changeBasemap();fitCampus();updateLayers();updateWeatherEffects();map.on('click',v9SelectPoint);v9Init();
+  v84InitTerrain();mapReady=true;v85InitArrows();document.getElementById('v85-vector-toggle').checked=true;changeBasemap();fitCampus();updateLayers();updateWeatherEffects();map.on('click',v9SelectPoint);v9Init();
  });
  }catch(err){console.error('V7 init failure',err);setText('status','Forecast unavailable: '+err.message);setText('dateDisplay','No forecast available');}
 }

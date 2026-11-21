@@ -1,0 +1,42 @@
+/* UCY Heat Website v4 — styles only, preserves original data pipelines */
+#sidebar .sidebar-brand .eyebrow{letter-spacing:.13em;font-size:10px!important;opacity:.83}
+#sidebar .sidebar-brand h1{font-size:clamp(22px,2vw,30px);line-height:1.12}
+#sidebar .ucy-v4-section{margin:12px 14px;border:1px solid rgba(147,194,226,.26);border-radius:14px;background:rgba(10,36,59,.40);overflow:hidden}
+#sidebar .ucy-v4-section-title{list-style:none;padding:13px 14px;color:#e4f2fd;font-size:12px;font-weight:750;letter-spacing:.03em;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between}
+#sidebar .ucy-v4-section-title::-webkit-details-marker{display:none}
+#sidebar .ucy-v4-section-title::after{content:'⌄';font-size:19px;opacity:.8;transform:rotate(0);transition:transform .22s}
+#sidebar .ucy-v4-section[open]>.ucy-v4-section-title::after{transform:rotate(180deg)}
+#sidebar .ucy-v4-section-body{padding:0 12px 12px}
+#sidebar .ucy-v4-section .metric-stack{margin:0 0 10px;gap:6px}
+#sidebar .ucy-v4-section .metric-button{min-height:42px}
+#sidebar .ucy-v4-section .layers-head{width:100%}
+#sidebar .ucy-v4-section .date-row{margin:0;padding:7px 0 9px;background:transparent;box-shadow:none}
+#sidebar .ucy-v4-live-clock{font-size:19px;font-weight:750;color:#e4f4ff;font-variant-numeric:tabular-nums;line-height:1.4}
+#sidebar .ucy-v4-now-label{font-size:10px;font-weight:700;color:#9dc5dc;letter-spacing:.04em}
+#sidebar .ucy-v4-data-label{font-size:10px;color:#b1c6d6;margin-top:9px}
+#sidebar .ucy-v4-section .v83-summary{display:grid!important;grid-template-columns:1fr 1fr;gap:7px;margin:8px 0 0}
+#sidebar .ucy-v4-section .v83-summary-card,body.v9-nowcast #v83StressCard,body.v9-nowcast #v83MeanCard{display:block!important;min-width:0;margin:0!important;padding:10px 9px!important}
+#sidebar .ucy-v4-section .v83-summary-card .v83-label{font-size:10px!important;line-height:1.25}
+#sidebar .ucy-v4-section .v83-summary-card .v83-value{font-size:23px!important;line-height:1.3}
+#sidebar .ucy-v4-section .v83-summary-card .v83-main{font-size:14px!important;line-height:1.35;overflow-wrap:anywhere}
+#sidebar .ucy-v4-section .v83-note{display:none!important}
+#sidebar .ucy-v4-section .weather-heading{margin:0 0 12px}
+#sidebar .ucy-v4-section .weather-grid{margin:0}
+#sidebar #v91Summary{display:none!important}
+body.v9-nowcast #status:not(.ucy-v4-status-error){display:none!important}
+.top-controls .ucy-v4-tools-toggle{flex:0 0 auto;background:#1b4766;color:#e8f7ff;border:1px solid #73adc4;border-radius:9px;width:28px;min-height:31px;font-size:20px;cursor:pointer}
+@media(min-width:901px){.top-controls.ucy-v4-tools-closed{max-width:45px!important;padding:7px!important}.top-controls.ucy-v4-tools-closed>:not(.ucy-v4-tools-toggle){display:none!important}}
+@media(max-width:900px){.top-controls .ucy-v4-tools-toggle{display:none!important}}
+.ucy-v4-map-popup .maplibregl-popup-content{min-width:min(285px,80vw);padding:15px!important}
+.ucy-v4-popup{font:inherit;color:#eaf5ff}
+.ucy-v4-popup-title{font-size:16px;font-weight:800}
+.ucy-v4-popup-time{font-size:11px;color:#b9d2e2;margin:4px 0 12px}
+.ucy-v4-popup-primary{background:rgba(88,149,191,.18);border-radius:9px;padding:12px}
+.ucy-v4-popup-key{font-size:11px;color:#b7d6ed}
+.ucy-v4-popup-utci{font-size:28px;font-weight:800;line-height:1.25;margin-top:3px}
+.ucy-v4-popup-stress{padding:8px 10px;border-radius:8px;margin-top:8px;font-size:13px;font-weight:750}
+.ucy-v4-popup-values{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.ucy-v4-popup-measure{display:flex;flex-direction:column;gap:3px}
+.ucy-v4-popup-measure small{font-size:10px;color:#b1cddd}
+.ucy-v4-popup-measure strong{font-size:13px}
+.ucy-v4-popup-coords{font-size:10px;color:#97b6c8;margin-top:13px;border-top:1px solid rgba(255,255,255,.15);padding-top:9px}
