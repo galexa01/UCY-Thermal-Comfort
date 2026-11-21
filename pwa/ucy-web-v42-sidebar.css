@@ -1,0 +1,26 @@
+/* UCY Heat v4.2 — sidebar-only width refinements. */
+#sidebar .ucy-v4-section{
+  margin-left:8px!important;
+  margin-right:8px!important;
+  width:auto!important;
+  max-width:none!important;
+}
+#sidebar .ucy-v4-section-body{width:100%!important;min-width:0!important}
+#sidebar .ucy-v4-section .metric-stack,
+#sidebar .ucy-v4-section .metric-button,
+#sidebar .ucy-v4-section .layers-head,
+#sidebar .ucy-v4-section .weather-grid,
+#sidebar .ucy-v4-section .date-row,
+#sidebar .ucy-v4-section .v83-summary{
+  width:100%!important;
+  max-width:none!important;
+  box-sizing:border-box!important;
+}
+#sidebar .ucy-v4-section .metric-button{min-width:0!important}
+#sidebar .ucy-v4-section .v83-summary{
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+}
+#sidebar .ucy-v4-section .v83-summary-card{min-width:0!important}
+@media(max-width:780px){
+  #sidebar .ucy-v4-section{margin-left:9px!important;margin-right:9px!important}
+}
