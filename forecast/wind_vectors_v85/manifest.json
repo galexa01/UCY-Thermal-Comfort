@@ -1,6 +1,6 @@
 {
   "schema": "ucy-v85-urock-direction-1",
-  "forecast_run": "20261120",
+  "forecast_run": "20261121",
   "width": 499,
   "height": 263,
   "bounds": [
@@ -28,124 +28,9 @@
   "direction_reference_speed_m_s": 3.0,
   "hourly": [
     {
-      "time_utc": "2026-11-20T11:00:00Z",
-      "direction_case": "WD_000",
-      "file": "WD_000.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T12:00:00Z",
-      "direction_case": "WD_000",
-      "file": "WD_000.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T13:00:00Z",
-      "direction_case": "WD_336",
-      "file": "WD_336.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T14:00:00Z",
-      "direction_case": "WD_315",
-      "file": "WD_315.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T15:00:00Z",
-      "direction_case": "WD_303",
-      "file": "WD_303.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T16:00:00Z",
-      "direction_case": "WD_297",
-      "file": "WD_297.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T17:00:00Z",
-      "direction_case": "WD_288",
-      "file": "WD_288.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T18:00:00Z",
-      "direction_case": "WD_258",
-      "file": "WD_258.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T19:00:00Z",
-      "direction_case": "WD_261",
-      "file": "WD_261.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T20:00:00Z",
-      "direction_case": "WD_270",
-      "file": "WD_270.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T21:00:00Z",
-      "direction_case": "WD_051",
-      "file": "WD_051.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T22:00:00Z",
-      "direction_case": "WD_219",
-      "file": "WD_219.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-20T23:00:00Z",
-      "direction_case": "WD_222",
-      "file": "WD_222.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T00:00:00Z",
-      "direction_case": "WD_222",
-      "file": "WD_222.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T01:00:00Z",
-      "direction_case": "WD_216",
-      "file": "WD_216.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T02:00:00Z",
-      "direction_case": "WD_207",
-      "file": "WD_207.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T03:00:00Z",
-      "direction_case": "WD_192",
-      "file": "WD_192.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T04:00:00Z",
-      "direction_case": "WD_186",
-      "file": "WD_186.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T05:00:00Z",
-      "direction_case": "WD_180",
-      "file": "WD_180.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T06:00:00Z",
-      "direction_case": "WD_174",
-      "file": "WD_174.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T07:00:00Z",
-      "direction_case": "WD_141",
-      "file": "WD_141.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T08:00:00Z",
-      "direction_case": "WD_114",
-      "file": "WD_114.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T09:00:00Z",
-      "direction_case": "WD_099",
-      "file": "WD_099.f32.gz"
-    },
-    {
       "time_utc": "2026-11-21T10:00:00Z",
-      "direction_case": "WD_078",
-      "file": "WD_078.f32.gz"
+      "direction_case": "WD_042",
+      "file": "WD_042.f32.gz"
     },
     {
       "time_utc": "2026-11-21T11:00:00Z",
@@ -154,58 +39,58 @@
     },
     {
       "time_utc": "2026-11-21T12:00:00Z",
-      "direction_case": "WD_333",
-      "file": "WD_333.f32.gz"
+      "direction_case": "WD_354",
+      "file": "WD_354.f32.gz"
     },
     {
       "time_utc": "2026-11-21T13:00:00Z",
-      "direction_case": "WD_315",
-      "file": "WD_315.f32.gz"
+      "direction_case": "WD_342",
+      "file": "WD_342.f32.gz"
     },
     {
       "time_utc": "2026-11-21T14:00:00Z",
-      "direction_case": "WD_306",
-      "file": "WD_306.f32.gz"
+      "direction_case": "WD_321",
+      "file": "WD_321.f32.gz"
     },
     {
       "time_utc": "2026-11-21T15:00:00Z",
-      "direction_case": "WD_303",
-      "file": "WD_303.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T16:00:00Z",
-      "direction_case": "WD_294",
-      "file": "WD_294.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-21T17:00:00Z",
       "direction_case": "WD_282",
       "file": "WD_282.f32.gz"
     },
     {
+      "time_utc": "2026-11-21T16:00:00Z",
+      "direction_case": "WD_270",
+      "file": "WD_270.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-21T17:00:00Z",
+      "direction_case": "WD_261",
+      "file": "WD_261.f32.gz"
+    },
+    {
       "time_utc": "2026-11-21T18:00:00Z",
-      "direction_case": "WD_267",
-      "file": "WD_267.f32.gz"
+      "direction_case": "WD_255",
+      "file": "WD_255.f32.gz"
     },
     {
       "time_utc": "2026-11-21T19:00:00Z",
-      "direction_case": "WD_273",
-      "file": "WD_273.f32.gz"
+      "direction_case": "WD_258",
+      "file": "WD_258.f32.gz"
     },
     {
       "time_utc": "2026-11-21T20:00:00Z",
-      "direction_case": "WD_276",
-      "file": "WD_276.f32.gz"
+      "direction_case": "WD_258",
+      "file": "WD_258.f32.gz"
     },
     {
       "time_utc": "2026-11-21T21:00:00Z",
-      "direction_case": "WD_279",
-      "file": "WD_279.f32.gz"
+      "direction_case": "WD_261",
+      "file": "WD_261.f32.gz"
     },
     {
       "time_utc": "2026-11-21T22:00:00Z",
-      "direction_case": "WD_276",
-      "file": "WD_276.f32.gz"
+      "direction_case": "WD_267",
+      "file": "WD_267.f32.gz"
     },
     {
       "time_utc": "2026-11-21T23:00:00Z",
@@ -214,48 +99,48 @@
     },
     {
       "time_utc": "2026-11-22T00:00:00Z",
+      "direction_case": "WD_279",
+      "file": "WD_279.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-22T01:00:00Z",
+      "direction_case": "WD_276",
+      "file": "WD_276.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-22T02:00:00Z",
       "direction_case": "WD_270",
       "file": "WD_270.f32.gz"
     },
     {
-      "time_utc": "2026-11-22T01:00:00Z",
-      "direction_case": "WD_267",
-      "file": "WD_267.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-22T02:00:00Z",
-      "direction_case": "WD_264",
-      "file": "WD_264.f32.gz"
-    },
-    {
       "time_utc": "2026-11-22T03:00:00Z",
-      "direction_case": "WD_246",
-      "file": "WD_246.f32.gz"
+      "direction_case": "WD_258",
+      "file": "WD_258.f32.gz"
     },
     {
       "time_utc": "2026-11-22T04:00:00Z",
-      "direction_case": "WD_204",
-      "file": "WD_204.f32.gz"
+      "direction_case": "WD_219",
+      "file": "WD_219.f32.gz"
     },
     {
       "time_utc": "2026-11-22T05:00:00Z",
-      "direction_case": "WD_189",
-      "file": "WD_189.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-22T06:00:00Z",
       "direction_case": "WD_180",
       "file": "WD_180.f32.gz"
     },
     {
+      "time_utc": "2026-11-22T06:00:00Z",
+      "direction_case": "WD_159",
+      "file": "WD_159.f32.gz"
+    },
+    {
       "time_utc": "2026-11-22T07:00:00Z",
-      "direction_case": "WD_249",
-      "file": "WD_249.f32.gz"
+      "direction_case": "WD_228",
+      "file": "WD_228.f32.gz"
     },
     {
       "time_utc": "2026-11-22T08:00:00Z",
-      "direction_case": "WD_282",
-      "file": "WD_282.f32.gz"
+      "direction_case": "WD_279",
+      "file": "WD_279.f32.gz"
     },
     {
       "time_utc": "2026-11-22T09:00:00Z",
@@ -264,258 +149,123 @@
     },
     {
       "time_utc": "2026-11-22T10:00:00Z",
-      "direction_case": "WD_294",
-      "file": "WD_294.f32.gz"
-    }
-  ],
-  "cases": {
-    "WD_018": {
-      "valid_cells": 119070,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_018.f32.gz"
+      "direction_case": "WD_291",
+      "file": "WD_291.f32.gz"
     },
-    "WD_027": {
-      "valid_cells": 119077,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_027.f32.gz"
+    {
+      "time_utc": "2026-11-22T11:00:00Z",
+      "direction_case": "WD_288",
+      "file": "WD_288.f32.gz"
     },
-    "WD_030": {
-      "valid_cells": 119087,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_030.f32.gz"
+    {
+      "time_utc": "2026-11-22T12:00:00Z",
+      "direction_case": "WD_288",
+      "file": "WD_288.f32.gz"
     },
-    "WD_033": {
-      "valid_cells": 119075,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_033.f32.gz"
+    {
+      "time_utc": "2026-11-22T13:00:00Z",
+      "direction_case": "WD_288",
+      "file": "WD_288.f32.gz"
     },
-    "WD_036": {
-      "valid_cells": 119076,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_036.f32.gz"
+    {
+      "time_utc": "2026-11-22T14:00:00Z",
+      "direction_case": "WD_288",
+      "file": "WD_288.f32.gz"
     },
-    "WD_039": {
-      "valid_cells": 119040,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_039.f32.gz"
+    {
+      "time_utc": "2026-11-22T15:00:00Z",
+      "direction_case": "WD_288",
+      "file": "WD_288.f32.gz"
     },
-    "WD_045": {
-      "valid_cells": 119059,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_045.f32.gz"
-    },
-    "WD_051": {
-      "valid_cells": 119094,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_051.f32.gz"
-    },
-    "WD_057": {
-      "valid_cells": 119075,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_057.f32.gz"
-    },
-    "WD_060": {
-      "valid_cells": 119084,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_060.f32.gz"
-    },
-    "WD_066": {
-      "valid_cells": 119078,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_066.f32.gz"
-    },
-    "WD_075": {
-      "valid_cells": 119086,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_075.f32.gz"
-    },
-    "WD_141": {
-      "valid_cells": 119076,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_141.f32.gz"
-    },
-    "WD_150": {
-      "valid_cells": 119067,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_150.f32.gz"
-    },
-    "WD_156": {
-      "valid_cells": 119087,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_156.f32.gz"
-    },
-    "WD_162": {
-      "valid_cells": 119102,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_162.f32.gz"
-    },
-    "WD_177": {
-      "valid_cells": 119073,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_177.f32.gz"
-    },
-    "WD_195": {
-      "valid_cells": 119105,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_195.f32.gz"
-    },
-    "WD_204": {
-      "valid_cells": 119091,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_204.f32.gz"
-    },
-    "WD_213": {
-      "valid_cells": 119072,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_213.f32.gz"
-    },
-    "WD_222": {
-      "valid_cells": 119063,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_222.f32.gz"
-    },
-    "WD_231": {
-      "valid_cells": 119090,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_231.f32.gz"
-    },
-    "WD_237": {
-      "valid_cells": 119071,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_237.f32.gz"
-    },
-    "WD_243": {
-      "valid_cells": 119059,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_243.f32.gz"
-    },
-    "WD_246": {
-      "valid_cells": 119074,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_246.f32.gz"
-    },
-    "WD_249": {
-      "valid_cells": 119101,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_249.f32.gz"
-    },
-    "WD_252": {
-      "valid_cells": 119083,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_252.f32.gz"
-    },
-    "WD_255": {
-      "valid_cells": 119082,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_255.f32.gz"
-    },
-    "WD_258": {
-      "valid_cells": 119104,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_258.f32.gz"
-    },
-    "WD_261": {
-      "valid_cells": 119095,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_261.f32.gz"
-    },
-    "WD_264": {
-      "valid_cells": 119104,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_264.f32.gz"
-    },
-    "WD_267": {
-      "valid_cells": 119098,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_267.f32.gz"
-    },
-    "WD_270": {
-      "valid_cells": 119090,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_270.f32.gz"
-    },
-    "WD_279": {
-      "valid_cells": 119093,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_279.f32.gz"
-    },
-    "WD_285": {
-      "valid_cells": 119098,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
+    {
+      "time_utc": "2026-11-22T16:00:00Z",
+      "direction_case": "WD_285",
       "file": "WD_285.f32.gz"
     },
-    "WD_294": {
-      "valid_cells": 119092,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_294.f32.gz"
+    {
+      "time_utc": "2026-11-22T17:00:00Z",
+      "direction_case": "WD_285",
+      "file": "WD_285.f32.gz"
     },
-    "WD_297": {
-      "valid_cells": 119077,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_297.f32.gz"
+    {
+      "time_utc": "2026-11-22T18:00:00Z",
+      "direction_case": "WD_282",
+      "file": "WD_282.f32.gz"
     },
-    "WD_306": {
-      "valid_cells": 119071,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_306.f32.gz"
+    {
+      "time_utc": "2026-11-22T19:00:00Z",
+      "direction_case": "WD_285",
+      "file": "WD_285.f32.gz"
     },
-    "WD_309": {
-      "valid_cells": 119080,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_309.f32.gz"
+    {
+      "time_utc": "2026-11-22T20:00:00Z",
+      "direction_case": "WD_285",
+      "file": "WD_285.f32.gz"
     },
-    "WD_321": {
-      "valid_cells": 119091,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_321.f32.gz"
+    {
+      "time_utc": "2026-11-22T21:00:00Z",
+      "direction_case": "WD_288",
+      "file": "WD_288.f32.gz"
     },
-    "WD_342": {
-      "valid_cells": 119098,
-      "reference_speed_m_s": 3.0,
-      "height_m": 1.5,
-      "file": "WD_342.f32.gz"
+    {
+      "time_utc": "2026-11-22T22:00:00Z",
+      "direction_case": "WD_279",
+      "file": "WD_279.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-22T23:00:00Z",
+      "direction_case": "WD_267",
+      "file": "WD_267.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T00:00:00Z",
+      "direction_case": "WD_252",
+      "file": "WD_252.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T01:00:00Z",
+      "direction_case": "WD_249",
+      "file": "WD_249.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T02:00:00Z",
+      "direction_case": "WD_243",
+      "file": "WD_243.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T03:00:00Z",
+      "direction_case": "WD_234",
+      "file": "WD_234.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T04:00:00Z",
+      "direction_case": "WD_231",
+      "file": "WD_231.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T05:00:00Z",
+      "direction_case": "WD_228",
+      "file": "WD_228.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T06:00:00Z",
+      "direction_case": "WD_228",
+      "file": "WD_228.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T07:00:00Z",
+      "direction_case": "WD_168",
+      "file": "WD_168.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T08:00:00Z",
+      "direction_case": "WD_132",
+      "file": "WD_132.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-23T09:00:00Z",
+      "direction_case": "WD_120",
+      "file": "WD_120.f32.gz"
     }
-  },
-  "hwd_source": "UROCK local HWD direction database",
-  "hwd_reference_speed_m_s": 3.0
+  ]
 }
