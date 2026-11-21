@@ -1,0 +1,67 @@
+/* UCY Heat v4.4 — exact sidebar width alignment and legend title placement.
+   Additive CSS only: no data, map, popup, or animation changes. */
+
+/* The About button is a direct child of .side-scroll with width:100%.
+   Match that exact available width for each direct-child accordion section.
+   Earlier 8–10px side margins were the reason the cards remained narrower. */
+#sidebar .side-scroll > .ucy-v4-section {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+#sidebar .side-scroll > .ucy-v4-section .ucy-v4-section-body,
+#sidebar .side-scroll > .ucy-v4-section .metric-stack,
+#sidebar .side-scroll > .ucy-v4-section .metric-button,
+#sidebar .side-scroll > .ucy-v4-section .layers-head,
+#sidebar .side-scroll > .ucy-v4-section .ucy-v4-time-box,
+#sidebar .side-scroll > .ucy-v4-section .date-row,
+#sidebar .side-scroll > .ucy-v4-section .v83-summary,
+#sidebar .side-scroll > .ucy-v4-section .weather-grid {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+#sidebar .side-scroll > .ucy-v4-section .v83-summary-card,
+#sidebar .side-scroll > .ucy-v4-section .weather-tile {
+  min-width: 0 !important;
+}
+
+/* Place the vertical legend title on the RIGHT, alongside the values.
+   Previous v4.3 used left:10px + rotate(180deg): reverse that orientation. */
+#mapLegend {
+  padding-left: 10px !important;
+  padding-right: 40px !important;
+}
+#mapLegend h2 {
+  left: auto !important;
+  right: 8px !important;
+  top: 12px !important;
+  bottom: 12px !important;
+  writing-mode: vertical-rl !important;
+  transform: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  max-width: 20px !important;
+  white-space: normal !important;
+  text-align: center !important;
+}
+#mapLegend #legendContent {
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+@media (min-width:901px) and (max-width:1150px) {
+  #mapLegend { padding-left: 8px !important; padding-right: 36px !important; }
+  #mapLegend h2 { right: 7px !important; }
+}
+@media (max-width:780px) {
+  #sidebar .side-scroll > .ucy-v4-section {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  #mapLegend { padding-left: 8px !important; padding-right: 34px !important; }
+  #mapLegend h2 { right: 6px !important; top: 10px !important; bottom: 10px !important; max-width:18px !important; }
+}
