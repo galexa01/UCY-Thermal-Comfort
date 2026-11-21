@@ -1,0 +1,30 @@
+/* UCY Heat v4.9 - mobile Nowcast announcement only. */
+@media(max-width:768px){
+  body.v9-nowcast #ucy-nowcast-mobile-announcement{
+    position:fixed!important;
+    left:10px!important;
+    right:10px!important;
+    bottom:var(--ucy-v49-nowcast-offset,88px)!important;
+    top:auto!important;
+    width:auto!important;
+    max-width:none!important;
+    margin:0!important;
+    z-index:9045!important; /* Below Menu/Legend/Tools (9050). */
+    transform:none!important;
+    opacity:1!important;
+    visibility:visible!important;
+    display:flex!important;
+    pointer-events:none!important;
+    box-sizing:border-box!important;
+    min-height:36px!important;
+    padding:6px 10px!important;
+    border-radius:12px!important;
+  }
+  body.v9-nowcast #ucy-nowcast-mobile-announcement .ticker-viewport{
+    min-width:0!important;
+    flex:1 1 auto!important;
+    overflow:hidden!important;
+  }
+  body.v9-nowcast:is(.ucy-mobile-menu-open,.ucy-mobile-legend-open,.ucy-mobile-tools-open)
+  #ucy-nowcast-mobile-announcement{display:none!important;}
+}
