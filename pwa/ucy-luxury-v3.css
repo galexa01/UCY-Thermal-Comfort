@@ -1,0 +1,28 @@
+/* UCY Heat luxury logo reveal — independent layers, no slideshow, no video */
+#ucy-heat-splash,#ucy-cinema-v2{display:none!important}
+#ucy-luxury-v3,#ucy-luxury-v3 *{box-sizing:border-box}
+#ucy-luxury-v3{position:fixed;inset:0;width:100%;height:100%;height:100dvh;z-index:2147483646;pointer-events:none;overflow:hidden;isolation:isolate;background:#06101e;color:#eef4fd;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif;opacity:1;transition:opacity 1150ms cubic-bezier(.2,.62,.22,1),filter 1150ms ease}
+#ucy-luxury-v3.ucy-luxury-exit{opacity:0;filter:blur(5px)}
+#ucy-luxury-v3::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 64% 48% at 50% 48%,rgba(26,57,87,.32),transparent 77%),linear-gradient(150deg,#0b1b2d 0%,#06101e 65%,#040b15 100%)}
+#ucy-luxury-v3::after{content:"";position:absolute;inset:2%;border:1px solid rgba(193,215,239,.06);border-radius:3px}
+#ucy-luxury-v3 .ucy-luxury-center{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);width:min(83vw,430px,56vh);aspect-ratio:1215/1133;filter:drop-shadow(0 16px 25px rgba(0,0,0,.25))}
+#ucy-luxury-v3 .ucy-luxury-piece{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;will-change:transform,opacity,clip-path}
+#ucy-luxury-v3 .ucy-luxury-base{opacity:1}
+#ucy-luxury-v3 .ucy-luxury-sun{opacity:0;transform:translateY(16%) scale(.98);transform-origin:65% 40%;animation:ucy-luxury-sun-up 1250ms 580ms cubic-bezier(.2,.85,.23,1) forwards;filter:drop-shadow(0 0 9px rgba(255,164,44,.2))}
+#ucy-luxury-v3 .ucy-luxury-thermo{opacity:0;transform:translateY(3%);animation:ucy-luxury-thermo-reveal 850ms 1550ms cubic-bezier(.22,.85,.22,1) forwards}
+#ucy-luxury-v3 .ucy-luxury-line-wrap{position:absolute;inset:0;clip-path:inset(0 100% 0 0);animation:ucy-luxury-line-draw 1050ms 2320ms cubic-bezier(.3,.65,.25,1) forwards}
+#ucy-luxury-v3 .ucy-luxury-complete{opacity:0;animation:ucy-luxury-complete 280ms 3350ms ease-out forwards}
+#ucy-luxury-v3 .ucy-luxury-glow{position:absolute;left:49%;top:28%;width:35%;height:35%;border-radius:50%;background:radial-gradient(circle,rgba(255,165,62,.13),rgba(255,166,44,.035) 45%,transparent 70%);filter:blur(22px);opacity:0;animation:ucy-luxury-ambient 1600ms 580ms ease-out forwards;z-index:-1}
+#ucy-luxury-v3 .ucy-luxury-type{position:absolute;top:calc(47% + min(38.7vw,200px,26vh) + 4px);left:50%;transform:translateX(-50%);width:100%;text-align:center;white-space:nowrap}
+#ucy-luxury-v3 .ucy-luxury-title{font-size:clamp(19px,4.3vw,28px);font-weight:520;letter-spacing:.085em;opacity:0;transform:translateY(8px);animation:ucy-luxury-type 750ms 2690ms ease-out forwards}
+#ucy-luxury-v3 .ucy-luxury-title strong{font-weight:740}
+#ucy-luxury-v3 .ucy-luxury-subtitle{font-size:clamp(8px,1.5vw,11px);font-weight:440;color:#9eafc6;letter-spacing:.25em;margin-top:8px;opacity:0;animation:ucy-luxury-subtitle 750ms 3000ms ease-out forwards}
+#ucy-luxury-v3 .ucy-luxury-bottom{position:absolute;left:50%;bottom:max(29px,env(safe-area-inset-bottom));transform:translateX(-50%);font-size:9px;letter-spacing:.25em;color:rgba(185,203,219,.45);white-space:nowrap}
+@keyframes ucy-luxury-sun-up{0%{opacity:0;transform:translateY(16%) scale(.98)}30%{opacity:.65}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes ucy-luxury-thermo-reveal{0%{opacity:0;transform:translateY(3%)}100%{opacity:1;transform:translateY(0)}}
+@keyframes ucy-luxury-line-draw{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
+@keyframes ucy-luxury-complete{to{opacity:1}}
+@keyframes ucy-luxury-ambient{to{opacity:1}}
+@keyframes ucy-luxury-type{to{opacity:1;transform:translateY(0)}}
+@keyframes ucy-luxury-subtitle{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){#ucy-luxury-v3 *,#ucy-luxury-v3{animation:none!important;transition:none!important}#ucy-luxury-v3 .ucy-luxury-complete{opacity:1}#ucy-luxury-v3 .ucy-luxury-base,#ucy-luxury-v3 .ucy-luxury-sun,#ucy-luxury-v3 .ucy-luxury-thermo,#ucy-luxury-v3 .ucy-luxury-title,#ucy-luxury-v3 .ucy-luxury-subtitle{opacity:1;transform:none}#ucy-luxury-v3 .ucy-luxury-line-wrap{clip-path:none}}

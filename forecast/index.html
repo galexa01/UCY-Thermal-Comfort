@@ -840,8 +840,8 @@ body.v9-nowcast #v83MeanCard{display:block!important}
 
 
 <!-- UCY Heat cinematic v2 + campus bounds bridge -->
-<link rel="stylesheet" href="../pwa/ucy-cinematic.css?v=20261121">
-<script defer src="../pwa/ucy-cinematic.js?v=20261121"></script>
+<link rel="stylesheet" href="../pwa/ucy-luxury-v3.css?v=20261121">
+<script defer src="../pwa/ucy-luxury-v3.js?v=20261121"></script>
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
@@ -2312,6 +2312,56 @@ function fitCampus(){if(!map||!bounds)return;const mobile=innerWidth<780;map.fit
   }
   window.addEventListener('ucyheat:cinema:focus',function(){requested=true;focus();});
 })();
+
+/* UCY_HEAT_LUXURY_CAMERA_BRIDGE_V3 */
+(function(){
+  var wanted=null,prepared=false,animated=false,tries=0,active=null;
+  function apply(){
+    if(!wanted)return;
+    try{
+      if(!map||!bounds||typeof map.cameraForBounds!=='function'||typeof map.easeTo!=='function'){
+        if(++tries<45)setTimeout(apply,160);
+        else if(window.__UCY_LUXURY_V3)window.__UCY_LUXURY_V3.cameraStatus='map-not-ready';
+        return;
+      }
+      if(!active){
+        var mobile=window.innerWidth<780;
+        var padding=mobile?{top:80,bottom:170,left:22,right:22}:{top:94,bottom:140,left:340,right:75};
+        var camera=map.cameraForBounds(bounds,{padding:padding,pitch:0,bearing:0});
+        if(!camera||!Number.isFinite(camera.zoom))return;
+        var maxZ=typeof map.getMaxZoom==='function'?map.getMaxZoom():22;
+        var minZ=typeof map.getMinZoom==='function'?map.getMinZoom():0;
+        var startZ=Math.max(minZ,Math.min(maxZ,camera.zoom+1.05));
+        var finalZ=Math.max(startZ,Math.min(maxZ,camera.zoom+1.90));
+        var maxP=typeof map.getMaxPitch==='function'?map.getMaxPitch():60;
+        active={center:camera.center,startZoom:startZ,endZoom:finalZ,pitch:Math.min(55,maxP)};
+      }
+      if(!prepared){
+        map.stop();
+        map.jumpTo({center:active.center,zoom:active.startZoom,pitch:active.pitch,bearing:0});
+        prepared=true;
+        if(window.__UCY_LUXURY_V3)window.__UCY_LUXURY_V3.cameraStatus='3d-start-ready';
+      }
+      if(wanted==='animate'&&!animated){
+        animated=true;
+        // MapLibre interpolates zoom and pitch continuously: 3D -> near 2D.
+        map.easeTo({center:active.center,zoom:active.endZoom,pitch:0,bearing:0,duration:2050,essential:true,
+          easing:function(t){return t*t*(3-2*t)}});
+        if(window.__UCY_LUXURY_V3){
+          window.__UCY_LUXURY_V3.cameraStatus='3d-to-2d-started';
+          window.__UCY_LUXURY_V3.startZoom=active.startZoom;
+          window.__UCY_LUXURY_V3.endZoom=active.endZoom;
+        }
+      }
+    }catch(e){if(window.__UCY_LUXURY_V3)window.__UCY_LUXURY_V3.cameraStatus='camera-error:'+String(e.message||e)}
+  }
+  window.addEventListener('ucyheat:luxury:camera',function(e){
+    wanted=e.detail&&e.detail.phase;
+    if(e.detail&&e.detail.reduced)return; // respect reduced-motion
+    tries=0;apply();
+  });
+})();
+
 
 function set3d(on){if(!map)return;map.easeTo({pitch:on?57:0,bearing:on?-26:0,duration:550});$('button2d').classList.toggle('active',!on);$('button3d').classList.toggle('active',on);$('button2d').setAttribute('aria-pressed',String(!on));$('button3d').setAttribute('aria-pressed',String(on))}
 function collapseSide(next){sidebarClosed=next;$('sidebar').classList.toggle('closed',next);document.body.classList.toggle('sidebar-closed',next);$('collapseToggle').classList.toggle('collapsed',next);$('collapseToggle').setAttribute('aria-expanded',String(!next));$('collapseToggle').setAttribute('aria-label',next?'Expand sidebar':'Collapse sidebar');$('collapseIcon').innerHTML='<use href="'+(next?'#i-right':'#i-left')+'"/>';if(map)setTimeout(()=>map.resize(),360)}
