@@ -3432,7 +3432,7 @@ const currentUI=()=>[(el('dateDisplay')?.textContent||'').trim(),(el('clockDispl
 
 function show(mode,u,t,notice){
  const heading=document.querySelector('.ticker-heading span');
- if(heading)heading.textContent=mode==='N'?'NOWCAST · CAMPUS PEAK UTCI':'FORECAST · SELECTED-HOUR PEAK UTCI';
+ if(heading)heading.textContent=mode==='N'?'NOWCAST · PEAK THERMAL STRESS':'FORECAST · PEAK THERMAL STRESS';
  const ok=valid(u),[level,color]=ok?stress(u):[notice||'Loading…','#a6bacd'];
  const value=ok?u.toFixed(1)+' °C':'—';
  for(const target of document.querySelectorAll('#ucyPeakTicker .ucyPeakGroup')){
@@ -3442,12 +3442,16 @@ function show(mode,u,t,notice){
    dot.style.background=color;
    const number=document.createElement('strong');
    number.textContent=value;
+   const lead=document.createElement('span');
+   lead.textContent=ok?'Feels like':'';
    const kind=document.createElement('span');
-   kind.textContent=level;
+   kind.textContent=ok?'· '+level:level;
+   kind.style.color=color;
+   kind.style.fontWeight='800';
    const when=document.createElement('span');
    when.className='ucyPeakWhen';
    when.textContent=t?' · '+t:'';
-   target.append(dot,number,kind,when);
+   target.append(dot,lead,number,kind,when);
  }
 }
 
