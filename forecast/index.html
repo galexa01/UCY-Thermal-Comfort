@@ -3396,232 +3396,115 @@ init();
 })();
 </script>
 
-
-<style id="ucy-thermal-status-v92">
-#tickerTrack{
-  display:none!important;
-  animation:none!important;
-}
-#ucyThermalStatus{
-  width:100%;
-  box-sizing:border-box;
-  padding:14px 18px;
-  background:linear-gradient(105deg,#153451,#10233e);
-  border:1px solid #53728c;
-  border-radius:12px;
-  color:#eef7ff;
-  white-space:normal;
-  font-family:inherit;
-}
-#ucyThermalStatus .ucy-status-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:9px;
-  font-size:13px;
-}
-#ucyStatusTime{
-  color:#c5d8e9;
-  font-size:12px;
-}
-#ucyThermalStatus .ucy-status-main{
-  display:flex;
-  align-items:center;
-  gap:20px;
-  flex-wrap:wrap;
-}
-#ucyStatusValue{
-  font-size:clamp(25px,3vw,34px);
-  font-weight:800;
-  font-variant-numeric:tabular-nums;
-}
-#ucyStatusClass{
-  font-size:14px;
-  font-weight:750;
-  border-left:4px solid #9fb6c9;
-  padding:7px 12px;
-  background:#ffffff12;
-  border-radius:5px;
-}
-@media(max-width:560px){
-  #ucyThermalStatus{padding:11px 12px}
-  #ucyThermalStatus .ucy-status-main{gap:10px}
-}
+<style id="ucy-heat-banner-v93">
+#tickerTrack{display:none!important;animation:none!important}
+#ucyHeatBanner{box-sizing:border-box;width:100%;min-height:66px;padding:12px 18px;
+ background:linear-gradient(110deg,#173851,#0d2945);border:1px solid #557692;
+ border-radius:12px;color:#f2f8ff;white-space:normal}
+#ucyHeatBanner .ucy-b-top{display:flex;align-items:center;justify-content:space-between;
+ gap:12px;flex-wrap:wrap;font-size:12px;font-weight:700;letter-spacing:.03em;color:#c9e1f1}
+#ucyHeatBanner .ucy-b-main{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:7px}
+#ucyHeatBanner .ucy-b-value{font-size:clamp(21px,2.9vw,30px);font-weight:800;font-variant-numeric:tabular-nums}
+#ucyHeatBanner .ucy-b-level{border-left:4px solid #a4b9cd;border-radius:4px;
+ background:#ffffff12;padding:6px 11px;font-size:14px;font-weight:750}
+@media(max-width:560px){#ucyHeatBanner{padding:10px 12px}#ucyHeatBanner .ucy-b-main{gap:9px}}
 </style>
-
 <script>
 (()=>{
 'use strict';
-
-function install(){
-  const track=document.getElementById('tickerTrack');
-  if(!track||document.getElementById('ucyThermalStatus'))return;
-
-  const host=track.parentElement;
-  if(!host)return;
-
-  track.style.setProperty('display','none','important');
-  host.style.setProperty('height','auto');
-  host.style.setProperty('min-height','0');
-  host.style.setProperty('overflow','visible');
-
-  const card=document.createElement('section');
-  card.id='ucyThermalStatus';
-
-  card.innerHTML=
-    '<div class="ucy-status-head">'+
-    '<strong>Campus-average UTCI</strong>'+
-    '<span id="ucyStatusTime">—</span></div>'+
-    '<div class="ucy-status-main">'+
-    '<strong id="ucyStatusValue">—</strong>'+
-    '<span id="ucyStatusClass">—</span></div>';
-
-  host.insertBefore(card,track);
-
-  let cacheTime=null;
-  let cacheArray=null;
-  let cacheMean=NaN;
-
-  const palette=[
-    '#5b96cb','#5cbf9c','#e5cb4d',
-    '#ee8e38','#dc4856','#912b65'
-  ];
-
-  function meanNowcast(){
-    if(typeof v9Numeric==='undefined'||
-       !v9Numeric||
-       typeof v9Meta==='undefined')return NaN;
-
-    const n=Number(v9Meta.width)*Number(v9Meta.height);
-
-    if(!Number.isSafeInteger(n)||
-       n<=0||
-       v9Numeric.length!==3*n)return NaN;
-
-    if(cacheTime===v9Meta.observation_utc &&
-       cacheArray===v9Numeric)return cacheMean;
-
-    let sum=0,count=0;
-
-    for(let i=0;i<n;i++){
-      const u=v9Numeric[i];
-      const p=v9Numeric[i+n];
-
-      if(Number.isFinite(u)&&u>-100&&u<100&&
-         Number.isFinite(p)&&p>-100&&p<100){
-        sum+=u;
-        count++;
-      }
-    }
-
-    cacheTime=v9Meta.observation_utc;
-    cacheArray=v9Numeric;
-    cacheMean=count?sum/count:NaN;
-
-    return cacheMean;
-  }
-
-  function update(){
-    let stamp=null,mean=NaN;
-    const nc=typeof v9Nowcast==='function'&&v9Nowcast();
-
-    try{
-      if(nc){
-        if(typeof v9Meta!=='undefined'){
-          stamp=v9Meta.observation_utc;
-        }
-        mean=meanNowcast();
-      }else if(
-        typeof v83SpatialStats!=='undefined'&&
-        typeof cursor!=='undefined'&&
-        typeof row==='function'
-      ){
-        const item=v83SpatialStats[cursor];
-
-        if(item&&item.time_utc===row().time_utc){
-          stamp=item.time_utc;
-          mean=Number(item.mean_utci_c);
-        }
-      }
-    }catch(e){
-      mean=NaN;
-    }
-
-    const valid=Number.isFinite(mean)&&
-                mean>-100&&mean<100;
-
-    const idx=!valid?-1:
-      mean>46?5:
-      mean>38?4:
-      mean>32?3:
-      mean>26?2:
-      mean>=9?1:0;
-
-    document.getElementById('ucyStatusValue').textContent=
-      valid?mean.toFixed(1)+' °C':'—';
-
-    const stress=document.getElementById('ucyStatusClass');
-
-    stress.textContent=
-      valid?stressText(mean):'Data unavailable';
-
-    stress.style.borderLeftColor=
-      idx<0?'#9fb6c9':palette[idx];
-
-    document.getElementById('ucyStatusTime').textContent=
-      (nc?'NOWCAST':'FORECAST')+' · '+
-      (stamp?localFull(stamp):'—');
-  }
-
-  let queued=false;
-
-  function refresh(){
-    if(queued)return;
-    queued=true;
-
-    requestAnimationFrame(()=>{
-      queued=false;
-      update();
-    });
-  }
-
-  const observer=new MutationObserver(refresh);
-
-  observer.observe(document.body,{
-    attributes:true,
-    attributeFilter:['class']
-  });
-
-  for(const id of [
-    'dateDisplay','clockDisplay','hourNumber'
-  ]){
-    const el=document.getElementById(id);
-
-    if(el){
-      observer.observe(el,{
-        childList:true,
-        subtree:true,
-        characterData:true
+function boot(){
+ const ticker=document.getElementById('tickerTrack');
+ if(!ticker||document.getElementById('ucyHeatBanner'))return;
+ const host=ticker.parentElement;if(!host)return;
+ host.style.setProperty('height','auto');
+ host.style.setProperty('min-height','0');
+ host.style.setProperty('overflow','visible');
+ const banner=document.createElement('section');banner.id='ucyHeatBanner';
+ banner.setAttribute('role','status');banner.setAttribute('aria-live','polite');
+ banner.innerHTML='<div class="ucy-b-top"><strong id="ucyBMode">—</strong>'+
+   '<span id="ucyBTime"></span></div><div class="ucy-b-main">'+
+   '<strong class="ucy-b-value" id="ucyBValue">Loading…</strong>'+
+   '<span class="ucy-b-level" id="ucyBStress"></span></div>';
+ host.insertBefore(banner,ticker);
+ const $=id=>document.getElementById(id);
+ const localFmt=new Intl.DateTimeFormat('en-GB',{
+   timeZone:'Europe/Nicosia',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});
+ function nowcast(){
+   const b=$('v9Nowcast');
+   return !!((b&&b.getAttribute('aria-pressed')==='true')||
+      document.body.classList.contains('v9-nowcast'));
+ }
+ function category(u){return u>46?'Extreme heat stress':u>38?'Very strong heat stress':
+   u>32?'Strong heat stress':u>26?'Moderate heat stress':u>=9?'No thermal stress':'Cold stress'}
+ function color(u){return u>46?'#912b65':u>38?'#dc4856':u>32?'#ee8e38':
+   u>26?'#e5cb4d':u>=9?'#5cbf9c':'#5b96cb'}
+ let forecastPromise=null,nowcastPromise=null,sequence=0;
+ function forecastData(){
+   if(!forecastPromise)forecastPromise=fetch('forecast_v6.json',{cache:'no-store'})
+      .then(r=>{if(!r.ok)throw Error('Forecast HTTP '+r.status);return r.json()})
+      .then(d=>{
+        const ts=d.timestamps||[];
+        const future=ts.filter(x=>Number.isFinite(Number(x.utci_max_c))&&
+          Number(x.utci_max_c)>-100&&Number(x.utci_max_c)<100&&
+          Date.parse(x.time_utc)>=Date.now()-3600000);
+        if(!future.length)return null;
+        const peak=future.reduce((a,b)=>Number(b.utci_max_c)>Number(a.utci_max_c)?b:a);
+        return {value:Number(peak.utci_max_c),time:peak.time_utc};
       });
-    }
-  }
-
-  update();
-  setTimeout(update,500);
-  setTimeout(update,2000);
+   return forecastPromise;
+ }
+ function nowcastData(){
+   if(!nowcastPromise)nowcastPromise=fetch('nowcast_v9/point_nowcast_v9.f32.gz',{cache:'no-store'})
+      .then(r=>{if(!r.ok)throw Error('Nowcast HTTP '+r.status);return r})
+      .then(async r=>{
+        if(!('DecompressionStream' in window))throw Error('Gzip decoding unavailable');
+        const ab=await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+        if(ab.byteLength%12!==0)throw Error('Invalid Nowcast point grid');
+        const a=new Float32Array(ab),n=a.length/3;
+        let peak=-Infinity,count=0;
+        for(let i=0;i<n;i++){
+          const u=a[i],pet=a[i+n];
+          if(Number.isFinite(u)&&u>-100&&u<100&&Number.isFinite(pet)&&pet>-100&&pet<100){
+            if(u>peak)peak=u;count++;
+          }
+        }
+        if(count<1000)throw Error('Insufficient valid Nowcast cells');
+        return {value:peak};
+      });
+   return nowcastPromise;
+ }
+ function render(){
+   const nc=nowcast(),token=++sequence;
+   $('ucyBMode').textContent=nc?'NOWCAST · CAMPUS PEAK UTCI':'FORECAST · UPCOMING CAMPUS PEAK UTCI';
+   $('ucyBValue').textContent='Loading…';$('ucyBStress').textContent='';$('ucyBTime').textContent='';
+   (nc?nowcastData():forecastData()).then(x=>{
+     if(token!==sequence||nc!==nowcast())return;
+     if(!x){$('ucyBValue').textContent='No upcoming forecast hours';return;}
+     $('ucyBValue').textContent=x.value.toFixed(1)+' °C';
+     $('ucyBStress').textContent=category(x.value);
+     $('ucyBStress').style.borderLeftColor=color(x.value);
+     if(nc){
+       const date=$('dateDisplay')?.textContent?.trim()||'';
+       const hour=$('clockDisplay')?.textContent?.trim()||'';
+       $('ucyBTime').textContent=(date+' '+hour).trim();
+     }else{$('ucyBTime').textContent=localFmt.format(new Date(x.time_utc));}
+   }).catch(()=>{
+     if(token!==sequence||nc!==nowcast())return;
+     $('ucyBValue').textContent='Peak UTCI unavailable';
+     $('ucyBStress').textContent='';
+   });
+ }
+ const ob=new MutationObserver(()=>{const nc=nowcast();if(nc!==boot.lastMode){boot.lastMode=nc;render()}});
+ boot.lastMode=nowcast();
+ ob.observe(document.body,{attributes:true,attributeFilter:['class']});
+ for(const id of ['v9Nowcast','v9Forecast']){
+   const el=$(id);if(el)ob.observe(el,{attributes:true,attributeFilter:['class','aria-pressed']});
+ }
+ render();
 }
-
-if(document.readyState==='loading'){
-  document.addEventListener(
-    'DOMContentLoaded',install,{once:true}
-  );
-}else{
-  install();
-}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});
+else boot();
 })();
 </script>
-
 </body>
 </html>
