@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#142f36">
-<title>UCY Campus | Thermal Comfort · V8.4 Preview</title>
+<title>UCY Campus | Thermal Comfort</title>
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@6.19.0/dist/maplibre-gl.css">
 <style>
 :root{color-scheme:dark;--deep:#102d35;--ink:#f1f8f5;--muted:#bad1cf;--mint:#d2e78b;--gold:#f3c87b;--glass:rgba(13,44,52,.83);--thin:rgba(216,248,242,.20);--shadow:0 20px 60px rgba(5,21,25,.27)}
@@ -3395,454 +3395,246 @@ init();
   }
 })();
 </script>
-<style id="ucy-peak-strip-v94">
-/* Reuse the original ticker instead of creating a second card. */
-.ticker.glass{
-  display:flex!important;
-  align-items:center!important;
-  gap:14px!important;
-  height:auto!important;
-  min-height:56px!important;
-  padding:9px 16px!important;
+<style id="ucy-peak-ticker-v95">
+.ticker.glass{display:flex!important;align-items:center!important;gap:12px!important;min-height:51px!important;height:auto!important;padding:9px 13px!important;overflow:hidden!important}
+.ticker.glass .ticker-heading{display:flex!important;flex:0 0 auto!important;align-items:center!important;gap:6px!important;margin:0!important;white-space:nowrap!important}
+.ticker.glass .ticker-heading svg{display:none!important}
+.ticker.glass .ticker-viewport{display:block!important;position:relative!important;flex:1 1 auto!important;min-width:0!important;width:auto!important;min-height:0!important;height:auto!important;overflow:hidden!important}
+#tickerTrack{display:none!important;animation:none!important}
+#ucyPeakTicker{display:flex;width:max-content;align-items:center;animation:ucyPeakSlide 23s linear infinite!important;white-space:nowrap}
+.ucyPeakGroup{display:inline-flex;align-items:center;gap:10px;padding-right:62px;white-space:nowrap;font-size:14px;color:#eef8ff}
+.ucyPeakGroup strong{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
+.ucyPeakGroup .ucyPeakDot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#a6bacd;flex:none}
+.ucyPeakGroup .ucyPeakWhen{opacity:.77;font-size:12px}
+@keyframes ucyPeakSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#ucyPeakTicker:hover{animation-play-state:paused!important}
+@media(max-width:650px){
+ .ticker.glass{flex-direction:column!important;align-items:stretch!important;gap:3px!important;padding:9px 12px!important}
+ .ticker.glass .ticker-heading{font-size:11px!important}
+ .ucyPeakGroup{font-size:13px;padding-right:42px}
+ .ucyPeakGroup strong{font-size:17px}
 }
-.ticker-heading{
-  display:flex!important;
-  align-items:center!important;
-  gap:7px!important;
-  flex:0 0 auto!important;
-  margin:0!important;
-  white-space:nowrap!important;
-}
-.ticker-heading svg{display:none!important}
-.ticker-viewport{
-  display:flex!important;
-  align-items:center!important;
-  flex:1 1 auto!important;
-  width:auto!important;
-  min-width:0!important;
-  height:auto!important;
-  min-height:0!important;
-  overflow:visible!important;
-}
-#tickerTrack{
-  display:none!important;
-  animation:none!important;
-  transform:none!important;
-}
-#ucyPeakStrip{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  flex-wrap:wrap;
-  width:100%;
-  min-width:0;
-  color:#f2f8ff;
-}
-#ucyPeakValue{
-  font-size:clamp(21px,2.2vw,27px);
-  font-weight:800;
-  font-variant-numeric:tabular-nums;
-  white-space:nowrap;
-}
-#ucyPeakLevel{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  font-size:13px;
-  font-weight:700;
-  white-space:nowrap;
-}
-#ucyPeakDot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:#9fb6c9;
-  flex:none;
-}
-#ucyPeakTime{
-  font-size:12px;
-  font-weight:550;
-  color:#bcd4e4;
-  white-space:nowrap;
-  margin-left:auto;
-}
-@media(max-width:720px){
-  .ticker.glass{
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:stretch!important;
-    gap:5px!important;
-    min-height:0!important;
-    padding:10px 12px!important;
-  }
-  .ticker-heading{font-size:11px!important}
-  #ucyPeakStrip{gap:8px 12px}
-  #ucyPeakValue{font-size:24px}
-  #ucyPeakLevel{font-size:12px}
-  #ucyPeakTime{font-size:11px;margin-left:auto}
-}
+@media(prefers-reduced-motion:reduce){#ucyPeakTicker{animation:none!important}}
 </style>
 <script>
 (()=>{
 'use strict';
-
-const byId=id=>document.getElementById(id);
-
-const localTime=new Intl.DateTimeFormat('en-GB',{
-  timeZone:'Europe/Nicosia',
-  day:'2-digit',
-  month:'short',
-  hour:'2-digit',
-  minute:'2-digit',
-  hour12:false
-});
-
-const colors=[
-  '#5b96cb','#5cbf9c','#e5cb4d',
-  '#ee8e38','#dc4856','#912b65'
-];
-
+const el=id=>document.getElementById(id);
+const base=new URL('/UCY-Thermal-Comfort/forecast/',location.origin);
+const dateFmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',day:'2-digit',month:'short',year:'numeric'});
+const hourFmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',hour:'2-digit',minute:'2-digit',hour12:false});
+const fullFmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});
 const valid=u=>Number.isFinite(u)&&u>-100&&u<100;
+const stress=u=>u>46?['Extreme heat stress','#912b65']:u>38?['Very strong heat stress','#dc4856']:u>32?['Strong heat stress','#ee8e38']:u>26?['Moderate heat stress','#e5cb4d']:u>=9?['No thermal stress','#5cbf9c']:['Cold stress','#5b96cb'];
+const nowMode=()=>el('v9Nowcast')?.getAttribute('aria-pressed')==='true'||document.body.classList.contains('v9-nowcast');
+let forecast=null,nowPromise=null,nowKey='',previous='',serial=0;
+const currentUI=()=>[(el('dateDisplay')?.textContent||'').trim(),(el('clockDisplay')?.textContent||'').trim(),(el('hourNumber')?.textContent||'').trim()];
 
-const severity=u=>
-  u>46?5:u>38?4:u>32?3:u>26?2:u>=9?1:0;
-
-const levels=[
-  'Cold stress',
-  'No thermal stress',
-  'Moderate heat stress',
-  'Strong heat stress',
-  'Very strong heat stress',
-  'Extreme heat stress'
-];
-
-let forecastRequest=null;
-let nowcastRequest=null;
-let requestCounter=0;
-
-function inNowcast(){
-  const b=byId('v9Nowcast');
-  return !!(
-    (b&&b.getAttribute('aria-pressed')==='true')||
-    document.body.classList.contains('v9-nowcast')
-  );
+function show(mode,u,t,notice){
+ const heading=document.querySelector('.ticker-heading span');
+ if(heading)heading.textContent=mode==='N'?'NOWCAST · CAMPUS PEAK UTCI':'FORECAST · SELECTED-HOUR PEAK UTCI';
+ const ok=valid(u),[level,color]=ok?stress(u):[notice||'Loading…','#a6bacd'];
+ const value=ok?u.toFixed(1)+' °C':'—';
+ for(const target of document.querySelectorAll('#ucyPeakTicker .ucyPeakGroup')){
+   target.replaceChildren();
+   const dot=document.createElement('i');
+   dot.className='ucyPeakDot';
+   dot.style.background=color;
+   const number=document.createElement('strong');
+   number.textContent=value;
+   const kind=document.createElement('span');
+   kind.textContent=level;
+   const when=document.createElement('span');
+   when.className='ucyPeakWhen';
+   when.textContent=t?' · '+t:'';
+   target.append(dot,number,kind,when);
+ }
 }
 
-function asRows(){
-  try{
-    if(
-      typeof v6!=='undefined' &&
-      v6 &&
-      Array.isArray(v6.timestamps)
-    ){
-      return v6.timestamps;
-    }
-  }catch(e){}
-  return null;
+function selected(rows){
+ // First try the forecast viewer's selected timestamp.
+ try{
+   if(typeof row==='function'){
+     const r=row();
+     const match=rows.find(x=>x.time_utc===r?.time_utc);
+     if(match)return match;
+   }
+ }catch(e){}
+
+ try{
+   if(typeof cursor!=='undefined'&&
+      Number.isInteger(cursor)&&
+      cursor>=0&&cursor<rows.length)return rows[cursor];
+ }catch(e){}
+
+ // Match the visible selected date and hour.
+ const [date,hour,label]=currentUI();
+ if(date&&hour){
+   const needle=hour.match(/\b\d{1,2}:\d{2}\b/)?.[0];
+   if(needle){
+     const match=rows.filter(x=>{
+       const dt=new Date(x.time_utc);
+       const dateText=dateFmt.format(dt);
+       const dayMonth=dateText.replace(/\s+\d{4}$/,'');
+       return hourFmt.format(dt)===needle &&
+         (date.toLowerCase().includes(dayMonth.toLowerCase())||
+          date.includes(dateText));
+     });
+     if(match.length===1)return match[0];
+   }
+ }
+
+ // Fallback for a timeline displaying only future hours.
+ const m=label.match(/(\d+)\s*\/\s*(\d+)/);
+ if(m){
+   const position=+m[1],total=+m[2];
+   const index=rows.length-total+position-1;
+   if(total>=1&&total<=rows.length&&
+      position>=1&&position<=total&&
+      index>=0&&index<rows.length)return rows[index];
+ }
+ return null;
 }
 
-async function forecastRows(){
-  const embedded=asRows();
-
-  if(embedded)return embedded;
-
-  if(!forecastRequest){
-    const url=new URL(
-      '/UCY-Thermal-Comfort/forecast/forecast_v6.json',
-      location.origin
-    );
-
-    forecastRequest=fetch(url,{cache:'no-store'})
-      .then(r=>{
-        if(!r.ok){
-          throw Error('Forecast HTTP '+r.status);
-        }
-        return r.json();
-      })
-      .then(d=>{
-        if(!Array.isArray(d.timestamps)){
-          throw Error('Missing forecast timestamps');
-        }
-        return d.timestamps;
-      })
-      .catch(e=>{
-        forecastRequest=null;
-        throw e;
-      });
-  }
-
-  return forecastRequest;
+async function forecastPeak(){
+ if(!forecast){
+   forecast=fetch(new URL('forecast_v6.json',base),{
+     cache:'no-store'
+   })
+   .then(r=>{
+     if(!r.ok)throw Error('Forecast HTTP '+r.status);
+     return r.json();
+   })
+   .then(d=>{
+     if(!Array.isArray(d.timestamps))
+       throw Error('Missing forecast timestamps');
+     return d.timestamps;
+   })
+   .catch(e=>{
+     forecast=null;
+     throw e;
+   });
+ }
+ const rows=await forecast;
+ const rec=selected(rows);
+ if(!rec){
+   return {u:NaN,t:'',notice:'Selected hour unavailable'};
+ }
+ const value=Number(rec.utci_max_c);
+ return {
+   u:valid(value)?value:NaN,
+   t:fullFmt.format(new Date(rec.time_utc)),
+   notice:'Peak UTCI unavailable'
+ };
 }
 
-async function peakForecast(){
-  const entries=await forecastRows();
-  const cutoff=Date.now()-3600000;
+async function nowcastPeak(){
+ const ui=currentUI();
+ const key=ui[0]+'|'+ui[1];
 
-  const available=entries.filter(x=>
-    x &&
-    valid(Number(x.utci_max_c)) &&
-    Number.isFinite(Date.parse(x.time_utc)) &&
-    Date.parse(x.time_utc)>=cutoff
-  );
+ if(!nowPromise||nowKey!==key){
+   nowKey=key;
+   nowPromise=fetch(
+     new URL('nowcast_v9/point_nowcast_v9.f32.gz',base),
+     {cache:'no-store'}
+   )
+   .then(r=>{
+     if(!r.ok)throw Error('Nowcast HTTP '+r.status);
+     if(!('DecompressionStream' in window))
+       throw Error('Gzip unavailable');
+     return new Response(
+       r.body.pipeThrough(new DecompressionStream('gzip'))
+     ).arrayBuffer();
+   })
+   .then(buf=>{
+     if(buf.byteLength%12)throw Error('Bad grid size');
+     const a=new Float32Array(buf),n=a.length/3;
+     let peak=-Infinity,count=0;
+     for(let i=0;i<n;i++){
+       if(valid(a[i])&&valid(a[i+n])){
+         peak=Math.max(peak,a[i]);
+         count++;
+       }
+     }
+     if(count<1000)throw Error('Insufficient valid cells');
+     return peak;
+   })
+   .catch(e=>{
+     nowPromise=null;
+     throw e;
+   });
+ }
 
-  if(!available.length){
-    return {empty:true};
-  }
-
-  const peak=available.reduce((a,b)=>
-    Number(a.utci_max_c)>=Number(b.utci_max_c)?a:b
-  );
-
-  return {
-    value:Number(peak.utci_max_c),
-    time:peak.time_utc
-  };
-}
-
-function loadedNowcast(){
-  try{
-    if(
-      typeof v9Numeric!=='undefined' &&
-      v9Numeric &&
-      typeof v9Meta!=='undefined' &&
-      v9Meta
-    ){
-      const n=Number(v9Meta.width)*Number(v9Meta.height);
-
-      if(
-        n>0 &&
-        Number.isInteger(n) &&
-        v9Numeric.length===3*n
-      ){
-        return {
-          array:v9Numeric,
-          n,
-          stamp:v9Meta.observation_utc
-        };
-      }
-    }
-  }catch(e){}
-
-  return null;
-}
-
-async function peakNowcast(){
-  let data=loadedNowcast();
-
-  if(!data){
-    if(!nowcastRequest){
-      const base=new URL(
-        '/UCY-Thermal-Comfort/forecast/',
-        location.origin
-      );
-
-      nowcastRequest=Promise.all([
-        fetch(
-          new URL('nowcast_v9/point_nowcast_v9.f32.gz',base),
-          {cache:'no-store'}
-        ).then(async r=>{
-          if(!r.ok){
-            throw Error('Nowcast grid HTTP '+r.status);
-          }
-
-          if(!('DecompressionStream' in window)){
-            throw Error('Gzip unavailable');
-          }
-
-          const bytes=await new Response(
-            r.body.pipeThrough(new DecompressionStream('gzip'))
-          ).arrayBuffer();
-
-          if(bytes.byteLength%12){
-            throw Error('Invalid Nowcast grid');
-          }
-
-          return new Float32Array(bytes);
-        }),
-
-        fetch(
-          new URL('nowcast_v9/manifest.json',base),
-          {cache:'no-store'}
-        ).then(r=>r.ok?r.json():null).catch(()=>null)
-
-      ]).then(([array,meta])=>({
-        array,
-        n:array.length/3,
-        stamp:meta?.observation_utc||null
-      })).catch(e=>{
-        nowcastRequest=null;
-        throw e;
-      });
-    }
-
-    data=await nowcastRequest;
-  }
-
-  const {array,n,stamp}=data;
-
-  let maximum=-Infinity;
-  let count=0;
-
-  for(let i=0;i<n;i++){
-    const u=array[i];
-    const p=array[i+n];
-
-    if(valid(u)&&valid(p)){
-      maximum=Math.max(maximum,u);
-      count++;
-    }
-  }
-
-  if(count<1000){
-    throw Error('Insufficient valid Nowcast cells');
-  }
-
-  let time=stamp;
-
-  try{
-    if(
-      typeof v9Meta!=='undefined' &&
-      v9Meta?.observation_utc
-    ){
-      time=v9Meta.observation_utc;
-    }
-  }catch(e){}
-
-  return {value:maximum,time};
-}
-
-function paint(title,value,level,stamp){
-  const header=document.querySelector(
-    '.ticker-heading span'
-  );
-
-  if(header){
-    header.textContent=title;
-  }
-
-  byId('ucyPeakValue').textContent=value;
-  byId('ucyPeakLevelText').textContent=level;
-
-  byId('ucyPeakTime').textContent=
-    stamp && Number.isFinite(Date.parse(stamp))
-    ? localTime.format(new Date(stamp))
-    : '';
-
-  const numeric=Number.parseFloat(value);
-
-  byId('ucyPeakDot').style.background=
-    valid(numeric)
-    ? colors[severity(numeric)]
-    : '#9fb6c9';
+ const u=await nowPromise;
+ return {u,t:(ui[0]+' '+ui[1]).trim()};
 }
 
 async function refresh(){
-  if(!byId('ucyPeakStrip'))return;
+ const mode=nowMode()?'N':'F';
+ const ticket=++serial;
+ show(mode,NaN,'','Loading…');
 
-  const now=inNowcast();
-  const token=++requestCounter;
+ try{
+   const x=mode==='N'
+     ?await nowcastPeak()
+     :await forecastPeak();
 
-  const header=now
-    ? 'NOWCAST · CAMPUS PEAK UTCI'
-    : 'FORECAST · UPCOMING CAMPUS PEAK UTCI';
+   if(ticket!==serial||
+      mode!==(nowMode()?'N':'F'))return;
 
-  try{
-    const result=now
-      ? await peakNowcast()
-      : await peakForecast();
+   show(mode,x.u,x.t,x.notice);
+ }catch(e){
+   if(ticket!==serial||
+      mode!==(nowMode()?'N':'F'))return;
 
-    if(
-      token!==requestCounter ||
-      now!==inNowcast()
-    )return;
-
-    if(result.empty){
-      paint(
-        header,'—','No upcoming forecast hours',null
-      );
-      return;
-    }
-
-    const u=result.value;
-
-    paint(
-      header,
-      u.toFixed(1)+' °C',
-      levels[severity(u)],
-      result.time
-    );
-
-  }catch(error){
-    if(
-      token!==requestCounter ||
-      now!==inNowcast()
-    )return;
-
-    console.warn('UCY Peak Banner:',error);
-
-    paint(
-      header,'—','Data unavailable',null
-    );
-  }
+   console.warn('UCY peak ticker:',e);
+   show(mode,NaN,'','Peak UTCI unavailable');
+ }
 }
 
 function boot(){
-  const old=byId('tickerTrack');
+ const original=el('tickerTrack');
+ if(!original||el('ucyPeakTicker'))return;
 
-  if(!old||byId('ucyPeakStrip'))return;
+ const parent=original.parentElement;
+ if(!parent)return;
 
-  const viewport=old.parentElement;
+ const track=document.createElement('div');
+ track.id='ucyPeakTicker';
 
-  if(!viewport)return;
+ for(let i=0;i<2;i++){
+   const part=document.createElement('div');
+   part.className='ucyPeakGroup';
+   track.append(part);
+ }
+ parent.insertBefore(track,original);
 
-  const strip=document.createElement('div');
+ const check=()=>{
+   const key=(nowMode()?'N':'F')+'|'+currentUI().join('|');
+   if(key!==previous){
+     previous=key;
+     refresh();
+   }
+ };
 
-  strip.id='ucyPeakStrip';
+ check();
+ document.addEventListener('input',check,true);
+ document.addEventListener('change',check,true);
 
-  strip.innerHTML=
-    '<strong id="ucyPeakValue">—</strong>'+
-    '<span id="ucyPeakLevel">'+
-    '<i id="ucyPeakDot"></i>'+
-    '<span id="ucyPeakLevelText">Loading…</span>'+
-    '</span>'+
-    '<span id="ucyPeakTime"></span>';
+ for(const id of ['v9Nowcast','v9Forecast']){
+   el(id)?.addEventListener('click',()=>{
+     setTimeout(check,80);
+   });
+ }
 
-  viewport.insertBefore(strip,old);
-
-  const observer=new MutationObserver(()=>refresh());
-
-  observer.observe(document.body,{
-    attributes:true,
-    attributeFilter:['class']
-  });
-
-  for(const id of ['v9Nowcast','v9Forecast']){
-    const button=byId(id);
-
-    if(button){
-      observer.observe(button,{
-        attributes:true,
-        attributeFilter:['aria-pressed']
-      });
-
-      button.addEventListener(
-        'click',()=>setTimeout(refresh,150)
-      );
-    }
-  }
-
-  refresh();
-  setTimeout(refresh,800);
-  setTimeout(refresh,2500);
-  setInterval(refresh,5000);
+ // Check for actual changes without restarting the animation.
+ setInterval(check,750);
 }
 
 if(document.readyState==='loading'){
-  document.addEventListener(
-    'DOMContentLoaded',boot,{once:true}
-  );
+ document.addEventListener('DOMContentLoaded',boot,{once:true});
 }else{
-  boot();
+ boot();
 }
 })();
 </script>
