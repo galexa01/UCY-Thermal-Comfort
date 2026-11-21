@@ -7,7 +7,7 @@
    if(!b||!switcher)return;
    if(!b.dataset.ucyV48){
      b.dataset.ucyV48='1';
-     b.setAttribute('aria-label','Get UCY Heat');
+     b.setAttribute('aria-label','Get UCY Heat App');
      b.replaceChildren();
      const img=document.createElement('img');
      img.className='ucy-install-v48-logo';
@@ -15,7 +15,7 @@
      img.alt='';
      img.setAttribute('aria-hidden','true');
      const label=document.createElement('span');
-     label.textContent='Get UCY Heat';
+     label.textContent='Get UCY Heat App';
      b.append(img,label);
    }
    const r=switcher.getBoundingClientRect();
