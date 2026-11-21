@@ -1,0 +1,45 @@
+/* UCY Heat v4.6 — compact developer credit directly below brand. */
+#sidebar .sidebar-brand + #ucy-v46-credit {
+  margin: -2px 10px 10px !important;
+  padding: 0 0 11px !important;
+  border-bottom: 1px solid rgba(155,197,219,.17);
+  background: none !important;
+  text-align: left !important;
+  font-size: 10px !important;
+  line-height: 1.5 !important;
+  color: #aac5d6 !important;
+}
+#sidebar #ucy-v46-credit .ucy-v46-credit-label {
+  font-size: 10px !important;
+  font-weight: 650 !important;
+  letter-spacing: .01em;
+  color: #c9dfec !important;
+}
+#sidebar #ucy-v46-credit .ucy-v46-credit-email {
+  display: inline-block !important;
+  font-size: 10px !important;
+  color: #9cdaff !important;
+  text-decoration: none !important;
+  overflow-wrap: anywhere;
+}
+#sidebar #ucy-v46-credit .ucy-v46-credit-email:hover {
+  text-decoration: underline !important;
+}
+#sidebar #ucy-v45-footer { display: none !important; }
+#aboutModal #ucy-v45-contact {
+  margin-top: 10px !important;
+  margin-bottom: 17px !important;
+  padding: 12px 13px !important;
+  border-top: 1px solid rgba(154,195,220,.24);
+  border-bottom: 1px solid rgba(154,195,220,.17);
+  border-radius: 8px;
+  background: rgba(64,114,146,.08);
+}
+#aboutModal #ucy-v45-contact h3 { margin: 0 0 9px !important; }
+#aboutModal #ucy-v45-contact p { margin: 4px 0 !important; }
+#aboutModal #ucy-v45-contact .ucy-v45-ack { margin-top: 13px !important; }
+#aboutModal #ucy-v45-contact .ucy-v45-ack p {
+  font-size: 11px !important;
+  line-height: 1.55 !important;
+  color: #a9c1d1 !important;
+}
