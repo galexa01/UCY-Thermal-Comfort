@@ -1,0 +1,32 @@
+/* v4.8: centered immediately below Nowcast/Forecast, not a sidebar redesign. */
+#ucyheat-install-button:not([hidden]) {
+  position:fixed!important;
+  left:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:translateX(-50%)!important;
+  z-index:9000!important;
+  width:228px!important;
+  max-width:calc(100vw - 30px)!important;
+  padding:9px 13px!important;
+  border-radius:13px!important;
+  background:linear-gradient(110deg,#173b57,#23577a)!important;
+  border:1px solid rgba(141,206,239,.65)!important;
+  box-shadow:0 7px 20px rgba(0,0,0,.27)!important;
+  font-size:13px!important;
+  font-weight:750!important;
+  justify-content:center!important;
+  gap:9px!important;
+  white-space:nowrap!important;
+}
+#ucyheat-install-button .ucy-install-v48-logo {
+  width:28px!important;
+  height:28px!important;
+  border-radius:6px!important;
+  object-fit:contain!important;
+  flex-shrink:0!important;
+}
+@media(max-width:780px){
+ #ucyheat-install-button:not([hidden]){width:210px!important;padding:8px 11px!important;font-size:12px!important}
+ #ucyheat-install-button .ucy-install-v48-logo{width:25px!important;height:25px!important}
+}
