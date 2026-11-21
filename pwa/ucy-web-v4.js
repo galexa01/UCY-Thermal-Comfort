@@ -61,8 +61,8 @@
    // Keep the real dataset timestamp from existing renderHour() in #dateDisplay/#clockDisplay.
    function tick(){
      liveClock.textContent=localTime(new Date().toISOString(),{weekday:'short',day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
-     const now=typeof v9Nowcast==='function'&&v9Nowcast();
-     dataLabel.textContent=now?'Latest AURA observation (Cyprus time)':'Selected ECMWF forecast hour (Cyprus time)';
+     const now=document.getElementById('v9Nowcast')?.getAttribute('aria-pressed')==='true';
+     dataLabel.textContent=now?'Last AURA update':'Selected ECMWF forecast hour (Cyprus time)';
    }
    tick();window.setInterval(tick,1000);
    const obs=new MutationObserver(()=>{tryCall(tick)});
@@ -112,7 +112,7 @@
      const thisSeq=++seq;
      const lng=selectedPoint.lng,lat=selectedPoint.lat;
      if(!pointInside(lng,lat)){if(pointPopup)pointPopup.remove();return}
-     const now=typeof v9Nowcast==='function'&&v9Nowcast();
+     const now=document.getElementById('v9Nowcast')?.getAttribute('aria-pressed')==='true';
      const stamp=now?v9Meta.observation_utc:v6?.timestamps[cursor]?.time_utc;
      const index=cursor;
      if(pointPopup)pointPopup.remove();

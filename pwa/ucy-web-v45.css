@@ -1,0 +1,11 @@
+/* UCY Heat v4.5 — unobtrusive developer attribution */
+#ucy-v45-footer{padding:2px 13px 13px;margin:0 8px;text-align:center;font-size:10px;line-height:1.55;color:#a9c2d6;}
+#ucy-v45-footer a{color:#9bdaff;text-decoration:none;overflow-wrap:anywhere;}
+#ucy-v45-footer a:hover{text-decoration:underline;}
+#ucy-v45-contact{margin-top:18px;padding-top:12px;border-top:1px solid rgba(154,195,220,.24);}
+#ucy-v45-contact a{color:#82cff7;overflow-wrap:anywhere;}
+
+#ucy-v45-contact > p{margin:5px 0;}
+#ucy-v45-contact .ucy-v45-ack{margin-top:14px;padding-top:11px;border-top:1px solid rgba(154,195,220,.18);}
+#ucy-v45-contact .ucy-v45-ack h4{font-size:12px;font-weight:650;margin:0 0 5px;}
+#ucy-v45-contact .ucy-v45-ack p{font-size:11px;line-height:1.55;color:#abc2d4;margin:0;}

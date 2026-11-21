@@ -6,7 +6,7 @@
   var current=document.currentScript;
   var root=current&&current.src?new URL('.',current.src).href:'../pwa/';
   function nowcast(){
-    try{return typeof window.v9Nowcast==='function' && !!window.v9Nowcast()}catch(e){return false}
+    try{return document.getElementById('v9Nowcast')?.getAttribute('aria-pressed')==='true'}catch(e){return false}
   }
   function applyBrand(){
     var brand=document.querySelector('#sidebar .sidebar-brand');
@@ -29,7 +29,7 @@
     var dataLabel=document.querySelector('#ucy-v4-comfort .ucy-v4-data-label');
     if(dataLabel){
       dataLabel.textContent=nowcast()
-        ? 'Latest AURA update (Cyprus time)'
+        ? 'Last AURA update'
         : 'Selected ECMWF forecast hour (Cyprus time)';
     }
     var weatherSmall=document.querySelector('#ucy-v4-weather .weather-heading small');
@@ -55,7 +55,45 @@
       if(el)el.open=true;
     });
   }
+
+  function addContact(){
+    var modal=document.querySelector('#aboutModal .modal');
+    if(modal){
+      modal.querySelectorAll('#v91Info p').forEach(function(p){
+        if(p.textContent && p.textContent.includes('Individual researcher names and contact emails will be added')) p.remove();
+      });
+    }
+    if(modal && !document.getElementById('ucy-v45-contact')){
+      var section=document.createElement('section');
+      section.id='ucy-v45-contact';
+      var title=document.createElement('h3');title.textContent='Development & Contact';
+      var name=document.createElement('p');
+      var strong=document.createElement('strong');strong.textContent='Giorgos Alexandrou';name.appendChild(strong);
+      var role=document.createElement('p');role.textContent='Researcher · Environmental Fluid Mechanics Laboratory';
+      var institute=document.createElement('p');institute.textContent='University of Cyprus';
+      var emailrow=document.createElement('p');
+      var email=document.createElement('a');email.href='mailto:galexa01@ucy.ac.cy';email.textContent='galexa01@ucy.ac.cy';
+      emailrow.appendChild(email);
+      section.append(title,name,role,institute,emailrow);
+      var ack=document.createElement('div');ack.className='ucy-v45-ack';
+      var ackTitle=document.createElement('h4');ackTitle.textContent='Acknowledgements';
+      var ackText=document.createElement('p');ackText.textContent='Computational resources were provided by the High Performance Computing facility of the University of Cyprus (UCY HPC).';
+      ack.append(ackTitle,ackText);
+      section.appendChild(ack);
+      modal.appendChild(section);
+    }
+    var sidebar=document.querySelector('#sidebar .side-scroll');
+    if(sidebar && !document.getElementById('ucy-v45-footer')){
+      var note=document.createElement('div');note.id='ucy-v45-footer';
+      var line=document.createElement('div');line.textContent='Developed by Giorgos Alexandrou';
+      var link=document.createElement('a');link.href='mailto:galexa01@ucy.ac.cy';link.textContent='galexa01@ucy.ac.cy';
+      note.append(line,link);
+      var lab=sidebar.querySelector('.lab-footer');
+      if(lab)lab.after(note);else sidebar.appendChild(note);
+    }
+  }
   function apply(){
+    addContact();
     applyBrand();
     applyLabels();
     fixToolbarArrow();
