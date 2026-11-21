@@ -1,0 +1,20 @@
+/* UCY Heat v4.10: phone Nowcast only.
+   Match Forecast stacking order: buttons first, announcement underneath.
+   The announcement remains detached from the collapsible Nowcast panel (v4.9).
+*/
+@media (max-width:768px) {
+  body.v9-nowcast #ucy-nowcast-mobile-announcement {
+    top:auto!important;
+    bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;
+    left:10px!important;
+    right:10px!important;
+    max-width:none!important;
+    margin:0!important;
+    z-index:9045!important;
+    pointer-events:none!important;
+  }
+  body.v9-nowcast #ucyMobileButtons {
+    bottom:calc(20px + env(safe-area-inset-bottom,0px) + var(--ucy-v410-notice-height,54px))!important;
+    z-index:9050!important;
+  }
+}
