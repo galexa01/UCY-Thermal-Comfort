@@ -3396,5 +3396,232 @@ init();
 })();
 </script>
 
+
+<style id="ucy-thermal-status-v92">
+#tickerTrack{
+  display:none!important;
+  animation:none!important;
+}
+#ucyThermalStatus{
+  width:100%;
+  box-sizing:border-box;
+  padding:14px 18px;
+  background:linear-gradient(105deg,#153451,#10233e);
+  border:1px solid #53728c;
+  border-radius:12px;
+  color:#eef7ff;
+  white-space:normal;
+  font-family:inherit;
+}
+#ucyThermalStatus .ucy-status-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:9px;
+  font-size:13px;
+}
+#ucyStatusTime{
+  color:#c5d8e9;
+  font-size:12px;
+}
+#ucyThermalStatus .ucy-status-main{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+#ucyStatusValue{
+  font-size:clamp(25px,3vw,34px);
+  font-weight:800;
+  font-variant-numeric:tabular-nums;
+}
+#ucyStatusClass{
+  font-size:14px;
+  font-weight:750;
+  border-left:4px solid #9fb6c9;
+  padding:7px 12px;
+  background:#ffffff12;
+  border-radius:5px;
+}
+@media(max-width:560px){
+  #ucyThermalStatus{padding:11px 12px}
+  #ucyThermalStatus .ucy-status-main{gap:10px}
+}
+</style>
+
+<script>
+(()=>{
+'use strict';
+
+function install(){
+  const track=document.getElementById('tickerTrack');
+  if(!track||document.getElementById('ucyThermalStatus'))return;
+
+  const host=track.parentElement;
+  if(!host)return;
+
+  track.style.setProperty('display','none','important');
+  host.style.setProperty('height','auto');
+  host.style.setProperty('min-height','0');
+  host.style.setProperty('overflow','visible');
+
+  const card=document.createElement('section');
+  card.id='ucyThermalStatus';
+
+  card.innerHTML=
+    '<div class="ucy-status-head">'+
+    '<strong>Campus-average UTCI</strong>'+
+    '<span id="ucyStatusTime">—</span></div>'+
+    '<div class="ucy-status-main">'+
+    '<strong id="ucyStatusValue">—</strong>'+
+    '<span id="ucyStatusClass">—</span></div>';
+
+  host.insertBefore(card,track);
+
+  let cacheTime=null;
+  let cacheArray=null;
+  let cacheMean=NaN;
+
+  const palette=[
+    '#5b96cb','#5cbf9c','#e5cb4d',
+    '#ee8e38','#dc4856','#912b65'
+  ];
+
+  function meanNowcast(){
+    if(typeof v9Numeric==='undefined'||
+       !v9Numeric||
+       typeof v9Meta==='undefined')return NaN;
+
+    const n=Number(v9Meta.width)*Number(v9Meta.height);
+
+    if(!Number.isSafeInteger(n)||
+       n<=0||
+       v9Numeric.length!==3*n)return NaN;
+
+    if(cacheTime===v9Meta.observation_utc &&
+       cacheArray===v9Numeric)return cacheMean;
+
+    let sum=0,count=0;
+
+    for(let i=0;i<n;i++){
+      const u=v9Numeric[i];
+      const p=v9Numeric[i+n];
+
+      if(Number.isFinite(u)&&u>-100&&u<100&&
+         Number.isFinite(p)&&p>-100&&p<100){
+        sum+=u;
+        count++;
+      }
+    }
+
+    cacheTime=v9Meta.observation_utc;
+    cacheArray=v9Numeric;
+    cacheMean=count?sum/count:NaN;
+
+    return cacheMean;
+  }
+
+  function update(){
+    let stamp=null,mean=NaN;
+    const nc=typeof v9Nowcast==='function'&&v9Nowcast();
+
+    try{
+      if(nc){
+        if(typeof v9Meta!=='undefined'){
+          stamp=v9Meta.observation_utc;
+        }
+        mean=meanNowcast();
+      }else if(
+        typeof v83SpatialStats!=='undefined'&&
+        typeof cursor!=='undefined'&&
+        typeof row==='function'
+      ){
+        const item=v83SpatialStats[cursor];
+
+        if(item&&item.time_utc===row().time_utc){
+          stamp=item.time_utc;
+          mean=Number(item.mean_utci_c);
+        }
+      }
+    }catch(e){
+      mean=NaN;
+    }
+
+    const valid=Number.isFinite(mean)&&
+                mean>-100&&mean<100;
+
+    const idx=!valid?-1:
+      mean>46?5:
+      mean>38?4:
+      mean>32?3:
+      mean>26?2:
+      mean>=9?1:0;
+
+    document.getElementById('ucyStatusValue').textContent=
+      valid?mean.toFixed(1)+' °C':'—';
+
+    const stress=document.getElementById('ucyStatusClass');
+
+    stress.textContent=
+      valid?stressText(mean):'Data unavailable';
+
+    stress.style.borderLeftColor=
+      idx<0?'#9fb6c9':palette[idx];
+
+    document.getElementById('ucyStatusTime').textContent=
+      (nc?'NOWCAST':'FORECAST')+' · '+
+      (stamp?localFull(stamp):'—');
+  }
+
+  let queued=false;
+
+  function refresh(){
+    if(queued)return;
+    queued=true;
+
+    requestAnimationFrame(()=>{
+      queued=false;
+      update();
+    });
+  }
+
+  const observer=new MutationObserver(refresh);
+
+  observer.observe(document.body,{
+    attributes:true,
+    attributeFilter:['class']
+  });
+
+  for(const id of [
+    'dateDisplay','clockDisplay','hourNumber'
+  ]){
+    const el=document.getElementById(id);
+
+    if(el){
+      observer.observe(el,{
+        childList:true,
+        subtree:true,
+        characterData:true
+      });
+    }
+  }
+
+  update();
+  setTimeout(update,500);
+  setTimeout(update,2000);
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener(
+    'DOMContentLoaded',install,{once:true}
+  );
+}else{
+  install();
+}
+})();
+</script>
+
 </body>
 </html>
