@@ -845,6 +845,9 @@ body.v9-nowcast #v83MeanCard{display:block!important}
 <!-- UCY_HEAT_WEB_V4 -->
 <link rel="stylesheet" href="../pwa/ucy-web-v4.css?v=4.0.0">
 <script defer src="../pwa/ucy-web-v4.js?v=4.0.0"></script>
+<!-- UCY_HEAT_WEB_V41 -->
+<link rel="stylesheet" href="../pwa/ucy-web-v41.css?v=4.1.0">
+<script defer src="../pwa/ucy-web-v41.js?v=4.1.0"></script>
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
@@ -3080,6 +3083,76 @@ function v84Locate(){
 $('v84Flat').addEventListener('click',()=>v84SetTerrain(false));
 $('v84Terrain').addEventListener('click',()=>v84SetTerrain(true));
 $('v84MyLocation').addEventListener('click',v84Locate);
+
+/* UCY_HEAT_V41_POINT_POPUP_MODULE: same module scope as Nowcast/Forecast data. */
+function v41Format(value, unit, digits){
+ return Number.isFinite(value)&&value>-100&&value<1000?value.toFixed(digits)+(unit||''):'—';
+}
+function v41Element(tag, className, text){
+ const el=document.createElement(tag);if(className)el.className=className;
+ if(text!==undefined)el.textContent=text;return el;
+}
+function v41PointPopupDOM(mode, timestamp, lng, lat, utci, pet, wind, direction){
+ const root=v41Element('div','ucy-v41-popup');
+ root.append(v41Element('div','v41-title',mode),
+   v41Element('div','v41-time',localFull(timestamp)+' · Cyprus time'));
+ const main=v41Element('div','v41-primary');
+ main.append(v41Element('div','v41-caption','Feels-like (UTCI)'),
+   v41Element('div','v41-main-value',v41Format(utci,' °C',1)));
+ root.append(main);
+ const category=v91Category(Number.isFinite(utci)&&utci>-100&&utci<100?utci:NaN);
+ const categoryEl=v41Element('div','v41-category',category?category.label:'Thermal stress unavailable');
+ if(category){categoryEl.style.backgroundColor=category.color;categoryEl.style.color=category.ink}
+ root.append(categoryEl);
+ const grid=v41Element('div','v41-grid');
+ [
+  ['UTCI',v41Format(utci,' °C',1)],
+  ['PET',v41Format(pet,' °C',1)],
+  ['Wind speed',v41Format(wind,' m/s',2)],
+  ['Wind direction',v41Format(direction,'°',1)]
+ ].forEach(function(item){
+  const cell=v41Element('div','v41-cell');
+  cell.append(v41Element('small','',item[0]),v41Element('strong','',item[1]));grid.append(cell);
+ });
+ root.append(grid,v41Element('div','v41-coordinates',
+   'Lat '+lat.toFixed(6)+'°  ·  Lon '+lng.toFixed(6)+'°'));
+ return root;
+}
+let v41PointRequest=0;
+refreshPoint=async function(){
+ if(!selectedPoint||!pointManifest||!mapReady)return;
+ const seq=++v41PointRequest;
+ const lng=selectedPoint.lng,lat=selectedPoint.lat;
+ if(!pointInside(lng,lat)){
+  if(pointPopup){pointPopup.remove();pointPopup=null};return;
+ }
+ const now=v9Nowcast(),hour=cursor;
+ const stamp=now?v9Meta.observation_utc:v6?.timestamps?.[hour]?.time_utc;
+ if(!stamp)return;
+ if(pointPopup)pointPopup.remove();
+ const popup=new maplibregl.Popup({closeButton:true,closeOnClick:false,maxWidth:'340px',className:'v8-map-popup ucy-v41-map-popup'})
+  .setLngLat([lng,lat]).setDOMContent(v41Element('div','ucy-v41-popup','Loading point values…')).addTo(map);
+ pointPopup=popup;
+ try{
+  let values,directions=null;
+  if(now){
+   if(!v9Numeric||!v9Hwd)throw Error('Nowcast point grids not available');
+   values=v9Numeric;directions=v9Hwd;
+  }else{
+   values=await loadNumericHour(hour);
+   try{directions=await v85LoadDirection(hour)}catch(e){console.warn('No forecast wind-direction grid',e)}
+  }
+  if(seq!==v41PointRequest||pointPopup!==popup||v9Nowcast()!==now||(!now&&cursor!==hour))return;
+  const idx=pointCell(lng,lat);
+  const n=now?v9Meta.width*v9Meta.height:pointManifest.width*pointManifest.height;
+  const val=(a,i)=>a&&i>=0&&i<a.length&&Number.isFinite(a[i])?a[i]:NaN;
+  popup.setDOMContent(v41PointPopupDOM(now?'Nowcast':'Forecast',stamp,lng,lat,
+   val(values,idx),val(values,n+idx),val(values,2*n+idx),val(directions,idx)));
+ }catch(error){
+  if(seq===v41PointRequest&&pointPopup===popup)
+   popup.setDOMContent(v41Element('div','ucy-v41-popup','Point values unavailable: '+String(error.message||error)));
+ }
+};
 
 init();
 </script>

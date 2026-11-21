@@ -1,0 +1,52 @@
+/* UCY Heat v4.1: refinements on the existing v4 without changing model data. */
+#sidebar .sidebar-brand{padding-bottom:11px}
+#sidebar .sidebar-brand .eyebrow{font-size:10px!important;letter-spacing:.13em}
+#sidebar .sidebar-brand h1{font-size:34px!important;line-height:1.06!important;letter-spacing:-.025em!important;margin:8px 0 5px!important}
+#sidebar .sidebar-brand h1 em{color:#8fd3f5;font-style:normal}
+#sidebar .ucy-v41-tagline{font-size:11px;letter-spacing:.06em;color:#b3d0df;margin-top:6px}
+/* No numbered boxed sections: section headers and a subtle separator only. */
+#sidebar .ucy-v4-section{margin:13px 19px!important;padding:0!important;background:transparent!important;border:0!important;border-radius:0!important;overflow:visible!important;box-shadow:none!important}
+#sidebar .ucy-v4-section+.ucy-v4-section{border-top:1px solid rgba(155,197,219,.22)!important;padding-top:15px!important;margin-top:19px!important}
+#sidebar .ucy-v4-section-title{padding:2px 0 13px!important;font-size:13px!important;font-weight:740!important;color:#deeffc!important;letter-spacing:.01em!important}
+#sidebar .ucy-v4-section-body{padding:0!important}
+#sidebar .ucy-v4-section .metric-stack{gap:7px!important;margin:0 0 12px!important}
+#sidebar .ucy-v4-section .metric-button{min-height:49px!important;padding:10px 12px!important}
+#sidebar .ucy-v4-section .layers-head{margin-top:7px}
+#sidebar .ucy-v4-section .date-row{padding:9px 0!important}
+#sidebar .ucy-v4-section .v83-summary{gap:9px!important;margin-top:10px!important}
+#sidebar .ucy-v4-section .v83-summary-card{padding:12px!important}
+#sidebar .ucy-v4-section .weather-heading{display:none!important}
+#sidebar .ucy-v4-section .weather-grid{margin-top:4px!important}
+/* The popup is generated inside the MapLibre module; keep it legible over any raster. */
+.ucy-v41-popup{min-width:235px;max-width:310px;color:#edf8ff;font-family:system-ui,sans-serif}
+.ucy-v41-popup .v41-title{font-weight:800;font-size:16px;letter-spacing:.01em}
+.ucy-v41-popup .v41-time{font-size:11px;color:#bdd6ea;margin-top:3px;margin-bottom:11px}
+.ucy-v41-popup .v41-primary{background:rgba(93,158,202,.16);padding:11px 12px;border-radius:10px}
+.ucy-v41-popup .v41-caption{font-size:10px;color:#aacee7;font-weight:650}
+.ucy-v41-popup .v41-main-value{font-size:28px;font-weight:820;line-height:1.24;margin-top:3px;font-variant-numeric:tabular-nums}
+.ucy-v41-popup .v41-category{margin-top:8px;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:800;line-height:1.4}
+.ucy-v41-popup .v41-grid{margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.ucy-v41-popup .v41-cell small{font-size:10px;color:#aacbe0;display:block;margin-bottom:3px}
+.ucy-v41-popup .v41-cell strong{font-size:13px;font-weight:760;font-variant-numeric:tabular-nums}
+.ucy-v41-popup .v41-coordinates{margin-top:12px;padding-top:8px;border-top:1px solid rgba(188,215,241,.23);color:#90b5cb;font-size:10px}
+.ucy-v41-map-popup .maplibregl-popup-content{min-width:260px!important;max-width:min(330px,90vw);padding:14px!important}
+/* Give navigation and color legend independent vertical space on desktop. */
+@media(min-width:901px){
+  .top-controls{top:80px!important;right:17px!important;left:auto!important;max-width:calc(100vw - 390px)!important;display:flex!important;flex-wrap:nowrap!important;z-index:30!important}
+  .top-controls .top-brand{display:none!important}
+  #mapLegend{top:154px!important;right:17px!important;bottom:176px!important;width:202px!important;z-index:12!important}
+  #v83LegendToggle:not(.v83-closed){top:169px!important;right:219px!important;z-index:15!important}
+  #v83LegendToggle.v83-closed{top:169px!important;right:0!important}
+  .top-controls .ucy-v4-tools-toggle{order:-1;min-width:30px!important;min-height:33px!important;flex-shrink:0}
+}
+@media(min-width:901px) and (max-width:1150px){
+  .top-controls{max-width:calc(100vw - 355px)!important;gap:7px!important;padding:7px!important}
+  #mapLegend{width:174px!important}
+  #v83LegendToggle:not(.v83-closed){right:190px!important}
+}
+/* Leave mobile layout controlled by its existing Menu / Legend / Tools drawers. */
+@media(max-width:780px){
+  #sidebar .sidebar-brand h1{font-size:29px!important}
+  #sidebar .ucy-v4-section{margin-left:15px!important;margin-right:15px!important}
+  .ucy-v41-map-popup .maplibregl-popup-content{min-width:235px!important}
+}
