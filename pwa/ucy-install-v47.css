@@ -1,0 +1,39 @@
+/* UCY Heat - browser-offered PWA installation action.
+   Floats above mobile navigation; no sidebar/map layout changes. */
+#ucyheat-install-button[hidden] { display:none!important; }
+#ucyheat-install-button {
+  position:fixed!important;
+  z-index:48!important;
+  right:18px!important;
+  bottom:176px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  border:1px solid rgba(139,211,247,.60)!important;
+  border-radius:999px!important;
+  background:linear-gradient(115deg,#133b59,#205d83)!important;
+  box-shadow:0 8px 26px rgba(0,0,0,.34)!important;
+  padding:12px 17px!important;
+  color:#f3fbff!important;
+  font-family:inherit!important;
+  font-size:13px!important;
+  font-weight:750!important;
+  line-height:1.2!important;
+  cursor:pointer!important;
+  max-width:min(250px,calc(100vw - 28px))!important;
+}
+#ucyheat-install-button:hover,
+#ucyheat-install-button:focus-visible {
+  border-color:#c2ebff!important;
+  background:linear-gradient(115deg,#1b577c,#27749d)!important;
+}
+#ucyheat-install-button svg {flex-shrink:0;}
+@media(max-width:780px) {
+  #ucyheat-install-button {
+    right:14px!important;
+    bottom:83px!important;
+    padding:11px 15px!important;
+    font-size:12px!important;
+  }
+}

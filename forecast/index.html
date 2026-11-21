@@ -832,6 +832,18 @@ body.v9-nowcast #v83MeanCard{display:block!important}
 </style>
 
 <link rel="manifest" href="../pwa/manifest.webmanifest">
+<!-- UCY_HEAT_PWA_INSTALL_CAPTURE_V47: register before other deferred scripts -->
+<script>
+window.__ucyInstallPrompt = null;
+window.addEventListener('beforeinstallprompt', function(event) {
+  event.preventDefault();
+  window.__ucyInstallPrompt = event;
+  window.dispatchEvent(new Event('ucyheat:installable'));
+});
+</script>
+<link rel="stylesheet" href="../pwa/ucy-install-v47.css?v=4.7.0">
+<script defer src="../pwa/ucy-install-v47.js?v=4.7.0"></script>
+
 <link rel="apple-touch-icon" href="../pwa/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style"
