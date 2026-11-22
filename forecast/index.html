@@ -874,6 +874,239 @@ window.addEventListener('beforeinstallprompt', function(event) {
 <script defer src="../pwa/ucy-nowcast-mobile-ticker-v49.js?v=4.9.0"></script>
 <link rel="stylesheet" href="../pwa/ucy-nowcast-mobile-v410.css?v=4.10.0">
 <script defer src="../pwa/ucy-nowcast-mobile-v410.js?v=4.10.0"></script>
+
+<style id="ucy-thermal-compact-v101-fixed">
+
+/* UCY_THERMAL_COMPACT_V101_FIXED */
+
+#ucyCampusOutlook {
+  box-sizing:border-box!important;
+  height:var(--ucy-thermal-height,110px)!important;
+  min-height:0!important;
+  max-height:none!important;
+  padding:6px 9px!important;
+  gap:4px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-head {
+  flex:0 0 auto!important;
+  min-height:14px!important;
+  max-height:none!important;
+  margin:0!important;
+  line-height:1.1!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-items {
+  flex:1 1 0!important;
+  display:flex!important;
+  align-items:stretch!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  gap:6px!important;
+  padding:0 0 3px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x proximity;
+  scrollbar-width:thin;
+}
+
+#ucyCampusOutlook .ucy-outlook-item {
+  box-sizing:border-box!important;
+  flex:0 0 182px!important;
+  width:182px!important;
+  min-width:182px!important;
+  max-width:182px!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  padding:5px 7px!important;
+  margin:0!important;
+  gap:3px!important;
+
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+
+  background:rgba(11,30,52,.46)!important;
+  border:1px solid rgba(175,207,233,.23)!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+  color:#fff!important;
+  scroll-snap-align:start;
+}
+
+#ucyCampusOutlook .ucy-outlook-item.now {
+  border-color:rgba(180,222,250,.65)!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-time {
+  display:block!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+  height:auto!important;
+  margin:0!important;
+  padding:0!important;
+
+  font-size:10px!important;
+  font-weight:750!important;
+  line-height:1.1!important;
+  color:#cbdff0!important;
+  text-align:left!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  opacity:1!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-core {
+  display:flex!important;
+  flex-direction:row!important;
+  flex:1 1 0!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+
+  gap:7px!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  padding:0!important;
+  margin:0!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-human {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex:0 0 30px!important;
+  width:30px!important;
+  min-width:30px!important;
+  max-width:30px!important;
+  height:30px!important;
+  max-height:30px!important;
+  padding:0!important;
+  margin:0!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-human img {
+  display:block!important;
+  width:30px!important;
+  height:30px!important;
+  max-width:30px!important;
+  max-height:30px!important;
+  object-fit:contain!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-reading {
+  display:flex!important;
+  flex:1 1 0!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:3px!important;
+
+  min-width:0!important;
+  width:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  padding:0!important;
+  margin:0!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-stress {
+  display:block!important;
+  position:static!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+
+  color:#fff!important;
+  font-size:10.5px!important;
+  font-weight:800!important;
+  line-height:1.15!important;
+  text-align:left!important;
+
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-value {
+  display:block!important;
+  position:static!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+
+  color:#c7d9ea!important;
+  font-size:9.5px!important;
+  font-weight:600!important;
+  line-height:1.1!important;
+  text-align:left!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-measure,
+#ucyCampusOutlook .ucy-outlook-alert {
+  display:none!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-item[hidden] {
+  display:none!important;
+}
+
+@media(max-width:768px) {
+  #ucyCampusOutlook {
+    padding:5px 7px!important;
+  }
+
+  #ucyCampusOutlook .ucy-outlook-item {
+    flex-basis:176px!important;
+    width:176px!important;
+    min-width:176px!important;
+    max-width:176px!important;
+    padding:4px 6px!important;
+  }
+
+  #ucyCampusOutlook .ucy-outlook-stress {
+    font-size:10px!important;
+  }
+
+  #ucyCampusOutlook .ucy-outlook-human {
+    flex-basis:28px!important;
+    width:28px!important;
+    min-width:28px!important;
+    max-width:28px!important;
+    height:28px!important;
+  }
+
+  #ucyCampusOutlook .ucy-outlook-human img {
+    width:28px!important;
+    height:28px!important;
+  }
+}
+
+</style>
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
@@ -4315,6 +4548,110 @@ function boot(){
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
+</script>
+
+<script id="ucy-thermal-resize-v101-fixed">
+
+/* Adjust widget height relative to the announcement bar. */
+(function(){
+  const RATIO = 2.5;
+  let initialized = false;
+
+  function init(){
+    if(initialized) return true;
+
+    const widget = document.getElementById('ucyCampusOutlook');
+    const ticker = document.getElementById('tickerTrack');
+
+    if(!widget || !ticker) return false;
+
+    initialized = true;
+
+    let observed = null;
+    let resizeObserver = null;
+
+    function findAnnouncement(){
+      let element = ticker.parentElement;
+
+      for(let i=0; element && i<4; i++){
+        const rect = element.getBoundingClientRect();
+
+        if(rect.width >= 100 &&
+           rect.height >= 24 &&
+           rect.height <= 85){
+          return element;
+        }
+
+        element = element.parentElement;
+      }
+
+      return null;
+    }
+
+    function resize(){
+      const bar = findAnnouncement();
+
+      const barHeight = bar
+        ? bar.getBoundingClientRect().height
+        : 44;
+
+      // Target 2.5x announcement, with a minimum
+      // needed for legible content.
+      const height = Math.max(
+        105,
+        Math.min(165, barHeight * RATIO)
+      );
+
+      widget.style.setProperty(
+        '--ucy-thermal-height',
+        height.toFixed(1)+'px'
+      );
+
+      if(bar && bar !== observed &&
+         typeof ResizeObserver !== 'undefined'){
+        if(resizeObserver) resizeObserver.disconnect();
+
+        observed = bar;
+        resizeObserver = new ResizeObserver(resize);
+        resizeObserver.observe(bar);
+      }
+    }
+
+    resize();
+
+    window.addEventListener(
+      'resize',
+      resize,
+      {passive:true}
+    );
+
+    return true;
+  }
+
+  function start(){
+    if(init()) return;
+
+    const watcher = new MutationObserver(()=>{
+      if(init()) watcher.disconnect();
+    });
+
+    watcher.observe(document.documentElement,{
+      childList:true,
+      subtree:true
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener(
+      'DOMContentLoaded',
+      start,
+      {once:true}
+    );
+  }else{
+    start();
+  }
+})();
+
 </script>
 </body>
 </html>
