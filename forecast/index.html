@@ -4753,8 +4753,8 @@ function boot(){
  const track=document.createElement('div');track.id='ucyMedianTicker';
  for(let i=0;i<2;i++){const span=document.createElement('div');span.className='ucy-median-unit';span.textContent='Loading campus median UTCI…';track.appendChild(span);}
  viewport.insertBefore(track,original);
- const widget=document.createElement('section');widget.id='ucyCampusOutlook';widget.setAttribute('aria-label','Campus average UTCI outlook');
- const head=document.createElement('div');head.className='ucy-outlook-head';head.innerHTML='<strong>CAMPUS THERMAL STRESS</strong><span>AVERAGE UTCI · HOURLY</span>';
+ const widget=document.createElement('section');widget.id='ucyCampusOutlook';widget.setAttribute('aria-label','Campus median UTCI outlook');
+ const head=document.createElement('div');head.className='ucy-outlook-head';head.innerHTML='<strong>CAMPUS THERMAL STRESS</strong><span>MEDIAN UTCI · HOURLY</span>';
  const items=document.createElement('div');items.className='ucy-outlook-items';
  for(let i=0;i<13;i++){const tile=document.createElement('div');tile.className='ucy-outlook-item'+(i===0?' now':'');tile.innerHTML='<div class="ucy-outlook-time">—</div><div class="ucy-outlook-core"><span class="ucy-outlook-human"></span><span class="ucy-outlook-reading"><strong class="ucy-outlook-value">—</strong><span class="ucy-outlook-measure">Avg UTCI</span></span></div><div class="ucy-outlook-stress">Loading…</div>';items.appendChild(tile);}
  widget.append(head,items);
