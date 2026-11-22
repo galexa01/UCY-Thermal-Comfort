@@ -4653,5 +4653,99 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 </script>
+
+<script id="ucy-mobile-buttons-v102">
+
+/* UCY_MOBILE_BUTTONS_ABOVE_THERMAL_V102 */
+(function(){
+  const GAP = 8;
+  const MOBILE_QUERY = '(max-width:768px)';
+
+  let initialized = false;
+
+  function alignButtons(){
+    const buttons = document.getElementById('ucyMobileButtons');
+    const widget = document.getElementById('ucyCampusOutlook');
+
+    if(!buttons) return;
+
+    const mobile = window.matchMedia(MOBILE_QUERY).matches;
+    const nowcast = document.body.classList.contains('v9-nowcast');
+
+    // Desktop and Forecast keep their existing layout.
+    if(
+      !mobile ||
+      !nowcast ||
+      !widget ||
+      getComputedStyle(widget).display === 'none'
+    ){
+      buttons.style.removeProperty('bottom');
+      return;
+    }
+
+    const rect = widget.getBoundingClientRect();
+
+    if(
+      rect.width <= 0 ||
+      rect.height <= 0
+    ){
+      return;
+    }
+
+    // Place button bottom GAP pixels above the widget.
+    const bottom = Math.max(
+      0,
+      Math.ceil(window.innerHeight - rect.top + GAP)
+    );
+
+    const value = bottom + 'px';
+
+    if(buttons.style.getPropertyValue('bottom') !== value){
+      buttons.style.setProperty(
+        'bottom',
+        value,
+        'important'
+      );
+    }
+  }
+
+  function initialize(){
+    if(initialized) return;
+
+    initialized = true;
+
+    alignButtons();
+
+    window.addEventListener(
+      'resize',
+      alignButtons,
+      {passive:true}
+    );
+
+    if(window.visualViewport){
+      window.visualViewport.addEventListener(
+        'resize',
+        alignButtons,
+        {passive:true}
+      );
+    }
+
+    // Recalculate after changes in PWA layout,
+    // Nowcast/Forecast mode or widget height.
+    setInterval(alignButtons, 700);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener(
+      'DOMContentLoaded',
+      initialize,
+      {once:true}
+    );
+  }else{
+    initialize();
+  }
+})();
+
+</script>
 </body>
 </html>
