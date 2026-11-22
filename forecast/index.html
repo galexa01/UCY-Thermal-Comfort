@@ -4649,31 +4649,21 @@ async function refresh(force){
 
 // Match the selected hour by timestamp rather than
 // requiring identical ISO date-string formatting.
-const requestedMs=Date.parse(time||'');
-let i=f.timestamps.findIndex(x=>x.time_utc===time);
+// Selected Forecast hour must match the visible map cursor.
+const i=(
+  typeof cursor!=='undefined' &&
+  Number.isInteger(cursor) &&
+  cursor>=0 &&
+  cursor<f.timestamps.length
+) ? cursor : -1;
 
-if(i<0 && Number.isFinite(requestedMs)){
-  i=f.timestamps.findIndex(x=>
-    Date.parse(x.time_utc)===requestedMs
-  );
+if(i<0){
+  throw Error('Selected forecast cursor unavailable');
 }
 
-// Secondary lookup using the actual forecast timeline.
-if(i<0 && typeof cursor!=='undefined' &&
-   typeof v6!=='undefined' && v6 &&
-   v6.timestamps && v6.timestamps[cursor]){
+// The numeric manifest must correspond to the same forecast hour.
+// forecastStats(i) verifies this before reading the grid.
 
-  const timelineTime=v6.timestamps[cursor].time_utc;
-  const timelineMs=Date.parse(timelineTime);
-
-  if(Number.isFinite(timelineMs)){
-    i=f.timestamps.findIndex(x=>
-      Date.parse(x.time_utc)===timelineMs
-    );
-  }
-}
-
-   if(i<0)throw Error('Selected forecast hour not found');
    const s=await forecastStats(i);
    if(token!==sequence||isNowcast())return;
    stylePeak(s);renderTicker(s,f.timestamps[i].time_utc,mode);
