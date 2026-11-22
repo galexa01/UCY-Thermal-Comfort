@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 108 108" role="img"
+aria-label="Extreme cold stress">
+<defs>
+<linearGradient id="body" x1=".1" x2=".88" y1=".05" y2="1">
+<stop stop-color="#A6DCFF"/>
+<stop offset=".38" stop-color="#1744BC"/>
+<stop offset="1" stop-color="#1744BC" stop-opacity=".7"/>
+</linearGradient>
+<radialGradient id="glow">
+<stop stop-color="#A6DCFF" stop-opacity=".33"/>
+<stop offset="1" stop-color="#A6DCFF" stop-opacity="0"/>
+</radialGradient>
+<filter id="shadow" x="-30%" y="-30%"
+width="160%" height="170%">
+<feDropShadow dx="0" dy="2" stdDeviation="2"
+flood-color="#000" flood-opacity=".35"/>
+</filter>
+</defs>
+<circle cx="54" cy="52" r="51" fill="url(#glow)"/>
+<g transform="translate(77 20)" stroke="#E8F8FF" stroke-width="2.4" stroke-linecap="round"><path d="M-7 0H7M0-7V7M-5-5L5 5M-5 5L5-5"/></g><g transform="translate(15 20)" stroke="#E8F8FF" stroke-width="2.4" stroke-linecap="round"><path d="M-7 0H7M0-7V7M-5-5L5 5M-5 5L5-5"/></g><g transform="translate(77 51)" stroke="#E8F8FF" stroke-width="2.4" stroke-linecap="round"><path d="M-7 0H7M0-7V7M-5-5L5 5M-5 5L5-5"/></g><path d="M13 59l-5 6 5 6-5 6M91 54l5 6-5 6 5 6" stroke="#92E2FF" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+<g filter="url(#shadow)">
+<path d="M27 96V77c0-11 7-17 19-18h16
+c12 1 19 7 19 18v19"
+fill="url(#body)" stroke="#1744BC" stroke-width="2"
+stroke-linejoin="round"/>
+<path d="M37 76q17 12 34 0" fill="none"
+stroke="white" stroke-opacity=".15" stroke-width="3"/>
+<circle cx="54" cy="36" r="21"
+fill="url(#body)" stroke="#1744BC" stroke-width="2"/>
+<path d="M43 21q10-8 21 0" fill="none"
+stroke="white" stroke-opacity=".32"
+stroke-width="4" stroke-linecap="round"/>
+<g fill="none" stroke="#153C55"
+stroke-width="2.9" stroke-linecap="round">
+<path d="M46 38h1M61 38h1"/>
+<path d="M39 34l6-2M61 34l-6-2"/><path d="M43 47q7-7 14 0"/>
+</g>
+</g>
+<circle cx="82" cy="77" r="15" fill="#1744BC" stroke="white" stroke-width="2.6"/><path d="M82 68v11" stroke="white" stroke-width="4" stroke-linecap="round"/><circle cx="82" cy="85" r="2.3" fill="white"/>
+</svg>
