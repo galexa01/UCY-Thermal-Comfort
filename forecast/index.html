@@ -3683,6 +3683,170 @@ body:not(.v9-nowcast) #ucyCampusOutlook{display:none!important}
   }
 }
 
+
+/* UCY_THERMAL_LAYOUT_V100_FIXED */
+#ucyCampusOutlook {
+  height:auto!important;
+  min-height:125px!important;
+  max-height:none!important;
+  padding:8px 10px!important;
+  gap:5px!important;
+  box-sizing:border-box!important;
+}
+#ucyCampusOutlook .ucy-outlook-items {
+  height:auto!important;
+  min-height:87px!important;
+  max-height:none!important;
+  display:flex!important;
+  align-items:stretch!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  gap:7px!important;
+  padding-bottom:5px!important;
+  scrollbar-width:thin;
+}
+#ucyCampusOutlook .ucy-outlook-item {
+  flex:0 0 207px!important;
+  width:207px!important;
+  min-width:207px!important;
+  max-width:207px!important;
+  height:87px!important;
+  min-height:87px!important;
+  max-height:none!important;
+  padding:8px 9px!important;
+  gap:5px!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  overflow:hidden!important;
+  background:rgba(11,30,52,.46)!important;
+  border:1px solid rgba(175,207,233,.23)!important;
+  border-radius:10px!important;
+  box-shadow:none!important;
+  color:#fff!important;
+}
+#ucyCampusOutlook .ucy-outlook-item.now {
+  border-color:rgba(180,222,250,.65)!important;
+}
+#ucyCampusOutlook .ucy-outlook-time {
+  display:block!important;
+  font-size:10.5px!important;
+  line-height:1.15!important;
+  font-weight:750!important;
+  text-align:left!important;
+  color:#d2e3f5!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  opacity:1!important;
+  height:auto!important;
+  min-height:13px!important;
+  max-height:none!important;
+  flex:0 0 auto!important;
+}
+#ucyCampusOutlook .ucy-outlook-core {
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:8px!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  flex:1 1 auto!important;
+}
+#ucyCampusOutlook .ucy-outlook-human {
+  display:flex!important;
+  width:38px!important;
+  height:38px!important;
+  min-width:38px!important;
+  max-width:38px!important;
+  flex:0 0 38px!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+#ucyCampusOutlook .ucy-outlook-human img {
+  display:block!important;
+  width:38px!important;
+  height:38px!important;
+  max-width:38px!important;
+  max-height:38px!important;
+  object-fit:contain!important;
+}
+#ucyCampusOutlook .ucy-outlook-reading {
+  display:flex!important;
+  flex-direction:column!important;
+  flex:1 1 0!important;
+  min-width:0!important;
+  max-width:none!important;
+  width:auto!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:4px!important;
+}
+#ucyCampusOutlook .ucy-outlook-stress {
+  display:block!important;
+  position:static!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  font-size:11.7px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+  color:#fff!important;
+  text-align:left!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-overflow:clip!important;
+}
+#ucyCampusOutlook .ucy-outlook-value {
+  display:block!important;
+  position:static!important;
+  width:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  font-size:11px!important;
+  font-weight:600!important;
+  line-height:1.15!important;
+  color:#c5d9ed!important;
+  text-align:left!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+}
+#ucyCampusOutlook .ucy-outlook-measure,
+#ucyCampusOutlook .ucy-outlook-alert {
+  display:none!important;
+}
+#ucyCampusOutlook .ucy-outlook-item[hidden] {
+  display:none!important;
+}
+@media(max-width:768px) {
+  #ucyCampusOutlook .ucy-outlook-item {
+    flex-basis:200px!important;
+    width:200px!important;
+    min-width:200px!important;
+    max-width:200px!important;
+  }
+  #ucyCampusOutlook .ucy-outlook-stress {
+    font-size:11.5px!important;
+  }
+  #ucyCampusOutlook .ucy-outlook-human {
+    width:36px!important;
+    height:36px!important;
+    min-width:36px!important;
+    flex-basis:36px!important;
+  }
+  #ucyCampusOutlook .ucy-outlook-human img {
+    width:36px!important;
+    height:36px!important;
+  }
+}
+
 </style>
 <script>
 (function(){
@@ -3964,6 +4128,17 @@ function outlookSlot(slot,label,s){
 
 let ucyOutlookSequence=0;
 
+
+function ucyCampusCardTime(timestamp) {
+ return new Intl.DateTimeFormat('en-GB', {
+   timeZone:'Europe/Nicosia',
+   weekday:'short',
+   hour:'2-digit',
+   minute:'2-digit',
+   hour12:false
+ }).format(new Date(timestamp));
+}
+
 async function renderOutlook(now){
  if(!isNowcast())return;
 
@@ -3988,7 +4163,7 @@ async function renderOutlook(now){
 
  outlookSlot(
    slots[0],
-   'NOW · '+fmtNow.format(new Date(now.time)),
+   'NOW · '+ucyCampusCardTime(now.time),
    now.s
  );
 
@@ -4028,7 +4203,7 @@ async function renderOutlook(now){
    if(rec){
      outlookSlot(
        slots[k],
-       fmtHour.format(new Date(rec.t)),
+       ucyCampusCardTime(rec.t),
        null
      );
    }
@@ -4051,7 +4226,7 @@ async function renderOutlook(now){
 
        outlookSlot(
          tile,
-         fmtHour.format(new Date(rec.t)),
+         ucyCampusCardTime(rec.t),
          st
        );
      }catch(e){
@@ -4063,7 +4238,7 @@ async function renderOutlook(now){
 
        outlookSlot(
          tile,
-         fmtHour.format(new Date(rec.t)),
+         ucyCampusCardTime(rec.t),
          null
        );
      }
