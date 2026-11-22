@@ -4747,5 +4747,248 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 </script>
+
+<style id="ucy-tight-thermal-v104">
+
+/* UCY_TIGHT_THERMAL_WIDGET_V104 */
+
+/* Reduce the height of the entire thermal widget. */
+#ucyCampusOutlook {
+  height:102px!important;
+  min-height:102px!important;
+  max-height:102px!important;
+  box-sizing:border-box!important;
+  padding:5px 8px!important;
+  gap:3px!important;
+  overflow:hidden!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+
+/* Preserve the existing titles. */
+#ucyCampusOutlook .ucy-outlook-head {
+  flex:0 0 14px!important;
+  min-height:14px!important;
+  max-height:14px!important;
+  height:14px!important;
+  line-height:1!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+/* Make the card row fit the remaining space. */
+#ucyCampusOutlook .ucy-outlook-items {
+  display:flex!important;
+  flex:1 1 0!important;
+  align-items:stretch!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  gap:5px!important;
+  padding:0 0 3px!important;
+  margin:0!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scrollbar-width:thin;
+  scroll-snap-type:x proximity;
+}
+
+/* Narrower and shorter prediction cards. */
+#ucyCampusOutlook .ucy-outlook-item {
+  box-sizing:border-box!important;
+  flex:0 0 160px!important;
+  width:160px!important;
+  min-width:160px!important;
+  max-width:160px!important;
+
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+
+  padding:4px 5px!important;
+  gap:2px!important;
+  margin:0!important;
+
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+
+  overflow:hidden!important;
+  border-radius:8px!important;
+  background:rgba(11,30,52,.46)!important;
+  border:1px solid rgba(175,207,233,.23)!important;
+  box-shadow:none!important;
+  color:#fff!important;
+}
+
+/* Keep NOW visibly distinguished. */
+#ucyCampusOutlook .ucy-outlook-item.now {
+  border-color:rgba(180,222,250,.65)!important;
+}
+
+/* Timestamp: small and compact. */
+#ucyCampusOutlook .ucy-outlook-time {
+  display:block!important;
+  flex:0 0 auto!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  width:100%!important;
+  margin:0!important;
+  padding:0!important;
+
+  font-size:9.5px!important;
+  font-weight:750!important;
+  line-height:1.1!important;
+  text-align:left!important;
+  white-space:nowrap!important;
+  color:#cedff0!important;
+  opacity:1!important;
+  overflow:hidden!important;
+}
+
+/* Icon left and information right. */
+#ucyCampusOutlook .ucy-outlook-core {
+  display:flex!important;
+  flex-direction:row!important;
+  flex:1 1 0!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  gap:5px!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+/* Small but recognizable thermal icon. */
+#ucyCampusOutlook .ucy-outlook-human {
+  display:flex!important;
+  flex:0 0 24px!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:24px!important;
+  min-width:24px!important;
+  max-width:24px!important;
+  height:24px!important;
+  max-height:24px!important;
+  padding:0!important;
+  margin:0!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-human img {
+  display:block!important;
+  width:24px!important;
+  height:24px!important;
+  max-width:24px!important;
+  max-height:24px!important;
+  object-fit:contain!important;
+}
+
+/* Remove unnecessary gaps around the text. */
+#ucyCampusOutlook .ucy-outlook-reading {
+  display:flex!important;
+  flex:1 1 0!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  gap:2px!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+/* Thermal stress category remains the primary text. */
+#ucyCampusOutlook .ucy-outlook-stress {
+  display:block!important;
+  position:static!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+
+  color:#fff!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  line-height:1.12!important;
+  text-align:left!important;
+  letter-spacing:0!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+}
+
+/* Smaller secondary UTCI reading. */
+#ucyCampusOutlook .ucy-outlook-value {
+  display:block!important;
+  position:static!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:0!important;
+
+  color:#c8daea!important;
+  font-size:9.5px!important;
+  font-weight:600!important;
+  line-height:1.1!important;
+  text-align:left!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+}
+
+/* Hide redundant content. */
+#ucyCampusOutlook .ucy-outlook-measure,
+#ucyCampusOutlook .ucy-outlook-alert {
+  display:none!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-item[hidden] {
+  display:none!important;
+}
+
+/* Mobile / compact PWA window */
+@media(max-width:768px) {
+  #ucyCampusOutlook {
+    height:100px!important;
+    min-height:100px!important;
+    max-height:100px!important;
+    padding:5px 7px!important;
+  }
+
+  #ucyCampusOutlook .ucy-outlook-item {
+    flex:0 0 154px!important;
+    width:154px!important;
+    min-width:154px!important;
+    max-width:154px!important;
+    padding:4px 5px!important;
+  }
+
+  #ucyCampusOutlook .ucy-outlook-core {
+    gap:5px!important;
+  }
+
+  #ucyCampusOutlook .ucy-outlook-stress {
+    font-size:9.8px!important;
+  }
+}
+
+</style>
 </body>
 </html>
