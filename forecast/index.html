@@ -3563,6 +3563,126 @@ body:not(.v9-nowcast) #ucyCampusOutlook{display:none!important}
   }
 }
 
+
+/* UCY_THERMAL_NEUTRAL_LEFT_ASSETS_V99 */
+#ucyCampusOutlook .ucy-outlook-items{
+  display:flex!important;
+  gap:5px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x proximity;
+  padding-bottom:3px!important;
+  align-items:stretch!important
+}
+#ucyCampusOutlook .ucy-outlook-item{
+  flex:0 0 230px!important;
+  min-width:230px!important;
+  max-width:230px!important;
+  background:rgba(11,30,52,.46)!important;
+  border:1px solid rgba(173,205,233,.19)!important;
+  border-radius:11px!important;
+  color:#f5f9ff!important;
+  box-shadow:none!important;
+  padding:8px 10px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:5px!important;
+  scroll-snap-align:start;
+  overflow:visible!important;
+  justify-content:center!important
+}
+#ucyCampusOutlook .ucy-outlook-item.now{
+  border-color:rgba(182,217,248,.58)!important
+}
+#ucyCampusOutlook .ucy-outlook-time{
+  font-size:11px!important;
+  color:#d3e2f3!important;
+  font-weight:750!important;
+  text-align:left!important;
+  line-height:1.15!important
+}
+#ucyCampusOutlook .ucy-outlook-core{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:10px!important;
+  width:100%!important;
+  min-height:71px!important
+}
+#ucyCampusOutlook .ucy-outlook-human{
+  flex:0 0 67px!important;
+  width:67px!important;
+  height:67px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important
+}
+#ucyCampusOutlook .ucy-outlook-human img{
+  display:block;
+  width:67px;
+  height:67px;
+  object-fit:contain
+}
+#ucyCampusOutlook .ucy-outlook-reading{
+  display:flex!important;
+  flex-direction:column!important;
+  min-width:0!important;
+  flex:1!important;
+  align-items:flex-start!important;
+  gap:5px!important;
+  justify-content:center!important
+}
+#ucyCampusOutlook .ucy-outlook-stress{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  min-height:0!important;
+  overflow:visible!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  text-align:left!important;
+  line-height:1.25!important;
+  font-size:11.5px!important;
+  font-weight:650!important;
+  color:#f1f6fc!important
+}
+#ucyCampusOutlook .ucy-outlook-value{
+  display:block!important;
+  white-space:nowrap!important;
+  font-size:16px!important;
+  font-weight:800!important;
+  line-height:1.1!important;
+  color:#fff!important
+}
+#ucyCampusOutlook .ucy-outlook-measure{
+  display:none!important
+}
+#ucyCampusOutlook .ucy-outlook-alert{
+  display:none!important
+}
+@media(max-width:768px){
+  #ucyCampusOutlook .ucy-outlook-item{
+    flex:0 0 215px!important;
+    min-width:215px!important;
+    max-width:215px!important;
+    padding:7px 8px!important
+  }
+  #ucyCampusOutlook .ucy-outlook-human,
+  #ucyCampusOutlook .ucy-outlook-human img{
+    width:58px!important;
+    height:58px!important;
+    flex-basis:58px!important
+  }
+  #ucyCampusOutlook .ucy-outlook-core{
+    gap:8px!important
+  }
+  #ucyCampusOutlook .ucy-outlook-stress{
+    font-size:11px!important
+  }
+}
+
 </style>
 <script>
 (function(){
@@ -3797,19 +3917,27 @@ function ucyPersonSVG(key){
    brows+mouth+a+'</svg>';
 }
 
+
+// Separate, locally stored thermal-stress SVG assets.
 function outlookSlot(slot,label,s){
  const stamp=slot.querySelector('.ucy-outlook-time');
  const val=slot.querySelector('.ucy-outlook-value');
  const human=slot.querySelector('.ucy-outlook-human');
  const stress=slot.querySelector('.ucy-outlook-stress');
+ const reading=slot.querySelector('.ucy-outlook-reading');
+
+ if(reading&&stress.parentElement!==reading){
+   reading.prepend(stress);
+ }
 
  stamp.textContent=label;
 
+ slot.style.removeProperty('background');
+ slot.style.removeProperty('border-color');
+ slot.style.removeProperty('color');
+
  if(!s||!Number.isFinite(s.mean)){
-   slot.style.background='#17334b';
-   slot.style.borderColor='#53718c';
-   slot.style.color='#e4edf4';
-   val.textContent='—';
+   val.textContent='UTCI —';
    human.replaceChildren();
    stress.textContent='Data unavailable';
    slot.title=label+' — UTCI unavailable';
@@ -3817,23 +3945,21 @@ function outlookSlot(slot,label,s){
  }
 
  const cat=category(s.mean);
+ const icon=document.createElement('img');
 
- slot.style.background=cat.bg;
- slot.style.borderColor=cat.bd;
- slot.style.color=cat.fg;
+ icon.src='assets/thermal-stress/'+cat.kind+'.svg';
+ icon.alt=cat.l;
+ icon.width=67;
+ icon.height=67;
+ icon.decoding='async';
 
- human.innerHTML=ucyPersonSVG(cat.kind)+
-   (cat.kind==='ec'||cat.kind==='eh'
-    ?'<span class="ucy-outlook-alert" style="background:'+cat.bd+'">!</span>'
-    :'');
-
- val.textContent=s.mean.toFixed(1)+'°C';
+ human.replaceChildren(icon);
  stress.textContent=cat.l;
+ val.textContent='UTCI '+s.mean.toFixed(1)+'°C';
 
  slot.title=label+
    ' — Campus-average UTCI '+
-   s.mean.toFixed(1)+
-   ' °C — '+cat.l;
+   s.mean.toFixed(1)+' °C — '+cat.l;
 }
 
 let ucyOutlookSequence=0;
