@@ -1185,6 +1185,75 @@ window.addEventListener('beforeinstallprompt', function(event) {
 }
 
 </style>
+
+<style id="ucy-legend-tight-v106">
+
+/* UCY_LEGEND_TIGHT_COLUMNS_V106 */
+
+/* Continuous UTCI, PET and Wind legends */
+#mapLegend:has(#legendContent:not(.stress-mode)){
+  width:132px!important;
+  box-sizing:border-box!important;
+  padding-left:9px!important;
+  padding-right:9px!important;
+}
+
+#legendContent:not(.stress-mode){
+  display:flex!important;
+  justify-content:flex-start!important;
+  align-items:stretch!important;
+  column-gap:3px!important;
+}
+
+#legendContent:not(.stress-mode) .gradient-scale{
+  flex:0 0 25px!important;
+  width:25px!important;
+  margin:0!important;
+}
+
+#legendContent:not(.stress-mode) .gradient-ends{
+  flex:0 0 43px!important;
+  width:43px!important;
+  min-width:0!important;
+  max-width:43px!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+#legendContent:not(.stress-mode) .gradient-ends .axis-tick{
+  left:1px!important;
+  margin:0!important;
+  padding:0!important;
+}
+
+/* Categorical Thermal Stress legend */
+#legendContent.stress-mode .legend-row{
+  column-gap:3px!important;
+}
+
+#legendContent.stress-mode .legend-row .swatch{
+  margin:0!important;
+}
+
+/* Compact mobile / PWA layout */
+@media(max-width:780px){
+  #mapLegend:has(#legendContent:not(.stress-mode)){
+    width:112px!important;
+    padding-left:7px!important;
+    padding-right:7px!important;
+  }
+  #legendContent:not(.stress-mode) .gradient-scale{
+    width:23px!important;
+    flex-basis:23px!important;
+  }
+  #legendContent:not(.stress-mode) .gradient-ends{
+    width:37px!important;
+    max-width:37px!important;
+    flex-basis:37px!important;
+  }
+}
+
+</style>
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
