@@ -3425,6 +3425,144 @@ body:not(.v9-nowcast) #ucyCampusOutlook{display:none!important}
  #ucyMedianTicker .ucy-median-unit{font-size:11px;padding-right:54px}
 }
 @media(prefers-reduced-motion:reduce){#ucyMedianTicker{animation:none!important}}
+
+/* UCY_CAMPUS_THERMAL_ICONS_V98 */
+#ucyCampusOutlook{
+  gap:4px!important;
+  padding:8px 10px!important
+}
+#ucyCampusOutlook .ucy-outlook-head{
+  font-size:12px!important;
+  letter-spacing:.015em!important;
+  min-height:15px
+}
+#ucyCampusOutlook .ucy-outlook-head span{
+  font-size:10px!important;
+  letter-spacing:0
+}
+#ucyCampusOutlook .ucy-outlook-items{
+  display:flex!important;
+  gap:7px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scroll-snap-type:x proximity;
+  overscroll-behavior-x:contain;
+  align-items:stretch!important;
+  padding-bottom:3px!important;
+  min-height:0!important
+}
+#ucyCampusOutlook .ucy-outlook-item{
+  position:relative;
+  box-sizing:border-box;
+  flex:0 0 128px!important;
+  min-width:128px!important;
+  max-width:128px!important;
+  border:1px solid;
+  border-radius:10px!important;
+  padding:3px 5px!important;
+  gap:1px!important;
+  justify-content:center!important;
+  scroll-snap-align:start;
+  overflow:hidden;
+  color:#1b4560
+}
+#ucyCampusOutlook .ucy-outlook-time{
+  font-size:10px!important;
+  line-height:1.08!important;
+  font-weight:800!important;
+  opacity:1!important
+}
+#ucyCampusOutlook .ucy-outlook-core{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  min-height:37px;
+  width:100%
+}
+#ucyCampusOutlook .ucy-outlook-human{
+  width:39px;
+  height:39px;
+  flex:none;
+  display:grid;
+  place-items:center;
+  position:relative
+}
+#ucyCampusOutlook .ucy-outlook-human svg{
+  display:block;
+  width:39px;
+  height:39px;
+  overflow:visible
+}
+#ucyCampusOutlook .ucy-outlook-alert{
+  position:absolute;
+  top:0;
+  right:-4px;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:11px;
+  line-height:1;
+  font-weight:950;
+  color:white;
+  background:#e60024;
+  border:1px solid white
+}
+#ucyCampusOutlook .ucy-outlook-reading{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:2px;
+  min-width:0
+}
+#ucyCampusOutlook .ucy-outlook-value{
+  font-size:16px!important;
+  line-height:1!important;
+  font-weight:850!important;
+  white-space:nowrap
+}
+#ucyCampusOutlook .ucy-outlook-measure{
+  font-size:9px;
+  line-height:1;
+  opacity:.87;
+  text-transform:uppercase;
+  white-space:nowrap;
+  font-weight:750
+}
+#ucyCampusOutlook .ucy-outlook-stress{
+  font-size:10px!important;
+  line-height:1.1!important;
+  font-weight:850!important;
+  white-space:normal!important;
+  text-align:center;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  overflow-wrap:normal;
+  min-height:21px;
+  max-width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+#ucyCampusOutlook .ucy-outlook-item[hidden]{
+  display:none!important
+}
+@media(max-width:768px){
+  #ucyCampusOutlook{
+    padding:7px 8px!important
+  }
+  #ucyCampusOutlook .ucy-outlook-item{
+    flex:0 0 118px!important;
+    min-width:118px!important;
+    max-width:118px!important
+  }
+  #ucyCampusOutlook .ucy-outlook-head span{
+    font-size:9px!important
+  }
+}
+
 </style>
 <script>
 (function(){
@@ -3439,16 +3577,16 @@ const fmtDate=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',weekday
 const fmtHour=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false});
 const good=n=>Number.isFinite(n)&&n>-100&&n<100;
 const categories=[
- {t:-40,l:'Extreme cold stress',c:'#3658b9',i:'❄️'},
- {t:-27,l:'Very strong cold stress',c:'#4773cb',i:'❄️'},
- {t:-13,l:'Strong cold stress',c:'#569fe1',i:'❄️'},
- {t:0,l:'Moderate cold stress',c:'#6fb3e5',i:'❄️'},
- {t:9,l:'Slight cold stress',c:'#92cceb',i:'❄️'},
- {t:26,l:'No thermal stress',c:'#65cba5',i:'🌤️'},
- {t:32,l:'Moderate heat stress',c:'#f1cf50',i:'☀️'},
- {t:38,l:'Strong heat stress',c:'#ef9949',i:'☀️'},
- {t:46,l:'Very strong heat stress',c:'#e45a58',i:'🔥'},
- {t:Infinity,l:'Extreme heat stress',c:'#c04c91',i:'🔥'}
+ {t:-40,l:'Extreme cold stress',c:'#3658b9',fg:'#163B9B',bg:'#CFDDFB',bd:'#2D51BE',kind:'ec'},
+ {t:-27,l:'Very strong cold stress',c:'#4773cb',fg:'#2453B1',bg:'#D9E7FF',bd:'#3670DD',kind:'vc'},
+ {t:-13,l:'Strong cold stress',c:'#569fe1',fg:'#17699F',bg:'#D6EDFA',bd:'#2583C8',kind:'sc'},
+ {t:0,l:'Moderate cold stress',c:'#6fb3e5',fg:'#257EAA',bg:'#E0F4FC',bd:'#55AED8',kind:'mc'},
+ {t:9,l:'Slight cold stress',c:'#92cceb',fg:'#3080A3',bg:'#E8F5FD',bd:'#8CCCE7',kind:'lc'},
+ {t:26,l:'No thermal stress',c:'#65cba5',fg:'#147C47',bg:'#E0F3E6',bd:'#4DBB81',kind:'neutral'},
+ {t:32,l:'Moderate heat stress',c:'#f1cf50',fg:'#956800',bg:'#FFF1BE',bd:'#D8B334',kind:'mh'},
+ {t:38,l:'Strong heat stress',c:'#ef9949',fg:'#B75617',bg:'#FDE4CC',bd:'#ED8430',kind:'sh'},
+ {t:46,l:'Very strong heat stress',c:'#e45a58',fg:'#B72C2F',bg:'#FFDCD7',bd:'#E35143',kind:'vh'},
+ {t:Infinity,l:'Extreme heat stress',c:'#F00626',fg:'#D80022',bg:'#FFD4DB',bd:'#F00626',kind:'eh'}
 ];
 function category(u){if(!good(u))return {l:'Data unavailable',c:'#a7b9cc',i:'·'};for(const x of categories){if(u<x.t)return x;}return categories[categories.length-1];}
 function pointInPolygon(x,y){let inside=false;for(let i=0,j=POLY.length-1;i<POLY.length;j=i++){
@@ -3572,32 +3710,248 @@ function renderUnavailable(mode){
   if(item.dataset.value==='pending')continue;item.dataset.value='pending';item.textContent='Campus median UTCI temporarily unavailable';
  }
 }
-function outlookSlot(slot,label,s){
- slot.querySelector('.ucy-outlook-time').textContent=label;
- const val=slot.querySelector('.ucy-outlook-value'),icon=slot.querySelector('.ucy-outlook-icon'),stress=slot.querySelector('.ucy-outlook-stress');
- if(!s){val.textContent='—';icon.textContent='·';stress.textContent='No forecast';stress.style.color='#a7b9cc';return;}
- const cat=category(s.mean);
- val.textContent=s.mean.toFixed(1)+'°C';icon.textContent=cat.i;stress.textContent=cat.l;stress.style.color=cat.c;
- slot.title=label+' — Campus-average UTCI '+s.mean.toFixed(1)+' °C — '+cat.l;
+
+// Ten distinct human pictograms for the UTCI stress classes.
+function ucyPersonSVG(key){
+ const cold=['ec','vc','sc','mc','lc'].includes(key);
+ const hot=['mh','sh','vh','eh'].includes(key);
+ const extreme=key==='ec'||key==='eh';
+ const severeCold=['ec','vc','sc'].includes(key);
+ const severeHeat=['sh','vh','eh'].includes(key);
+ let a='';
+
+ const mouth=key==='neutral'
+   ?'<path d="M43 40 Q48 46 53 40"/>'
+   :(severeCold||severeHeat)
+   ?'<path d="M43 45 Q48 38 53 45"/>'
+   :hot
+   ?'<path d="M44 44 Q48 40 52 44"/>'
+   :'<path d="M44 42 L52 42"/>';
+
+ const brows=severeHeat
+   ?'<path d="M39 30l6 3 M57 30l-6 3"/>'
+   :severeCold
+   ?'<path d="M39 32l6-2 M57 32l-6-2"/>'
+   :'';
+
+ if(cold){
+   a+='<path d="M28 62 L66 84 M68 62 L30 84" stroke-width="7" stroke-linecap="round"/>';
+
+   if(key!=='lc'){
+     a+='<path d="M35 54Q49 63 61 54" stroke-width="4"/>';
+   }
+
+   a+='<g stroke-width="2.7">'+
+      '<path d="M16 35v14 M9 42h14 M11 37l10 10 M21 37L11 47"/>'+
+      (severeCold
+        ?'<path d="M81 31v14 M74 38h14 M76 33l10 10 M86 33L76 43"/>'
+        :'')+'</g>';
+
+   if(key==='ec'||key==='vc'){
+     a+='<path d="M15 64l-5 5 5 5-5 5 M82 62l5 5-5 5 5 5" stroke-width="2.8"/>';
+   }
+
+   if(key==='lc'){
+     a+='<path d="M75 42Q85 38 85 44Q85 49 76 48" stroke-width="2.5"/>';
+   }
+ }
+
+ if(hot){
+   const drops=key==='mh'
+     ?[78]
+     :key==='sh'
+     ?[77,87]
+     :[76,86];
+
+   drops.forEach((x,i)=>{
+     a+=`<path d="M${x} ${29+i*16}q-5 7-5 10a5 5 0 0 0 10 0q0-3-5-10z" fill="currentColor" stroke="none"/>`;
+   });
+
+   if(severeHeat){
+     a+='<path d="M19 30q-7 6-2 12q5 7-2 13 M10 55q-5 5-1 10" stroke-width="3"/>'+
+        '<path d="M31 70Q21 57 31 45L41 36" stroke-width="8"/>';
+   }
+
+   if(key==='vh'||key==='eh'){
+     a+='<path d="M32 14q-5-5 0-11 M48 11q-5-5 0-11 M63 14q-5-5 0-11" stroke-width="3"/>';
+   }
+ }
+
+ if(key==='neutral'){
+   a+='<circle cx="79" cy="23" r="12" fill="currentColor" stroke="none"/>'+
+      '<path d="M73 23l4 4 7-8" stroke="#fff" stroke-width="3"/>';
+ }
+
+ if(extreme){
+   a+='<circle cx="80" cy="72" r="15" fill="currentColor" stroke="white" stroke-width="3"/>'+
+      '<path d="M80 64v10" stroke="white" stroke-width="4"/>'+
+      '<circle cx="80" cy="79" r="2.4" fill="white" stroke="none"/>';
+ }
+
+ return '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.4" '+
+   'stroke-linejoin="round" stroke-linecap="round" aria-hidden="true" focusable="false">'+
+   '<path d="M25 95V77Q25 61 37 58L38 56 M62 56L63 58Q75 61 75 77V95" stroke-width="4.8"/>'+
+   '<path d="M40 58Q48 64 56 58" stroke-width="3.8"/>'+
+   '<circle cx="48" cy="35" r="20" stroke-width="4"/>'+
+   '<path d="M40 36h1 M55 36h1" stroke-width="4.4"/>'+
+   brows+mouth+a+'</svg>';
 }
+
+function outlookSlot(slot,label,s){
+ const stamp=slot.querySelector('.ucy-outlook-time');
+ const val=slot.querySelector('.ucy-outlook-value');
+ const human=slot.querySelector('.ucy-outlook-human');
+ const stress=slot.querySelector('.ucy-outlook-stress');
+
+ stamp.textContent=label;
+
+ if(!s||!Number.isFinite(s.mean)){
+   slot.style.background='#17334b';
+   slot.style.borderColor='#53718c';
+   slot.style.color='#e4edf4';
+   val.textContent='—';
+   human.replaceChildren();
+   stress.textContent='Data unavailable';
+   slot.title=label+' — UTCI unavailable';
+   return;
+ }
+
+ const cat=category(s.mean);
+
+ slot.style.background=cat.bg;
+ slot.style.borderColor=cat.bd;
+ slot.style.color=cat.fg;
+
+ human.innerHTML=ucyPersonSVG(cat.kind)+
+   (cat.kind==='ec'||cat.kind==='eh'
+    ?'<span class="ucy-outlook-alert" style="background:'+cat.bd+'">!</span>'
+    :'');
+
+ val.textContent=s.mean.toFixed(1)+'°C';
+ stress.textContent=cat.l;
+
+ slot.title=label+
+   ' — Campus-average UTCI '+
+   s.mean.toFixed(1)+
+   ' °C — '+cat.l;
+}
+
+let ucyOutlookSequence=0;
+
 async function renderOutlook(now){
  if(!isNowcast())return;
- const slots=[...document.querySelectorAll('#ucyCampusOutlook .ucy-outlook-item')];
- outlookSlot(slots[0],'NOW',now.s);
- const {f}=await forecastManifest();const start=Date.parse(now.time);
- if(!Number.isFinite(start))throw Error('Invalid Nowcast timestamp');
- const times=f.timestamps.map(x=>Date.parse(x.time_utc));
- // Align to the next available hourly forecast >= NOW + 2h, then every 2h.
- let first=times.findIndex(t=>Number.isFinite(t)&&t>=start+2*3600000);
- for(let k=1;k<slots.length;k++){
-  if(first<0){outlookSlot(slots[k],'—',null);continue;}
-  const index=first+2*(k-1);
-  const rec=f.timestamps[index];
-  if(!rec){outlookSlot(slots[k],'—',null);continue;}
-  const label=fmtHour.format(new Date(rec.time_utc));
-  try{const st=await forecastStats(index);if(!isNowcast())return;outlookSlot(slots[k],label,st);}catch(e){console.warn('UCY outlook hour',index,e);outlookSlot(slots[k],label,null);}
+
+ const generation=++ucyOutlookSequence;
+
+ const slots=[
+   ...document.querySelectorAll(
+     '#ucyCampusOutlook .ucy-outlook-item'
+   )
+ ];
+
+ if(slots.length!==13){
+   throw Error('Campus widget: unexpected card count');
  }
+
+ const fmtNow=new Intl.DateTimeFormat('en-GB',{
+   timeZone:'Europe/Nicosia',
+   hour:'2-digit',
+   minute:'2-digit',
+   hour12:false
+ });
+
+ outlookSlot(
+   slots[0],
+   'NOW · '+fmtNow.format(new Date(now.time)),
+   now.s
+ );
+
+ let f;
+
+ try{
+   ({f}=await forecastManifest());
+ }catch(e){
+   for(let k=1;k<slots.length;k++){
+     outlookSlot(slots[k],'—',null);
+   }
+   throw e;
+ }
+
+ if(generation!==ucyOutlookSequence||!isNowcast()){
+   return;
+ }
+
+ const start=Date.parse(now.time);
+
+ if(!Number.isFinite(start)){
+   throw Error('Invalid Nowcast timestamp');
+ }
+
+ const future=f.timestamps
+   .map((rec,i)=>({
+     i,
+     t:Date.parse(rec.time_utc)
+   }))
+   .filter(rec=>Number.isFinite(rec.t)&&rec.t>start)
+   .slice(0,12);
+
+ for(let k=1;k<slots.length;k++){
+   const rec=future[k-1];
+   slots[k].hidden=!rec;
+
+   if(rec){
+     outlookSlot(
+       slots[k],
+       fmtHour.format(new Date(rec.t)),
+       null
+     );
+   }
+ }
+
+ let cursor=0;
+
+ const worker=async()=>{
+   while(cursor<future.length){
+     const index=cursor++;
+     const rec=future[index];
+     const tile=slots[index+1];
+
+     try{
+       const st=await forecastStats(rec.i);
+
+       if(generation!==ucyOutlookSequence||!isNowcast()){
+         return;
+       }
+
+       outlookSlot(
+         tile,
+         fmtHour.format(new Date(rec.t)),
+         st
+       );
+     }catch(e){
+       if(generation!==ucyOutlookSequence||!isNowcast()){
+         return;
+       }
+
+       console.warn('Campus outlook:',rec.i,e);
+
+       outlookSlot(
+         tile,
+         fmtHour.format(new Date(rec.t)),
+         null
+       );
+     }
+   }
+ };
+
+ await Promise.all(
+   Array.from(
+     {length:Math.min(3,future.length)},
+     ()=>worker()
+   )
+ );
 }
+
 let activeKey='',sequence=0,lastPaint=null;
 async function refresh(force){
  const mode=isNowcast()?'N':'F',time=mode==='N'?(typeof v9Meta!=='undefined'&&v9Meta?.observation_utc)||'now':selectedHour();
@@ -3628,9 +3982,9 @@ function boot(){
  for(let i=0;i<2;i++){const span=document.createElement('div');span.className='ucy-median-unit';span.textContent='Loading campus median UTCI…';track.appendChild(span);}
  viewport.insertBefore(track,original);
  const widget=document.createElement('section');widget.id='ucyCampusOutlook';widget.setAttribute('aria-label','Campus average UTCI outlook');
- const head=document.createElement('div');head.className='ucy-outlook-head';head.innerHTML='<strong>CAMPUS THERMAL OUTLOOK · AVERAGE UTCI</strong><span>NOW + 2-HOURLY FORECAST</span>';
+ const head=document.createElement('div');head.className='ucy-outlook-head';head.innerHTML='<strong>CAMPUS THERMAL STRESS</strong><span>AVERAGE UTCI · HOURLY</span>';
  const items=document.createElement('div');items.className='ucy-outlook-items';
- for(let i=0;i<6;i++){const tile=document.createElement('div');tile.className='ucy-outlook-item'+(i===0?' now':'');tile.innerHTML='<div class="ucy-outlook-time">—</div><div class="ucy-outlook-line"><span class="ucy-outlook-icon">·</span><span class="ucy-outlook-value">—</span></div><div class="ucy-outlook-stress">Loading…</div>';items.appendChild(tile);}
+ for(let i=0;i<13;i++){const tile=document.createElement('div');tile.className='ucy-outlook-item'+(i===0?' now':'');tile.innerHTML='<div class="ucy-outlook-time">—</div><div class="ucy-outlook-core"><span class="ucy-outlook-human"></span><span class="ucy-outlook-reading"><strong class="ucy-outlook-value">—</strong><span class="ucy-outlook-measure">Avg UTCI</span></span></div><div class="ucy-outlook-stress">Loading…</div>';items.appendChild(tile);}
  widget.append(head,items);
  if(ticker.parentNode===panel)panel.insertBefore(widget,ticker);else panel.insertBefore(widget,panel.firstChild);
  // Keep native labels, icons, and background styling, only clarify which statistic they show.
