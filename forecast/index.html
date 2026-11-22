@@ -4366,7 +4366,7 @@ async function getJSON(path){const r=await fetch(new URL(path,ROOT),{cache:'no-s
 async function getGrid(path,n){
  if(!('DecompressionStream' in window))throw Error('Browser does not support gzip data');
  if(typeof path!=='string'||!/^((values_v8\/[^/]+\.f32\.gz)|(nowcast_v9\/point_nowcast_v9\.f32\.gz))$/.test(path))throw Error('Unexpected grid path');
- const r=await fetch(new URL(path,ROOT),{cache:'force-cache'});if(!r.ok)throw Error('Grid HTTP '+r.status);
+ const r=await fetch(new URL(path,ROOT),{cache:path.startsWith('nowcast_v9/')?'no-store':'force-cache'});if(!r.ok)throw Error('Grid HTTP '+r.status);
  const ab=await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
  if(ab.byteLength!==n*3*4)throw Error('Unexpected numeric grid byte count');
  return new Float32Array(ab);
