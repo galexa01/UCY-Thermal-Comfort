@@ -4650,15 +4650,15 @@ async function refresh(force){
 // Match the selected hour by timestamp rather than
 // requiring identical ISO date-string formatting.
 // Selected Forecast hour must match the visible map cursor.
-const i=(
-  typeof cursor!=='undefined' &&
-  Number.isInteger(cursor) &&
-  cursor>=0 &&
-  cursor<f.timestamps.length
-) ? cursor : -1;
+// Read the selected forecast index from the existing timeline.
+// This element is updated by the Forecast viewer in renderHour().
+const hourControl=document.getElementById('hourRange');
+const rawIndex=hourControl?.value;
+const i=rawIndex!==undefined && rawIndex!==''
+  ? Number(rawIndex) : -1;
 
-if(i<0){
-  throw Error('Selected forecast cursor unavailable');
+if(!Number.isInteger(i)||i<0||i>=f.timestamps.length){
+  throw Error('Selected forecast timeline index unavailable');
 }
 
 // The numeric manifest must correspond to the same forecast hour.
