@@ -3395,251 +3395,270 @@ init();
   }
 })();
 </script>
-<style id="ucy-peak-ticker-v95">
-.ticker.glass{display:flex!important;align-items:center!important;gap:12px!important;min-height:51px!important;height:auto!important;padding:9px 13px!important;overflow:hidden!important}
-.ticker.glass .ticker-heading{display:flex!important;flex:0 0 auto!important;align-items:center!important;gap:6px!important;margin:0!important;white-space:nowrap!important}
-.ticker.glass .ticker-heading svg{display:none!important}
-.ticker.glass .ticker-viewport{display:block!important;position:relative!important;flex:1 1 auto!important;min-width:0!important;width:auto!important;min-height:0!important;height:auto!important;overflow:hidden!important}
+<style id="ucy-campus-statistics-v96">
+/* Campus-only numbers; existing title, map and simulation colours untouched. */
 #tickerTrack{display:none!important;animation:none!important}
-#ucyPeakTicker{display:flex;width:max-content;align-items:center;animation:ucyPeakSlide 23s linear infinite!important;white-space:nowrap}
-.ucyPeakGroup{display:inline-flex;align-items:center;gap:10px;padding-right:62px;white-space:nowrap;font-size:14px;color:#eef8ff}
-.ucyPeakGroup strong{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
-.ucyPeakGroup .ucyPeakDot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#a6bacd;flex:none}
-.ucyPeakGroup .ucyPeakWhen{opacity:.77;font-size:12px}
-@keyframes ucyPeakSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-#ucyPeakTicker:hover{animation-play-state:paused!important}
-@media(max-width:650px){
- .ticker.glass{flex-direction:column!important;align-items:stretch!important;gap:3px!important;padding:9px 12px!important}
- .ticker.glass .ticker-heading{font-size:11px!important}
- .ucyPeakGroup{font-size:13px;padding-right:42px}
- .ucyPeakGroup strong{font-size:17px}
+#ucyMedianTicker{display:flex;align-items:center;width:max-content;min-width:200%;white-space:nowrap;animation:ucyMedianSlide 34s linear infinite!important;will-change:transform}
+#ucyMedianTicker .ucy-median-unit{display:inline-flex;align-items:center;gap:9px;padding:0 70px 0 4px;font-weight:650;font-size:12px;color:#eef7ff;white-space:nowrap}
+#ucyMedianTicker .ucy-median-unit strong{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;color:#f4fbff}
+#ucyMedianTicker .ucy-median-unit .ucy-median-level{font-weight:800}
+#ucyMedianTicker .ucy-median-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex:none}
+@keyframes ucyMedianSlide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+#ucyMedianTicker:hover{animation-play-state:paused!important}
+#ucyCampusOutlook{box-sizing:border-box;width:100%;height:var(--ucy-outlook-height,120px);min-height:0;display:flex;flex-direction:column;gap:7px;overflow:hidden;border-radius:14px;padding:10px 14px;background:linear-gradient(105deg,rgba(9,38,72,.95),rgba(13,51,79,.95));border:1px solid rgba(133,204,239,.38);box-shadow:0 6px 26px #05132550;color:#eef7ff;position:relative}
+#ucyCampusOutlook .ucy-outlook-head{font-size:12px;font-weight:800;letter-spacing:.04em;white-space:nowrap;display:flex;justify-content:space-between;gap:10px;align-items:center}
+#ucyCampusOutlook .ucy-outlook-head span{opacity:.70;font-weight:600;font-size:10px}
+#ucyCampusOutlook .ucy-outlook-items{display:flex;flex:1;min-height:0;gap:7px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;align-items:stretch;padding-bottom:2px}
+#ucyCampusOutlook .ucy-outlook-item{flex:1 0 84px;min-width:84px;text-align:center;background:#ffffff0d;border:1px solid #ffffff18;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:4px 5px;min-height:0}
+#ucyCampusOutlook .ucy-outlook-item.now{background:#76c9ee18;border-color:#8ad6ef69}
+#ucyCampusOutlook .ucy-outlook-time{font-size:11px;font-weight:700;opacity:.85;white-space:nowrap}
+#ucyCampusOutlook .ucy-outlook-line{display:flex;align-items:center;gap:5px}
+#ucyCampusOutlook .ucy-outlook-icon{font-size:17px;line-height:1.1}
+#ucyCampusOutlook .ucy-outlook-value{font-size:16px;font-weight:850;font-variant-numeric:tabular-nums;white-space:nowrap}
+#ucyCampusOutlook .ucy-outlook-stress{font-size:10px;font-weight:700;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+body:not(.v9-nowcast) #ucyCampusOutlook{display:none!important}
+@media(max-width:768px){
+ body.v9-nowcast #ucyCampusOutlook{position:fixed!important;top:auto!important;bottom:calc(20px + env(safe-area-inset-bottom,0px) + var(--ucy-v410-notice-height,54px))!important;left:10px!important;right:10px!important;width:auto!important;margin:0!important;z-index:9047!important;height:var(--ucy-outlook-height,120px)!important;padding:9px!important;pointer-events:auto!important}
+ body.v9-nowcast #ucyMobileButtons{bottom:calc(30px + env(safe-area-inset-bottom,0px) + var(--ucy-v410-notice-height,54px) + var(--ucy-outlook-height,120px))!important;z-index:9050!important}
+ body.v9-nowcast:is(.ucy-mobile-menu-open,.ucy-mobile-legend-open,.ucy-mobile-tools-open) #ucyCampusOutlook{display:none!important}
+ #ucyCampusOutlook .ucy-outlook-item{flex:0 0 84px;min-width:84px}
+ #ucyMedianTicker .ucy-median-unit{font-size:11px;padding-right:54px}
 }
-@media(prefers-reduced-motion:reduce){#ucyPeakTicker{animation:none!important}}
+@media(prefers-reduced-motion:reduce){#ucyMedianTicker{animation:none!important}}
 </style>
 <script>
-(()=>{
+(function(){
 'use strict';
-const el=id=>document.getElementById(id);
-const base=new URL('/UCY-Thermal-Comfort/forecast/',location.origin);
-const dateFmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',day:'2-digit',month:'short',year:'numeric'});
-const hourFmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',hour:'2-digit',minute:'2-digit',hour12:false});
-const fullFmt=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});
-const valid=u=>Number.isFinite(u)&&u>-100&&u<100;
-const stress=u=>u>46?['Extreme heat stress','#912b65']:u>38?['Very strong heat stress','#dc4856']:u>32?['Strong heat stress','#ee8e38']:u>26?['Moderate heat stress','#e5cb4d']:u>=9?['No thermal stress','#5cbf9c']:['Cold stress','#5b96cb'];
-const nowMode=()=>el('v9Nowcast')?.getAttribute('aria-pressed')==='true'||document.body.classList.contains('v9-nowcast');
-let forecast=null,nowPromise=null,nowKey='',previous='',serial=0;
-const currentUI=()=>[(el('dateDisplay')?.textContent||'').trim(),(el('clockDisplay')?.textContent||'').trim(),(el('hourNumber')?.textContent||'').trim()];
-
-function show(mode,u,t,notice){
- const heading=document.querySelector('.ticker-heading span');
- if(heading)heading.textContent=mode==='N'?'NOWCAST · PEAK THERMAL STRESS':'FORECAST · PEAK THERMAL STRESS';
- const ok=valid(u),[level,color]=ok?stress(u):[notice||'Loading…','#a6bacd'];
- const value=ok?u.toFixed(1)+' °C':'—';
- for(const target of document.querySelectorAll('#ucyPeakTicker .ucyPeakGroup')){
-   target.replaceChildren();
-   const dot=document.createElement('i');
-   dot.className='ucyPeakDot';
-   dot.style.background=color;
-   const number=document.createElement('strong');
-   number.textContent=value;
-   const lead=document.createElement('span');
-   lead.textContent=ok?'Feels like':'';
-   const kind=document.createElement('span');
-   kind.textContent=ok?'· '+level:level;
-   kind.style.color=color;
-   kind.style.fontWeight='800';
-   const when=document.createElement('span');
-   when.className='ucyPeakWhen';
-   when.textContent=t?' · '+t:'';
-   target.append(dot,lead,number,kind,when);
+if(window.__UCY_CAMPUS_STATISTICS_V96)return;
+window.__UCY_CAMPUS_STATISTICS_V96=true;
+const $=id=>document.getElementById(id);
+const ROOT=new URL('./',document.baseURI);
+// User-supplied approximate campus corners: lon,lat, in given order.
+const POLY=[[33.411033,35.149183],[33.406401,35.143212],[33.408571,35.141386],[33.417481,35.146181]];
+const fmtDate=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',weekday:'short',day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit',hour12:false});
+const fmtHour=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Nicosia',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false});
+const good=n=>Number.isFinite(n)&&n>-100&&n<100;
+const categories=[
+ {t:-40,l:'Extreme cold stress',c:'#3658b9',i:'❄️'},
+ {t:-27,l:'Very strong cold stress',c:'#4773cb',i:'❄️'},
+ {t:-13,l:'Strong cold stress',c:'#569fe1',i:'❄️'},
+ {t:0,l:'Moderate cold stress',c:'#6fb3e5',i:'❄️'},
+ {t:9,l:'Slight cold stress',c:'#92cceb',i:'❄️'},
+ {t:26,l:'No thermal stress',c:'#65cba5',i:'🌤️'},
+ {t:32,l:'Moderate heat stress',c:'#f1cf50',i:'☀️'},
+ {t:38,l:'Strong heat stress',c:'#ef9949',i:'☀️'},
+ {t:46,l:'Very strong heat stress',c:'#e45a58',i:'🔥'},
+ {t:Infinity,l:'Extreme heat stress',c:'#c04c91',i:'🔥'}
+];
+function category(u){if(!good(u))return {l:'Data unavailable',c:'#a7b9cc',i:'·'};for(const x of categories){if(u<x.t)return x;}return categories[categories.length-1];}
+function pointInPolygon(x,y){let inside=false;for(let i=0,j=POLY.length-1;i<POLY.length;j=i++){
+ const xi=POLY[i][0],yi=POLY[i][1],xj=POLY[j][0],yj=POLY[j][1];
+ if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)inside=!inside;
+}return inside;}
+function maskFor(d){
+ const w=Number(d.width),h=Number(d.height),b=d.bounds;
+ if(!Number.isInteger(w)||!Number.isInteger(h)||w<1||h<1||!Array.isArray(b)||b.length!==4)throw Error('Unsupported grid geometry');
+ const west=Number(b[0][0]),east=Number(b[1][0]),north=Number(b[0][1]),south=Number(b[2][1]);
+ if(!(east>west&&north>south))throw Error('Invalid geographic bounds');
+ const ix=[];
+ for(let y=0;y<h;y++){
+  const lat=north-(y+.5)*(north-south)/h;
+  if(lat<35.140||lat>35.151)continue;
+  for(let x=0;x<w;x++){
+   const lon=west+(x+.5)*(east-west)/w;
+   if(lon>=33.406&&lon<=33.419&&pointInPolygon(lon,lat))ix.push(y*w+x);
+  }
  }
+ if(ix.length<100)throw Error('Campus polygon has too few grid cells');
+ return {ix,n:w*h,w,h,west,east,north,south};
 }
-
-function selected(rows){
- // First try the forecast viewer's selected timestamp.
- try{
-   if(typeof row==='function'){
-     const r=row();
-     const match=rows.find(x=>x.time_utc===r?.time_utc);
-     if(match)return match;
-   }
- }catch(e){}
-
- try{
-   if(typeof cursor!=='undefined'&&
-      Number.isInteger(cursor)&&
-      cursor>=0&&cursor<rows.length)return rows[cursor];
- }catch(e){}
-
- // Match the visible selected date and hour.
- const [date,hour,label]=currentUI();
- if(date&&hour){
-   const needle=hour.match(/\b\d{1,2}:\d{2}\b/)?.[0];
-   if(needle){
-     const match=rows.filter(x=>{
-       const dt=new Date(x.time_utc);
-       const dateText=dateFmt.format(dt);
-       const dayMonth=dateText.replace(/\s+\d{4}$/,'');
-       return hourFmt.format(dt)===needle &&
-         (date.toLowerCase().includes(dayMonth.toLowerCase())||
-          date.includes(dateText));
-     });
-     if(match.length===1)return match[0];
-   }
+function sameGrid(a,b){return a&&b&&a.w===b.w&&a.h===b.h&&Math.abs(a.west-b.west)<1e-7&&Math.abs(a.east-b.east)<1e-7&&Math.abs(a.north-b.north)<1e-7&&Math.abs(a.south-b.south)<1e-7;}
+function statistics(a,mask){
+ const n=mask.n;if(a.length!==3*n)throw Error('Grid shape differs from manifest');
+ const vals=[];let peak=-Infinity,sum=0;
+ for(const k of mask.ix){
+  const u=a[k],pet=a[k+n];
+  if(!good(u)||!good(pet))continue;
+  vals.push(u);sum+=u;if(u>peak)peak=u;
  }
-
- // Fallback for a timeline displaying only future hours.
- const m=label.match(/(\d+)\s*\/\s*(\d+)/);
- if(m){
-   const position=+m[1],total=+m[2];
-   const index=rows.length-total+position-1;
-   if(total>=1&&total<=rows.length&&
-      position>=1&&position<=total&&
-      index>=0&&index<rows.length)return rows[index];
- }
+ if(vals.length<100)throw Error('Too few valid UTCI cells inside the campus polygon');
+ vals.sort((a,b)=>a-b);
+ const p=vals.length>>1,median=vals.length%2?vals[p]:(vals[p-1]+vals[p])/2;
+ return {peak,median,mean:sum/vals.length,count:vals.length};
+}
+async function getJSON(path){const r=await fetch(new URL(path,ROOT),{cache:'no-store'});if(!r.ok)throw Error(path+' HTTP '+r.status);return r.json();}
+async function getGrid(path,n){
+ if(!('DecompressionStream' in window))throw Error('Browser does not support gzip data');
+ if(typeof path!=='string'||!/^((values_v8\/[^/]+\.f32\.gz)|(nowcast_v9\/point_nowcast_v9\.f32\.gz))$/.test(path))throw Error('Unexpected grid path');
+ const r=await fetch(new URL(path,ROOT),{cache:'force-cache'});if(!r.ok)throw Error('Grid HTTP '+r.status);
+ const ab=await new Response(r.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+ if(ab.byteLength!==n*3*4)throw Error('Unexpected numeric grid byte count');
+ return new Float32Array(ab);
+}
+let forecastPromise=null,nowcastPromise=null,forecastMask=null,nowcastMask=null,statsCache=new Map();
+async function forecastManifest(){
+ if(!forecastPromise)forecastPromise=Promise.all([getJSON('forecast_v6.json'),getJSON('point_values_v8.json')]).then(([f,p])=>{
+  if(!Array.isArray(f.timestamps)||!Array.isArray(p.rows)||f.timestamps.length!==p.rows.length||f.run!==p.run)throw Error('Forecast manifest mismatch');
+  forecastMask=maskFor(p);
+  return {f,p};
+ }).catch(e=>{forecastPromise=null;throw e;});
+ return forecastPromise;
+}
+async function forecastStats(i){
+ const {f,p}=await forecastManifest();const rec=p.rows[i],tm=f.timestamps[i];
+ if(!rec||!tm||rec.time_utc!==tm.time_utc)throw Error('Forecast hour mismatch');
+ const key='f:'+f.run+':'+rec.time_utc;
+ if(statsCache.has(key))return statsCache.get(key);
+ const promise=getGrid(rec.file,forecastMask.n).then(a=>statistics(a,forecastMask)).catch(e=>{statsCache.delete(key);throw e;});
+ statsCache.set(key,promise);return promise;
+}
+async function nowcastStats(){
+ // Prefer the exact raster and timestamp currently loaded by the existing Nowcast viewer.
+ try{
+  if(typeof v9Meta!=='undefined'&&typeof v9Numeric!=='undefined'&&v9Meta&&v9Numeric){
+   const key='n:'+v9Meta.observation_utc;
+   if(statsCache.has(key))return {s:await statsCache.get(key),time:v9Meta.observation_utc};
+   const mask=maskFor(v9Meta);
+   const promise=Promise.resolve().then(()=>statistics(v9Numeric,mask));
+   statsCache.set(key,promise);
+   try{return {s:await promise,time:v9Meta.observation_utc};}catch(e){statsCache.delete(key);throw e;}
+  }
+ }catch(e){console.warn('UCY campus Nowcast reader:',e);}
+ if(!nowcastPromise)nowcastPromise=getJSON('nowcast_v9/manifest.json').then(async meta=>{
+  nowcastMask=maskFor(meta);
+  const grid=await getGrid('nowcast_v9/point_nowcast_v9.f32.gz',nowcastMask.n);
+  return {s:statistics(grid,nowcastMask),time:meta.observation_utc};
+ }).catch(e=>{nowcastPromise=null;throw e;});
+ return nowcastPromise;
+}
+function isNowcast(){return $('v9Nowcast')?.getAttribute('aria-pressed')==='true'||document.body.classList.contains('v9-nowcast');}
+function selectedHour(){
+ try{if(typeof row==='function'&&row()?.time_utc)return row().time_utc;}catch(e){}
+ try{if(typeof v6!=='undefined'&&v6&&typeof cursor!=='undefined'&&v6.timestamps?.[cursor])return v6.timestamps[cursor].time_utc;}catch(e){}
  return null;
 }
-
-async function forecastPeak(){
- if(!forecast){
-   forecast=fetch(new URL('forecast_v6.json',base),{
-     cache:'no-store'
-   })
-   .then(r=>{
-     if(!r.ok)throw Error('Forecast HTTP '+r.status);
-     return r.json();
-   })
-   .then(d=>{
-     if(!Array.isArray(d.timestamps))
-       throw Error('Missing forecast timestamps');
-     return d.timestamps;
-   })
-   .catch(e=>{
-     forecast=null;
-     throw e;
-   });
- }
- const rows=await forecast;
- const rec=selected(rows);
- if(!rec){
-   return {u:NaN,t:'',notice:'Selected hour unavailable'};
- }
- const value=Number(rec.utci_max_c);
- return {
-   u:valid(value)?value:NaN,
-   t:fullFmt.format(new Date(rec.time_utc)),
-   notice:'Peak UTCI unavailable'
- };
+function updateText(id,value){const e=$(id);if(e&&e.textContent!==value)e.textContent=value;}
+function stylePeak(s){
+ const peak=s.peak,cat=category(peak);
+ updateText('v83MeanUTCI',peak.toFixed(1)+' °C');
+ updateText('v83StressClass',cat.l);
+ updateText('v83MeanNote','Campus peak');
+ updateText('v83StressNote','Campus peak');
+ for(const id of ['v83StressCard','v83MeanCard']){const c=$(id);if(c){c.style.borderColor=cat.c;c.style.background='linear-gradient(110deg,'+cat.c+'44,rgba(9,29,64,.68))';}}
 }
-
-async function nowcastPeak(){
- const ui=currentUI();
- const key=ui[0]+'|'+ui[1];
-
- if(!nowPromise||nowKey!==key){
-   nowKey=key;
-   nowPromise=fetch(
-     new URL('nowcast_v9/point_nowcast_v9.f32.gz',base),
-     {cache:'no-store'}
-   )
-   .then(r=>{
-     if(!r.ok)throw Error('Nowcast HTTP '+r.status);
-     if(!('DecompressionStream' in window))
-       throw Error('Gzip unavailable');
-     return new Response(
-       r.body.pipeThrough(new DecompressionStream('gzip'))
-     ).arrayBuffer();
-   })
-   .then(buf=>{
-     if(buf.byteLength%12)throw Error('Bad grid size');
-     const a=new Float32Array(buf),n=a.length/3;
-     let peak=-Infinity,count=0;
-     for(let i=0;i<n;i++){
-       if(valid(a[i])&&valid(a[i+n])){
-         peak=Math.max(peak,a[i]);
-         count++;
-       }
-     }
-     if(count<1000)throw Error('Insufficient valid cells');
-     return peak;
-   })
-   .catch(e=>{
-     nowPromise=null;
-     throw e;
-   });
+function renderTicker(s,time,mode){
+ const heading=document.querySelector('.ticker-heading span');
+ const title=mode==='N'?'NOWCAST · CAMPUS MEDIAN UTCI':'FORECAST · SELECTED-HOUR CAMPUS MEDIAN UTCI';
+ if(heading&&heading.textContent!==title)heading.textContent=title;
+ const cat=category(s.median),stamp=time&&Number.isFinite(Date.parse(time))?fmtDate.format(new Date(time)):'';
+ for(const item of document.querySelectorAll('#ucyMedianTicker .ucy-median-unit')){
+  const text='Median feels like ';const val=s.median.toFixed(1)+' °C';
+  const full=text+val+' · '+cat.l+' · '+stamp;
+  if(item.dataset.value===full)continue;
+  item.dataset.value=full;item.replaceChildren();
+  const dot=document.createElement('i');dot.className='ucy-median-dot';dot.style.background=cat.c;
+  const prefix=document.createElement('span');prefix.textContent=text;
+  const number=document.createElement('strong');number.textContent=val;
+  const label=document.createElement('span');label.className='ucy-median-level';label.style.color=cat.c;label.textContent=cat.l;
+  const date=document.createElement('span');date.style.opacity='.8';date.textContent=' · '+stamp;
+  item.append(dot,prefix,number,label,date);
  }
-
- const u=await nowPromise;
- return {u,t:(ui[0]+' '+ui[1]).trim()};
 }
-
-async function refresh(){
- const mode=nowMode()?'N':'F';
- const ticket=++serial;
- show(mode,NaN,'','Loading…');
-
+function renderUnavailable(mode){
+ const heading=document.querySelector('.ticker-heading span');
+ if(heading)heading.textContent=mode==='N'?'NOWCAST · CAMPUS MEDIAN UTCI':'FORECAST · SELECTED-HOUR CAMPUS MEDIAN UTCI';
+ updateText('v83MeanUTCI','—');updateText('v83StressClass','—');
+ for(const item of document.querySelectorAll('#ucyMedianTicker .ucy-median-unit')){
+  if(item.dataset.value==='pending')continue;item.dataset.value='pending';item.textContent='Campus median UTCI temporarily unavailable';
+ }
+}
+function outlookSlot(slot,label,s){
+ slot.querySelector('.ucy-outlook-time').textContent=label;
+ const val=slot.querySelector('.ucy-outlook-value'),icon=slot.querySelector('.ucy-outlook-icon'),stress=slot.querySelector('.ucy-outlook-stress');
+ if(!s){val.textContent='—';icon.textContent='·';stress.textContent='No forecast';stress.style.color='#a7b9cc';return;}
+ const cat=category(s.mean);
+ val.textContent=s.mean.toFixed(1)+'°C';icon.textContent=cat.i;stress.textContent=cat.l;stress.style.color=cat.c;
+ slot.title=label+' — Campus-average UTCI '+s.mean.toFixed(1)+' °C — '+cat.l;
+}
+async function renderOutlook(now){
+ if(!isNowcast())return;
+ const slots=[...document.querySelectorAll('#ucyCampusOutlook .ucy-outlook-item')];
+ outlookSlot(slots[0],'NOW',now.s);
+ const {f}=await forecastManifest();const start=Date.parse(now.time);
+ if(!Number.isFinite(start))throw Error('Invalid Nowcast timestamp');
+ const times=f.timestamps.map(x=>Date.parse(x.time_utc));
+ // Align to the next available hourly forecast >= NOW + 2h, then every 2h.
+ let first=times.findIndex(t=>Number.isFinite(t)&&t>=start+2*3600000);
+ for(let k=1;k<slots.length;k++){
+  if(first<0){outlookSlot(slots[k],'—',null);continue;}
+  const index=first+2*(k-1);
+  const rec=f.timestamps[index];
+  if(!rec){outlookSlot(slots[k],'—',null);continue;}
+  const label=fmtHour.format(new Date(rec.time_utc));
+  try{const st=await forecastStats(index);if(!isNowcast())return;outlookSlot(slots[k],label,st);}catch(e){console.warn('UCY outlook hour',index,e);outlookSlot(slots[k],label,null);}
+ }
+}
+let activeKey='',sequence=0,lastPaint=null;
+async function refresh(force){
+ const mode=isNowcast()?'N':'F',time=mode==='N'?(typeof v9Meta!=='undefined'&&v9Meta?.observation_utc)||'now':selectedHour();
+ const key=mode+'|'+time;
+ if(!force&&key===activeKey)return;
+ activeKey=key;const token=++sequence;
  try{
-   const x=mode==='N'
-     ?await nowcastPeak()
-     :await forecastPeak();
-
-   if(ticket!==serial||
-      mode!==(nowMode()?'N':'F'))return;
-
-   show(mode,x.u,x.t,x.notice);
- }catch(e){
-   if(ticket!==serial||
-      mode!==(nowMode()?'N':'F'))return;
-
-   console.warn('UCY peak ticker:',e);
-   show(mode,NaN,'','Peak UTCI unavailable');
- }
+  if(mode==='N'){
+   const result=await nowcastStats();if(token!==sequence||!isNowcast())return;
+   stylePeak(result.s);renderTicker(result.s,result.time,mode);
+   renderOutlook(result).catch(e=>console.warn('Campus outlook:',e));
+  }else{
+   const {f}=await forecastManifest();
+   const i=f.timestamps.findIndex(x=>x.time_utc===time);
+   if(i<0)throw Error('Selected forecast hour not found');
+   const s=await forecastStats(i);
+   if(token!==sequence||isNowcast())return;
+   stylePeak(s);renderTicker(s,time,mode);
+  }
+ }catch(e){if(token===sequence){console.warn('UCY campus statistics:',e);renderUnavailable(mode);}}
 }
-
 function boot(){
- const original=el('tickerTrack');
- if(!original||el('ucyPeakTicker'))return;
-
- const parent=original.parentElement;
- if(!parent)return;
-
- const track=document.createElement('div');
- track.id='ucyPeakTicker';
-
- for(let i=0;i<2;i++){
-   const part=document.createElement('div');
-   part.className='ucyPeakGroup';
-   track.append(part);
+ const panel=$('bottomPanel'),original=$('tickerTrack');
+ if(!panel||!original||$('ucyCampusOutlook'))return;
+ const ticker=original.closest('.ticker');if(!ticker)return;
+ const viewport=original.parentElement;
+ const track=document.createElement('div');track.id='ucyMedianTicker';
+ for(let i=0;i<2;i++){const span=document.createElement('div');span.className='ucy-median-unit';span.textContent='Loading campus median UTCI…';track.appendChild(span);}
+ viewport.insertBefore(track,original);
+ const widget=document.createElement('section');widget.id='ucyCampusOutlook';widget.setAttribute('aria-label','Campus average UTCI outlook');
+ const head=document.createElement('div');head.className='ucy-outlook-head';head.innerHTML='<strong>CAMPUS THERMAL OUTLOOK · AVERAGE UTCI</strong><span>NOW + 2-HOURLY FORECAST</span>';
+ const items=document.createElement('div');items.className='ucy-outlook-items';
+ for(let i=0;i<6;i++){const tile=document.createElement('div');tile.className='ucy-outlook-item'+(i===0?' now':'');tile.innerHTML='<div class="ucy-outlook-time">—</div><div class="ucy-outlook-line"><span class="ucy-outlook-icon">·</span><span class="ucy-outlook-value">—</span></div><div class="ucy-outlook-stress">Loading…</div>';items.appendChild(tile);}
+ widget.append(head,items);
+ if(ticker.parentNode===panel)panel.insertBefore(widget,ticker);else panel.insertBefore(widget,panel.firstChild);
+ // Keep native labels, icons, and background styling, only clarify which statistic they show.
+ for(const [id,newText] of [['v83MeanCard','Peak feels-like (UTCI)'],['v83StressCard','Peak thermal stress']]){
+  const label=$(id)?.querySelector('.v83-label');if(!label)continue;
+  for(const node of [...label.childNodes])if(node.nodeType===Node.TEXT_NODE)node.textContent=' '+newText;
  }
- parent.insertBefore(track,original);
-
- const check=()=>{
-   const key=(nowMode()?'N':'F')+'|'+currentUI().join('|');
-   if(key!==previous){
-     previous=key;
-     refresh();
-   }
- };
-
- check();
- document.addEventListener('input',check,true);
- document.addEventListener('change',check,true);
-
- for(const id of ['v9Nowcast','v9Forecast']){
-   el(id)?.addEventListener('click',()=>{
-     setTimeout(check,80);
-   });
+ const study=document.querySelector('.v83-summary');if(study)study.setAttribute('aria-label','Campus-only peak UTCI and corresponding thermal stress class');
+ function measure(){
+  if(!ticker.isConnected)return;
+  const h=ticker.getBoundingClientRect().height||parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ucy-v410-notice-height'))||46;
+  if(h>20&&h<130){const hpx=Math.ceil(h*2.5)+'px';if(document.documentElement.style.getPropertyValue('--ucy-outlook-height')!==hpx)document.documentElement.style.setProperty('--ucy-outlook-height',hpx);}
  }
-
- // Check for actual changes without restarting the animation.
- setInterval(check,750);
+ function layout(){const phone=window.matchMedia('(max-width:768px)').matches;const now=isNowcast();
+  if(phone&&now&&widget.parentNode!==document.body)document.body.appendChild(widget);
+  else if((!phone||!now)&&widget.parentNode!==panel)panel.insertBefore(widget,ticker.isConnected&&ticker.parentNode===panel?ticker:panel.firstChild);
+  measure();
+ }
+ const ro=typeof ResizeObserver==='function'?new ResizeObserver(measure):null;if(ro)ro.observe(ticker);
+ let was='';function tick(){layout();const mode=isNowcast()?'N':'F';let time=mode==='N'?(typeof v9Meta!=='undefined'&&v9Meta?.observation_utc)||'':selectedHour();
+  const key=mode+'|'+time+'|'+($('dateDisplay')?.textContent||'')+'|'+($('clockDisplay')?.textContent||'');
+  if(key!==was){was=key;refresh(false);}
+ }
+ document.querySelectorAll('#v9Nowcast,#v9Forecast').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>{layout();refresh(true);},180)));
+ window.addEventListener('resize',layout,{passive:true});
+ layout();tick();setInterval(tick,900);setTimeout(()=>refresh(true),900);setTimeout(()=>refresh(true),2500);
 }
-
-if(document.readyState==='loading'){
- document.addEventListener('DOMContentLoaded',boot,{once:true});
-}else{
- boot();
-}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
 </script>
 </body>
