@@ -1107,6 +1107,84 @@ window.addEventListener('beforeinstallprompt', function(event) {
 }
 
 </style>
+
+<style id="ucy-legend-spacing-v105">
+
+/* UCY_LEGENDS_FORECAST_MEDIAN_FIX_V105 */
+
+/* UTCI, PET and Wind Speed continuous legends:
+   reduce the separation between the colour scale,
+   numeric values and title. */
+#legendContent:not(.stress-mode) {
+  gap:4px!important;
+  column-gap:4px!important;
+}
+
+#legendContent:not(.stress-mode) .gradient-scale {
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+#legendContent:not(.stress-mode) .gradient-ends {
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:0!important;
+}
+
+#legendContent:not(.stress-mode) .gradient-ends .axis-tick {
+  left:2px!important;
+  padding-left:0!important;
+}
+
+/* Bring the continuous colour-scale title closer. */
+#legendContent:not(.stress-mode) .gradient-title,
+#legendContent:not(.stress-mode) .gradient-label,
+#legendContent:not(.stress-mode) .scale-title {
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+/* Thermal Stress categorical legend. */
+#legendContent.stress-mode .legend-row {
+  column-gap:4px!important;
+}
+
+#legendContent.stress-mode .legend-row .swatch {
+  margin-right:0!important;
+}
+
+#legendContent.stress-mode .legend-row b {
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+/* Preserve separate responsive layouts. */
+@media (min-width:781px) {
+  #legendContent.stress-mode .legend-row {
+    gap:4px!important;
+  }
+  #legendContent.stress-mode .legend-row b {
+    width:54px!important;
+  }
+}
+
+@media (max-width:780px) {
+  #legendContent:not(.stress-mode) {
+    gap:3px!important;
+    column-gap:3px!important;
+  }
+  #legendContent.stress-mode .legend-row {
+    column-gap:3px!important;
+  }
+}
+
+@media (max-width:510px) {
+  #legendContent:not(.stress-mode) .gradient-ends .axis-tick {
+    left:1px!important;
+  }
+}
+
+</style>
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
@@ -4499,11 +4577,37 @@ async function refresh(force){
    renderOutlook(result).catch(e=>console.warn('Campus outlook:',e));
   }else{
    const {f}=await forecastManifest();
-   const i=f.timestamps.findIndex(x=>x.time_utc===time);
+
+// Match the selected hour by timestamp rather than
+// requiring identical ISO date-string formatting.
+const requestedMs=Date.parse(time||'');
+let i=f.timestamps.findIndex(x=>x.time_utc===time);
+
+if(i<0 && Number.isFinite(requestedMs)){
+  i=f.timestamps.findIndex(x=>
+    Date.parse(x.time_utc)===requestedMs
+  );
+}
+
+// Secondary lookup using the actual forecast timeline.
+if(i<0 && typeof cursor!=='undefined' &&
+   typeof v6!=='undefined' && v6 &&
+   v6.timestamps && v6.timestamps[cursor]){
+
+  const timelineTime=v6.timestamps[cursor].time_utc;
+  const timelineMs=Date.parse(timelineTime);
+
+  if(Number.isFinite(timelineMs)){
+    i=f.timestamps.findIndex(x=>
+      Date.parse(x.time_utc)===timelineMs
+    );
+  }
+}
+
    if(i<0)throw Error('Selected forecast hour not found');
    const s=await forecastStats(i);
    if(token!==sequence||isNowcast())return;
-   stylePeak(s);renderTicker(s,time,mode);
+   stylePeak(s);renderTicker(s,f.timestamps[i].time_utc,mode);
   }
  }catch(e){if(token===sequence){console.warn('UCY campus statistics:',e);renderUnavailable(mode);}}
 }
