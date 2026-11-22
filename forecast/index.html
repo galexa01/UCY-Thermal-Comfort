@@ -4335,9 +4335,10 @@ async function nowcastStats(){
 }
 function isNowcast(){return $('v9Nowcast')?.getAttribute('aria-pressed')==='true'||document.body.classList.contains('v9-nowcast');}
 function selectedHour(){
- try{if(typeof row==='function'&&row()?.time_utc)return row().time_utc;}catch(e){}
- try{if(typeof v6!=='undefined'&&v6&&typeof cursor!=='undefined'&&v6.timestamps?.[cursor])return v6.timestamps[cursor].time_utc;}catch(e){}
- return null;
+ const control=document.getElementById('hourRange');
+ if(!control||control.value==='')return null;
+ const index=Number(control.value);
+ return Number.isInteger(index)&&index>=0?String(index):null;
 }
 function updateText(id,value){const e=$(id);if(e&&e.textContent!==value)e.textContent=value;}
 function stylePeak(s){
@@ -4573,7 +4574,7 @@ async function renderOutlook(now){
      i,
      t:Date.parse(rec.time_utc)
    }))
-   .filter(rec=>Number.isFinite(rec.t)&&rec.t>start)
+   .filter(rec=>Number.isFinite(rec.t)&&rec.t>Math.max(start,Date.now()))
    .slice(0,12);
 
  for(let k=1;k<slots.length;k++){
@@ -4701,9 +4702,30 @@ function boot(){
   measure();
  }
  const ro=typeof ResizeObserver==='function'?new ResizeObserver(measure):null;if(ro)ro.observe(ticker);
- let was='';function tick(){layout();const mode=isNowcast()?'N':'F';let time=mode==='N'?(typeof v9Meta!=='undefined'&&v9Meta?.observation_utc)||'':selectedHour();
-  const key=mode+'|'+time+'|'+($('dateDisplay')?.textContent||'')+'|'+($('clockDisplay')?.textContent||'');
-  if(key!==was){was=key;refresh(false);}
+ let was='';
+ let lastOutlookHour=Math.floor(Date.now()/3600000);
+ function tick(){
+  layout();
+  const mode=isNowcast()?'N':'F';
+  const time=mode==='N'
+   ? (typeof v9Meta!=='undefined'&&v9Meta?.observation_utc)||''
+   : selectedHour();
+  const key=mode+'|'+time+'|'+
+   ($('dateDisplay')?.textContent||'')+'|'+
+   ($('clockDisplay')?.textContent||'');
+  if(key!==was){
+   was=key;
+   refresh(false);
+  }
+  const currentHour=Math.floor(Date.now()/3600000);
+  if(currentHour!==lastOutlookHour){
+   lastOutlookHour=currentHour;
+   if(mode==='N'){
+    nowcastStats()
+     .then(result=>renderOutlook(result))
+     .catch(e=>console.warn('Campus hourly outlook:',e));
+   }
+  }
  }
  document.querySelectorAll('#v9Nowcast,#v9Forecast').forEach(b=>b.addEventListener('click',()=>setTimeout(()=>{layout();refresh(true);},180)));
  window.addEventListener('resize',layout,{passive:true});
