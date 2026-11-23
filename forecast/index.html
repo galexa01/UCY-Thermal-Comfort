@@ -5519,7 +5519,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  <p><strong>UTCI:</strong> An equivalent temperature that describes how air temperature, humidity, wind and radiation combine to affect thermal stress on the human body.</p>
  <p><strong>PET:</strong> An equivalent air temperature that describes how the human body experiences outdoor thermal conditions.</p>
  <p><strong>Thermal Stress:</strong> Shows the level of heat or cold stress, from extreme cold to extreme heat.</p>
- <p><strong>Wind:</strong> Shows local wind speed and how air moves around buildings and outdoor spaces.</p>
+ <p><strong>Wind:</strong> Modelled local wind speed at 1.5 m (m/s).</p>
 </div>
 
 <script id="ucy-quick-layers-script">
@@ -5560,7 +5560,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    quick.style.left=Math.round(
     Math.max(6,Math.min(innerWidth-width-6,left))
    )+'px';
-   quick.style.top=Math.round(rect.bottom+14)+'px';
+   quick.style.top=Math.round(rect.bottom+7)+'px';
   }
 
   for(const button of buttons){
@@ -5675,6 +5675,56 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  if(document.readyState==='loading'){
   document.addEventListener('DOMContentLoaded',init,{once:true});
  }else init();
+})();
+</script>
+
+<script id="ucy-bottom-buttons-order-v5">
+/* UCY_CONTROLS_TWEAK_V5 */
+(function(){
+ 'use strict';
+
+ function apply(){
+  const root = document.getElementById('ucyMobileButtons');
+  if (!root) return false;
+
+  const menu = document.getElementById('ucyMobileMenu');
+  const tools = document.getElementById('ucyMobileTools');
+  const legend = document.getElementById('ucyMobileLegend');
+
+  if (!menu || !tools || !legend) return false;
+  if (![menu,tools,legend].every(
+      el => el.parentElement === root)) return false;
+
+  root.appendChild(menu);
+  root.appendChild(tools);
+  root.appendChild(legend);
+
+  return true;
+ }
+
+ function init(){
+  if (apply()) return;
+
+  const observer = new MutationObserver(()=>{
+   if (apply()) observer.disconnect();
+  });
+
+  observer.observe(document.body,{
+   childList:true,
+   subtree:true
+  });
+
+  window.setTimeout(()=>{
+   observer.disconnect();
+   apply();
+  },5000);
+ }
+
+ if (document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded',init,{once:true});
+ } else {
+  init();
+ }
 })();
 </script>
 </body>
