@@ -1409,6 +1409,109 @@ window.addEventListener('beforeinstallprompt', function(event) {
  #ucyQuickInfo::after{width:40px}
 }
 </style>
+
+<style id="ucy-thermal-comfort-layout-fix-v2">
+/* UCY_THERMAL_COMFORT_LAYOUT_FIX_V2 */
+
+/* Existing mode selector: one shared background.
+   The title is now INSIDE the selector, not above it. */
+#v9ModeBar {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
+  align-items: center !important;
+  gap: 3px !important;
+  border-radius: 17px !important;
+  overflow: visible !important;
+}
+
+#ucyModeTitle {
+  position: static !important;
+  grid-column: 1 / -1 !important;
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 5px 5px 3px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #f2f7ff !important;
+  font-family: inherit !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+}
+
+#v9ModeBar button {
+  min-width: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Four independent circular map-layer buttons. */
+#ucyQuickLayers {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  gap: 5px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+#ucyQuickLayers .ucy-quick-button {
+  width: 53px !important;
+  flex: 0 0 53px !important;
+  min-width: 0 !important;
+  padding: 3px 0 !important;
+}
+
+#ucyQuickLayers .ucy-quick-label {
+  display: block !important;
+  width: 100% !important;
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  line-height: 1.15 !important;
+  white-space: normal !important;
+  text-align: center !important;
+}
+
+/* Information button centred above the layers. */
+#ucyQuickInfo {
+  position: absolute !important;
+  top: -31px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 23px !important;
+  height: 23px !important;
+}
+
+@media (max-width: 600px) {
+  #ucyModeTitle {
+    font-size: 10px !important;
+  }
+
+  #ucyQuickLayers {
+    gap: 3px !important;
+  }
+
+  #ucyQuickLayers .ucy-quick-button {
+    width: 50px !important;
+    flex-basis: 50px !important;
+  }
+
+  #ucyQuickInfo::before,
+  #ucyQuickInfo::after {
+    width: 40px !important;
+  }
+}
+</style>
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
@@ -1559,8 +1662,7 @@ window.addEventListener('beforeinstallprompt', function(event) {
  <button type="button" id="ucyQuickInfo" aria-label="About thermal comfort" aria-controls="ucyThermalInfoPanel" aria-expanded="false">ⓘ</button>
  <button class="ucy-quick-button" type="button" data-quick-metric="UTCI" aria-label="Universal Thermal Climate Index" aria-pressed="false"><span class="ucy-quick-icon"><svg class="ico" aria-hidden="true"><use href="#i-temp"/></svg></span><span class="ucy-quick-label">UTCI</span></button>
  <button class="ucy-quick-button" type="button" data-quick-metric="PET" aria-label="Physiological Equivalent Temperature" aria-pressed="false"><span class="ucy-quick-icon"><svg class="ico" aria-hidden="true"><use href="#i-person"/></svg></span><span class="ucy-quick-label">PET</span></button>
- <button class="ucy-quick-button" type="button" data-quick-metric="Stress" aria-label="Thermal Stress" aria-pressed="true"><span class="ucy-quick-icon"><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg></span><span class="ucy-quick-label">Thermal
-Stress</span></button>
+ <button class="ucy-quick-button" type="button" data-quick-metric="Stress" aria-label="Thermal Stress" aria-pressed="true"><span class="ucy-quick-icon"><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg></span><span class="ucy-quick-label">Thermal<br>Stress</span></button>
  <button class="ucy-quick-button" type="button" data-quick-metric="Wind" aria-label="Wind Speed" aria-pressed="false"><span class="ucy-quick-icon"><svg class="ico" aria-hidden="true"><use href="#i-wind"/></svg></span><span class="ucy-quick-label">Wind</span></button>
 </div>
 
@@ -4648,7 +4750,7 @@ function outlookSlot(slot,label,s){
  slot.style.removeProperty('color');
 
  if(!s||!Number.isFinite(s.mean)){
-   val.textContent='UTCI —';
+   val.textContent='Feels like —';
    human.replaceChildren();
    stress.textContent='Data unavailable';
    slot.title=label+' — UTCI unavailable';
@@ -4666,7 +4768,7 @@ function outlookSlot(slot,label,s){
 
  human.replaceChildren(icon);
  stress.textContent=cat.l;
- val.textContent='UTCI '+s.mean.toFixed(1)+'°C';
+ val.textContent='Feels like '+s.mean.toFixed(1)+'°C';
 
  slot.title=label+
    ' — Campus-average UTCI '+
@@ -5346,12 +5448,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <div id="ucyThermalInfoPanel" role="region"
  aria-label="Understanding thermal comfort" hidden>
  <h3>Understanding Thermal Comfort</h3>
- <p><strong>Feels like:</strong> Outdoor thermal conditions, not simply air temperature.</p>
- <p><strong>UTCI:</strong> Outdoor thermal stress index (°C).</p>
- <p><strong>PET:</strong> Physiological equivalent temperature (°C).</p>
- <p><strong>Thermal Stress:</strong> Categories derived from UTCI.</p>
- <p><strong>Wind:</strong> Modelled local wind speed at 1.5 m (m/s).</p>
- <p>The hourly Feels Like outlook shows campus median UTCI (P50), not measured air temperature.</p>
+ <p>Discover how the outdoor environment feels, taking into account temperature, sunlight, humidity and wind.</p>
+ <p><strong>Feels Like:</strong> How warm or cold it feels outdoors, based on the UTCI thermal comfort index.</p>
+ <p><strong>UTCI:</strong> Shows how outdoor conditions affect thermal stress on the human body.</p>
+ <p><strong>PET:</strong> Describes how people experience outdoor thermal conditions, expressed as an equivalent temperature.</p>
+ <p><strong>Thermal Stress:</strong> Shows the level of heat or cold stress, from extreme cold to extreme heat.</p>
+ <p><strong>Wind:</strong> Shows local wind speed and how air moves around buildings and outdoor spaces.</p>
+ <p><strong>Campus Outlook:</strong> See how outdoor thermal conditions change throughout the day, using the median UTCI across campus.</p>
 </div>
 
 <script id="ucy-quick-layers-script">
@@ -5392,7 +5495,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
    quick.style.left=Math.round(
     Math.max(6,Math.min(innerWidth-width-6,left))
    )+'px';
-   quick.style.top=Math.round(rect.bottom+31)+'px';
+   quick.style.top=Math.round(rect.bottom+42)+'px';
   }
 
   for(const button of buttons){
