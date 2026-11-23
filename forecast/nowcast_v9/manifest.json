@@ -1,10 +1,10 @@
 {
   "schema": "ucy-v9-nowcast-maps-1",
   "version": "9.0",
-  "release": "20261123T073000Z",
-  "observation_utc": "2026-11-23T07:30:00+00:00",
+  "release": "20261123T083000Z",
+  "observation_utc": "2026-11-23T08:30:00+00:00",
   "source": "AURA",
-  "urock_scenario": "WS_00p9_WD_018",
+  "urock_scenario": "WS_01p2_WD_099",
   "width": 499,
   "height": 263,
   "bounds": [
@@ -43,7 +43,7 @@
       35.13862679510699
     ]
   ],
-  "valid_cells": 117722,
+  "valid_cells": 117732,
   "maps": {
     "UTCI": "UTCI.png",
     "PET": "PET.png",
@@ -53,19 +53,19 @@
   "meteo": {
     "iy": "2026",
     "id": "327",
-    "it": "7",
+    "it": "8",
     "imin": "30",
     "qn": "-999",
     "qh": "-999",
     "qe": "-999",
     "qs": "-999",
     "qf": "-999",
-    "U": "0.89",
-    "RH": "51.36",
-    "Tair": "21.08",
-    "pres": "100.287",
+    "U": "1.17",
+    "RH": "46.85",
+    "Tair": "21.8",
+    "pres": "100.257",
     "rain": "-999",
-    "kdown": "476.75",
+    "kdown": "554.76",
     "snow": "-999",
     "ldown": "-999",
     "fcld": "-999",
@@ -74,7 +74,7 @@
     "lai": "-999",
     "kdiff": "-999",
     "kdir": "-999",
-    "wdir": "18.22"
+    "wdir": "99.81"
   },
   "colour_scales": {
     "UTCI": {
