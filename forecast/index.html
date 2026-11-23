@@ -1512,6 +1512,43 @@ window.addEventListener('beforeinstallprompt', function(event) {
   }
 }
 </style>
+
+<style id="ucy-thermal-info-v3">
+/* UCY_THERMAL_INFO_BELOW_LAYERS_V3 */
+
+/* Centre the information circle BELOW the four layers. */
+#ucyQuickLayers #ucyQuickInfo {
+  position: absolute !important;
+  top: calc(100% + 5px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 23px !important;
+  height: 23px !important;
+}
+
+#ucyQuickLayers #ucyQuickInfo::before,
+#ucyQuickLayers #ucyQuickInfo::after {
+  width: 48px !important;
+}
+
+/* Scroll inside the panel, without covering lower controls. */
+#ucyThermalInfoPanel {
+  position: fixed !important;
+  z-index: 9300 !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  max-width: calc(100vw - 24px) !important;
+}
+
+@media (max-width: 600px) {
+  #ucyQuickLayers #ucyQuickInfo::before,
+  #ucyQuickLayers #ucyQuickInfo::after {
+    width: 38px !important;
+  }
+}
+</style>
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
@@ -4737,6 +4774,7 @@ function outlookSlot(slot,label,s){
  const val=slot.querySelector('.ucy-outlook-value');
  const human=slot.querySelector('.ucy-outlook-human');
  const stress=slot.querySelector('.ucy-outlook-stress');
+  stress.style.removeProperty('color');
  const reading=slot.querySelector('.ucy-outlook-reading');
 
  if(reading&&stress.parentElement!==reading){
@@ -4758,6 +4796,7 @@ function outlookSlot(slot,label,s){
  }
 
  const cat=category(s.mean);
+ stress.style.setProperty('color',cat.c,'important');
  const icon=document.createElement('img');
 
  icon.src='assets/thermal-stress/'+cat.kind+'.svg';
@@ -5450,11 +5489,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  <h3>Understanding Thermal Comfort</h3>
  <p>Discover how the outdoor environment feels, taking into account temperature, sunlight, humidity and wind.</p>
  <p><strong>Feels Like:</strong> How warm or cold it feels outdoors, based on the UTCI thermal comfort index.</p>
- <p><strong>UTCI:</strong> Shows how outdoor conditions affect thermal stress on the human body.</p>
- <p><strong>PET:</strong> Describes how people experience outdoor thermal conditions, expressed as an equivalent temperature.</p>
+ <p><strong>UTCI:</strong> An equivalent temperature that describes how air temperature, humidity, wind and radiation combine to affect thermal stress on the human body.</p>
+ <p><strong>PET:</strong> An equivalent air temperature that describes how the human body experiences outdoor thermal conditions.</p>
  <p><strong>Thermal Stress:</strong> Shows the level of heat or cold stress, from extreme cold to extreme heat.</p>
  <p><strong>Wind:</strong> Shows local wind speed and how air moves around buildings and outdoor spaces.</p>
- <p><strong>Campus Outlook:</strong> See how outdoor thermal conditions change throughout the day, using the median UTCI across campus.</p>
 </div>
 
 <script id="ucy-quick-layers-script">
@@ -5547,19 +5585,46 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   if(!info||!panel||!quick)return;
 
   function position(){
-   const r=quick.getBoundingClientRect();
-   const width=panel.offsetWidth;
-   panel.style.left=Math.round(Math.max(12,Math.min(
+  /* UCY_THERMAL_INFO_BELOW_LAYERS_V3 */
+  const r=info.getBoundingClientRect();
+  const width=panel.offsetWidth;
+
+  panel.style.left=Math.round(Math.max(
+   12,
+   Math.min(
     window.innerWidth-width-12,
     r.left+(r.width-width)/2
-   )))+'px';
-   panel.style.top=Math.round(
-    window.innerHeight-r.bottom>=panel.offsetHeight+14
-    ? r.bottom+9
-    : Math.max(10,r.top-panel.offsetHeight-8)
-   )+'px';
+   )
+  ))+'px';
+
+  let bottomLimit=window.innerHeight-10;
+
+  for(const id of ['ucyMobileButtons','bottomPanel']){
+   const el=document.getElementById(id);
+   if(!el)continue;
+
+   const b=el.getBoundingClientRect();
+   const st=getComputedStyle(el);
+
+   if(st.display==='none'||
+      st.visibility==='hidden'||
+      b.width===0||
+      b.height===0)continue;
+
+   if(b.top>r.bottom+15){
+    bottomLimit=Math.min(bottomLimit,b.top-10);
+   }
   }
-  function close(){
+
+  const top=r.bottom+9;
+  const available=Math.max(0,bottomLimit-top);
+
+  panel.style.top=Math.round(top)+'px';
+  panel.style.maxHeight=Math.floor(available)+'px';
+  panel.style.overflowY='auto';
+  panel.style.boxSizing='border-box';
+ }
+ function close(){
    panel.hidden=true;
    info.setAttribute('aria-expanded','false');
   }
