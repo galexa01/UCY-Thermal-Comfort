@@ -1568,19 +1568,6 @@ window.addEventListener('beforeinstallprompt', function(event) {
   justify-content: center !important;
   box-sizing: border-box !important;
   padding: 0 !important;
-  font-family: Arial, sans-serif !important;
-  font-size: 15px !important;
-  font-weight: 800 !important;
-  line-height: 1 !important;
-  text-align: center !important;
-}
-
-/* Optically centre the i inside its existing circle. */
-#ucyQuickInfo .ucy-info-glyph {
-  display: block;
-  line-height: 1;
-  transform: translateY(1px);
-  pointer-events: none;
 }
 
 @media (max-width: 600px) {
@@ -1736,7 +1723,7 @@ window.addEventListener('beforeinstallprompt', function(event) {
 </div>
 
 <div id="ucyQuickLayers" role="group" aria-label="Quick map layer selection">
- <button type="button" id="ucyQuickInfo" aria-label="About thermal comfort" aria-controls="ucyThermalInfoPanel" aria-expanded="false"><span class="ucy-info-glyph" aria-hidden="true">i</span></button>
+ <button type="button" id="ucyQuickInfo" aria-label="About thermal comfort" aria-controls="ucyThermalInfoPanel" aria-expanded="false">ⓘ</button>
  <button class="ucy-quick-button" type="button" data-quick-metric="UTCI" aria-label="Universal Thermal Climate Index" aria-pressed="false"><span class="ucy-quick-icon"><svg class="ico" aria-hidden="true"><use href="#i-temp"/></svg></span><span class="ucy-quick-label">UTCI</span></button>
  <button class="ucy-quick-button" type="button" data-quick-metric="PET" aria-label="Physiological Equivalent Temperature" aria-pressed="false"><span class="ucy-quick-icon"><svg class="ico" aria-hidden="true"><use href="#i-person"/></svg></span><span class="ucy-quick-label">PET</span></button>
  <button class="ucy-quick-button" type="button" data-quick-metric="Stress" aria-label="Thermal Stress" aria-pressed="true"><span class="ucy-quick-icon"><svg class="ico" aria-hidden="true"><use href="#i-sun"/></svg></span><span class="ucy-quick-label">Thermal<br>Stress</span></button>
