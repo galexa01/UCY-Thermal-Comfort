@@ -2014,6 +2014,86 @@ async function v85LoadDirection(i){
  return array;
 }
 
+
+// UCY_WIND_RASTER_CLIP_V2
+// Clip displayed wind to the active raster footprint.
+// Does not modify wind data or numerical calculations.
+
+function ucyWindRasterCorners(){
+ let corners=null;
+
+ if(document.body.classList.contains('v9-nowcast')){
+  if(typeof v9Meta!=='undefined' && v9Meta &&
+     Array.isArray(v9Meta.bounds)){
+   corners=v9Meta.bounds;
+  }
+ }else if(typeof metricEntry==='function'){
+  const entry=metricEntry();
+  if(entry && Array.isArray(entry.bounds)){
+   corners=entry.bounds;
+  }
+ }
+
+ if(!corners && pointManifest &&
+    Array.isArray(pointManifest.bounds)){
+  corners=pointManifest.bounds;
+ }
+
+ if(!Array.isArray(corners)||corners.length!==4)return null;
+
+ if(!corners.every(p=>
+    Array.isArray(p)&&p.length===2&&
+    Number.isFinite(Number(p[0]))&&
+    Number.isFinite(Number(p[1])))){
+  return null;
+ }
+
+ return corners;
+}
+
+function ucyWindArrowFits(points){
+ const corners=ucyWindRasterCorners();
+ if(!corners)return false;
+
+ const west=Math.min(...corners.map(p=>Number(p[0])));
+ const east=Math.max(...corners.map(p=>Number(p[0])));
+ const south=Math.min(...corners.map(p=>Number(p[1])));
+ const north=Math.max(...corners.map(p=>Number(p[1])));
+
+ return points.every(p=>{
+  const loc=map.unproject(p);
+  return Number.isFinite(loc.lng)&&
+         Number.isFinite(loc.lat)&&
+         loc.lng>=west&&loc.lng<=east&&
+         loc.lat>=south&&loc.lat<=north;
+ });
+}
+
+function ucyWindClipCanvas(ctx){
+ const corners=ucyWindRasterCorners();
+ if(!corners)return false;
+
+ const points=corners.map(p=>map.project(p));
+
+ if(points.some(p=>
+    !Number.isFinite(p.x)||
+    !Number.isFinite(p.y))){
+  return false;
+ }
+
+ ctx.beginPath();
+ ctx.moveTo(points[0].x,points[0].y);
+
+ for(let i=1;i<points.length;i++){
+  ctx.lineTo(points[i].x,points[i].y);
+ }
+
+ ctx.closePath();
+ ctx.clip();
+
+ return true;
+}
+
 function v85MakeArrow(lon,lat,degree,color){
  const centre=map.project([lon,lat]);
  const a=degree*Math.PI/180;
@@ -2048,6 +2128,7 @@ function v85MakeArrow(lon,lat,degree,color){
  ];
 
  const convert=p=>map.unproject(p).toArray();
+ if(!ucyWindArrowFits([tail,tip,left,right]))return null;
 
  return {
   type:'Feature',
@@ -2860,6 +2941,12 @@ v85FlowDraw=function(timestamp){
  }
 
  const ctx=v85FlowContext;
+ ctx.save();
+ if(!ucyWindClipCanvas(ctx)){
+  ctx.restore();
+  v85FlowFrameId=requestAnimationFrame(v85FlowDraw);
+  return;
+ }
 
  const dt=v85PreviousTime?
   Math.min((timestamp-v85PreviousTime)/1000,0.08):0.033;
@@ -2928,6 +3015,7 @@ v85FlowDraw=function(timestamp){
  }
 
  ctx.globalAlpha=1;
+ ctx.restore();
 
  /* Remove all residual trails within building footprints. */
  if(v85BuildingMask){
