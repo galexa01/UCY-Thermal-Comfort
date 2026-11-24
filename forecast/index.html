@@ -2171,9 +2171,10 @@ async function v85Refresh(){
   const east=bounds[2][0],south=bounds[2][1];
   const zoom=map.getZoom();
   // UCY_WIND_ZOOM_LOD_V1
+   // UCY_WIND_CLOSEUP_DENSITY_V1
    const step=
-     zoom>=17?9:
-     zoom>=16?14:
+     zoom>=17?8:
+     zoom>=16?12:
      zoom>=15?23:
      zoom>=14.2?52:Infinity;
 
@@ -2885,9 +2886,9 @@ function v85ParticleTarget(W,H){
   if(z<14.2)return 0;
 
   const areaPerParticle=
-    z>=18?3200:
-    z>=17?3800:
-    z>=16?4900:
+    z>=18?2900:
+    z>=17?3400:
+    z>=16?4400:
     z>=15?7500:13500;
 
   return Math.min(
