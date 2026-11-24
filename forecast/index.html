@@ -2032,10 +2032,11 @@ function v85MakeArrow(lon,lat,degree,color){
  dx/=magnitude;
  dy/=magnitude;
 
- const len=17;
+ const z=map.getZoom();
+  const len=z>=17?17:z>=16?15:z>=15?13:10;
  const tail=[centre.x-dx*len/2,centre.y-dy*len/2];
  const tip=[centre.x+dx*len/2,centre.y+dy*len/2];
- const wing=5;
+ const wing=len*5/17;
 
  const left=[
   tip[0]-dx*wing-dy*wing*0.7,
@@ -2088,7 +2089,18 @@ async function v85Refresh(){
   const west=bounds[0][0],north=bounds[0][1];
   const east=bounds[2][0],south=bounds[2][1];
   const zoom=map.getZoom();
-  const step=zoom>=17?9:zoom>=15?14:23;
+  // UCY_WIND_ZOOM_LOD_V1
+   const step=
+     zoom>=17?9:
+     zoom>=16?14:
+     zoom>=15?23:
+     zoom>=14.2?52:Infinity;
+
+   if(!Number.isFinite(step)){
+     source.setData(v85Empty());
+     v85Status('Zoom in to view local wind vectors');
+     return;
+   }
 
   const features=[];
 
@@ -2786,19 +2798,21 @@ v85NewParticle=function(){
 };
 
 function v85ParticleTarget(W,H){
- const z=map.getZoom();
- const area=W*H;
+  // Screen-space particle density, adapted to map zoom.
+  const z=map.getZoom();
 
- const areaPerParticle=
-  z>=18?2900:
-  z>=17?2500:
-  z>=16?2100:
-  z>=15?1800:1600;
+  if(z<14.2)return 0;
 
- return Math.max(
-  120,
-  Math.min(1050,Math.round(area/(areaPerParticle*0.88)))
- );
+  const areaPerParticle=
+    z>=18?3200:
+    z>=17?3800:
+    z>=16?4900:
+    z>=15?7500:13500;
+
+  return Math.min(
+    600,
+    Math.max(0,Math.round(W*H/areaPerParticle))
+  );
 }
 
 const v85MaskedOriginalInit=v85InitArrows;
