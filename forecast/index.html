@@ -4796,7 +4796,49 @@ function ucyPersonSVG(key){
 
 
 // Separate, locally stored thermal-stress SVG assets.
-function outlookSlot(slot,label,s){
+
+// UCY_HEAT_3D_DAY_NIGHT_V1
+function ucyThermalIconPeriod(value){
+ const d=new Date(value);
+ if(!Number.isFinite(d.getTime()))return null;
+
+ const r=Math.PI/180;
+ const days=d.getTime()/86400000+2440587.5-2451545;
+ const meanLon=(280.460+0.9856474*days)%360;
+ const anomaly=(357.528+0.9856003*days)*r;
+
+ const sunLon=(
+  meanLon+1.915*Math.sin(anomaly)+
+  0.020*Math.sin(2*anomaly)
+ )*r;
+
+ const obliquity=(23.439-0.0000004*days)*r;
+
+ const ra=Math.atan2(
+  Math.cos(obliquity)*Math.sin(sunLon),
+  Math.cos(sunLon)
+ );
+
+ const decl=Math.asin(
+  Math.sin(obliquity)*Math.sin(sunLon)
+ );
+
+ const gst=(
+  18.697374558+24.06570982441908*days
+ )%24;
+
+ const hourAngle=(gst*15+33.412)*r-ra;
+ const lat=35.145*r;
+
+ const altitude=Math.asin(
+  Math.sin(lat)*Math.sin(decl)+
+  Math.cos(lat)*Math.cos(decl)*Math.cos(hourAngle)
+ );
+
+ return altitude>=-0.833*r?'day':'night';
+}
+
+function outlookSlot(slot,label,s,timestamp){
  const stamp=slot.querySelector('.ucy-outlook-time');
  const val=slot.querySelector('.ucy-outlook-value');
  const human=slot.querySelector('.ucy-outlook-human');
@@ -4826,7 +4868,10 @@ function outlookSlot(slot,label,s){
  stress.style.setProperty('color',cat.c,'important');
  const icon=document.createElement('img');
 
- icon.src='assets/thermal-stress/'+cat.kind+'.svg';
+ const fallback='assets/thermal-stress/'+cat.kind+'.svg';
+ const period=ucyThermalIconPeriod(timestamp);
+ icon.src=period?'assets/thermal-stress-3d/'+cat.kind+'_'+period+'.webp':fallback;
+ icon.onerror=function(){this.onerror=null;this.src=fallback;};
  icon.alt=cat.l;
  icon.width=67;
  icon.height=67;
@@ -4879,7 +4924,8 @@ async function renderOutlook(now){
  outlookSlot(
    slots[0],
    'NOW · '+ucyCampusCardTime(now.time),
-   now.s
+   now.s,
+    now.time
  );
 
  let f;
@@ -4942,7 +4988,8 @@ async function renderOutlook(now){
        outlookSlot(
          tile,
          ucyCampusCardTime(rec.t),
-         st
+         st,
+          rec.t
        );
      }catch(e){
        if(generation!==ucyOutlookSequence||!isNowcast()){
