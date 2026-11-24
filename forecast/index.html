@@ -4838,6 +4838,56 @@ function ucyThermalIconPeriod(value){
  return altitude>=-0.833*r?'day':'night';
 }
 
+
+const ucyReadableOutlookFormatter = new Intl.DateTimeFormat('en-GB', {
+  timeZone:'Europe/Nicosia',
+  weekday:'short', day:'2-digit', month:'short',
+  year:'numeric', hour:'2-digit', minute:'2-digit',
+  hourCycle:'h23'
+});
+
+function ucyReadableOutlookTime(slot,stamp,label,timestamp){
+  const d = timestamp===null||timestamp===undefined
+    ? null : new Date(timestamp);
+
+  if(!d || !Number.isFinite(d.getTime())){
+    delete slot.dataset.ucyLocalDay;
+    slot.classList.remove('ucy-outlook-new-day');
+    stamp.replaceChildren(document.createTextNode(label));
+    return;
+  }
+
+  const p={};
+  for(const part of ucyReadableOutlookFormatter.formatToParts(d)){
+    if(part.type!=='literal') p[part.type]=part.value;
+  }
+
+  const dayKey=p.year+'-'+p.month+'-'+p.day;
+  const prev=slot.previousElementSibling;
+  const changed=!!(
+    prev && prev.dataset.ucyLocalDay &&
+    prev.dataset.ucyLocalDay!==dayKey
+  );
+
+  slot.dataset.ucyLocalDay=dayKey;
+  slot.classList.toggle('ucy-outlook-new-day',changed);
+
+  const date=document.createElement('span');
+  date.className='ucy-outlook-local-date';
+  date.textContent= !prev || changed
+    ? p.weekday.toUpperCase()+' '+p.day+' '+
+      p.month.toUpperCase()+(changed?' · NEW DAY':'')
+    : p.weekday.toUpperCase();
+
+  const time=document.createElement('span');
+  time.className='ucy-outlook-local-time';
+  time.textContent=(
+    slot.classList.contains('now')?'NOWCAST · ':''
+  )+p.hour+':'+p.minute;
+
+  stamp.replaceChildren(date,time);
+}
+
 function outlookSlot(slot,label,s,timestamp){
  const stamp=slot.querySelector('.ucy-outlook-time');
  const val=slot.querySelector('.ucy-outlook-value');
@@ -4850,7 +4900,7 @@ function outlookSlot(slot,label,s,timestamp){
    reading.prepend(stress);
  }
 
- stamp.textContent=label;
+  ucyReadableOutlookTime(slot,stamp,label,timestamp);
 
  slot.style.removeProperty('background');
  slot.style.removeProperty('border-color');
@@ -4962,11 +5012,7 @@ async function renderOutlook(now){
    slots[k].hidden=!rec;
 
    if(rec){
-     outlookSlot(
-       slots[k],
-       ucyCampusCardTime(rec.t),
-       null
-     );
+     outlookSlot(slots[k],ucyCampusCardTime(rec.t),null,rec.t);
    }
  }
 
@@ -4998,11 +5044,7 @@ async function renderOutlook(now){
 
        console.warn('Campus outlook:',rec.i,e);
 
-       outlookSlot(
-         tile,
-         ucyCampusCardTime(rec.t),
-         null
-       );
+       outlookSlot(tile,ucyCampusCardTime(rec.t),null,rec.t);
      }
    }
  };
@@ -5774,5 +5816,131 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
  }
 })();
 </script>
+
+<style id="ucy-outlook-readable-v1">
+/* UCY Heat readability preview */
+
+#ucyCampusOutlook {
+  height:112px!important;
+  min-height:112px!important;
+  max-height:112px!important;
+  padding:6px 9px!important;
+  gap:3px!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-head {
+  font-size:12.5px!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-head span {
+  font-size:10.5px!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-items {
+  gap:9px!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-item {
+  box-sizing:border-box!important;
+  flex:0 0 174px!important;
+  width:174px!important;
+  min-width:174px!important;
+  max-width:174px!important;
+  padding:5px 7px!important;
+  gap:2px!important;
+}
+
+/* Two-line local date and time */
+#ucyCampusOutlook .ucy-outlook-time {
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:1px!important;
+  width:100%!important;
+  min-height:25px!important;
+  height:auto!important;
+  max-height:none!important;
+  line-height:1!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  opacity:1!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-local-date {
+  display:block;
+  font-size:9.7px;
+  line-height:1.1;
+  font-weight:800;
+  letter-spacing:.035em;
+  color:#a9c8e8;
+}
+
+#ucyCampusOutlook .ucy-outlook-local-time {
+  display:block;
+  font-size:13.5px;
+  line-height:1.1;
+  font-weight:800;
+  font-variant-numeric:tabular-nums;
+  color:#f5faff;
+}
+
+/* Visually distinguish a new calendar day */
+#ucyCampusOutlook .ucy-outlook-item.ucy-outlook-new-day {
+  margin-left:6px!important;
+  border-left:3px solid #7bd5ff!important;
+  border-top-color:rgba(123,213,255,.65)!important;
+  border-bottom-color:rgba(123,213,255,.65)!important;
+  background:rgba(36,94,137,.28)!important;
+}
+
+#ucyCampusOutlook
+.ucy-outlook-item.ucy-outlook-new-day
+.ucy-outlook-local-date {
+  color:#93e3ff!important;
+}
+
+/* Slightly larger readings and stress descriptions */
+#ucyCampusOutlook .ucy-outlook-core {
+  gap:6px!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-reading {
+  gap:3px!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-stress {
+  font-size:11.4px!important;
+  line-height:1.12!important;
+  font-weight:780!important;
+}
+
+#ucyCampusOutlook .ucy-outlook-value {
+  font-size:12.1px!important;
+  line-height:1.12!important;
+  font-weight:700!important;
+}
+
+/* Mobile/PWA */
+@media(max-width:768px){
+  body.v9-nowcast #ucyCampusOutlook {
+    height:110px!important;
+    min-height:110px!important;
+    max-height:110px!important;
+  }
+
+  #ucyCampusOutlook .ucy-outlook-item {
+    flex:0 0 168px!important;
+    width:168px!important;
+    min-width:168px!important;
+    max-width:168px!important;
+  }
+
+  #ucyCampusOutlook .ucy-outlook-stress {
+    font-size:11px!important;
+  }
+}
+</style>
+
 </body>
 </html>
