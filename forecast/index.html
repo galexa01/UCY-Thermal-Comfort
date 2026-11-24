@@ -4960,7 +4960,7 @@ async function renderOutlook(now){
    )
  ];
 
- if(slots.length!==13){
+ if(slots.length!==25){
    throw Error('Campus widget: unexpected card count');
  }
 
@@ -4999,13 +4999,14 @@ async function renderOutlook(now){
    throw Error('Invalid Nowcast timestamp');
  }
 
+ // UCY_OUTLOOK_24H_V1
  const future=f.timestamps
    .map((rec,i)=>({
      i,
      t:Date.parse(rec.time_utc)
    }))
    .filter(rec=>Number.isFinite(rec.t)&&rec.t>Math.max(start,Date.now()))
-   .slice(0,12);
+   .slice(0,24);
 
  for(let k=1;k<slots.length;k++){
    const rec=future[k-1];
@@ -5105,7 +5106,7 @@ function boot(){
  const widget=document.createElement('section');widget.id='ucyCampusOutlook';widget.setAttribute('aria-label','Campus median UTCI thermal comfort outlook');
  const head=document.createElement('div');head.className='ucy-outlook-head';head.innerHTML='<strong>CAMPUS THERMAL COMFORT</strong><span>FEELS LIKE · HOURLY</span>';
  const items=document.createElement('div');items.className='ucy-outlook-items';
- for(let i=0;i<13;i++){const tile=document.createElement('div');tile.className='ucy-outlook-item'+(i===0?' now':'');tile.innerHTML='<div class="ucy-outlook-time">—</div><div class="ucy-outlook-core"><span class="ucy-outlook-human"></span><span class="ucy-outlook-reading"><strong class="ucy-outlook-value">—</strong><span class="ucy-outlook-measure">Avg UTCI</span></span></div><div class="ucy-outlook-stress">Loading…</div>';items.appendChild(tile);}
+ for(let i=0;i<25;i++){const tile=document.createElement('div');tile.className='ucy-outlook-item'+(i===0?' now':'');tile.innerHTML='<div class="ucy-outlook-time">—</div><div class="ucy-outlook-core"><span class="ucy-outlook-human"></span><span class="ucy-outlook-reading"><strong class="ucy-outlook-value">—</strong><span class="ucy-outlook-measure">Avg UTCI</span></span></div><div class="ucy-outlook-stress">Loading…</div>';items.appendChild(tile);}
  widget.append(head,items);
  if(ticker.parentNode===panel)panel.insertBefore(widget,ticker);else panel.insertBefore(widget,panel.firstChild);
  // Keep native labels, icons, and background styling, only clarify which statistic they show.
