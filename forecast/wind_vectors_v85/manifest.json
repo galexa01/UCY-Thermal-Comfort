@@ -1,6 +1,6 @@
 {
   "schema": "ucy-v85-urock-direction-1",
-  "forecast_run": "20261124",
+  "forecast_run": "20261125",
   "width": 499,
   "height": 263,
   "bounds": [
@@ -28,204 +28,84 @@
   "direction_reference_speed_m_s": 3.0,
   "hourly": [
     {
-      "time_utc": "2026-11-24T10:00:00Z",
-      "direction_case": "WD_198",
-      "file": "WD_198.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T11:00:00Z",
-      "direction_case": "WD_330",
-      "file": "WD_330.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T12:00:00Z",
-      "direction_case": "WD_330",
-      "file": "WD_330.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T13:00:00Z",
-      "direction_case": "WD_306",
-      "file": "WD_306.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T14:00:00Z",
-      "direction_case": "WD_291",
-      "file": "WD_291.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T15:00:00Z",
-      "direction_case": "WD_282",
-      "file": "WD_282.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T16:00:00Z",
-      "direction_case": "WD_282",
-      "file": "WD_282.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T17:00:00Z",
-      "direction_case": "WD_279",
-      "file": "WD_279.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T18:00:00Z",
-      "direction_case": "WD_279",
-      "file": "WD_279.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T19:00:00Z",
-      "direction_case": "WD_273",
-      "file": "WD_273.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T20:00:00Z",
-      "direction_case": "WD_261",
-      "file": "WD_261.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T21:00:00Z",
-      "direction_case": "WD_240",
-      "file": "WD_240.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T22:00:00Z",
-      "direction_case": "WD_249",
-      "file": "WD_249.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-24T23:00:00Z",
-      "direction_case": "WD_255",
-      "file": "WD_255.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T00:00:00Z",
-      "direction_case": "WD_258",
-      "file": "WD_258.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T01:00:00Z",
-      "direction_case": "WD_267",
-      "file": "WD_267.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T02:00:00Z",
-      "direction_case": "WD_276",
-      "file": "WD_276.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T03:00:00Z",
-      "direction_case": "WD_282",
-      "file": "WD_282.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T04:00:00Z",
-      "direction_case": "WD_282",
-      "file": "WD_282.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T05:00:00Z",
-      "direction_case": "WD_285",
-      "file": "WD_285.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T06:00:00Z",
-      "direction_case": "WD_285",
-      "file": "WD_285.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T07:00:00Z",
-      "direction_case": "WD_294",
-      "file": "WD_294.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T08:00:00Z",
-      "direction_case": "WD_312",
-      "file": "WD_312.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T09:00:00Z",
-      "direction_case": "WD_333",
-      "file": "WD_333.f32.gz"
-    },
-    {
       "time_utc": "2026-11-25T10:00:00Z",
-      "direction_case": "WD_339",
-      "file": "WD_339.f32.gz"
+      "direction_case": "WD_300",
+      "file": "WD_300.f32.gz"
     },
     {
       "time_utc": "2026-11-25T11:00:00Z",
-      "direction_case": "WD_351",
-      "file": "WD_351.f32.gz"
+      "direction_case": "WD_309",
+      "file": "WD_309.f32.gz"
     },
     {
       "time_utc": "2026-11-25T12:00:00Z",
+      "direction_case": "WD_321",
+      "file": "WD_321.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-25T13:00:00Z",
+      "direction_case": "WD_327",
+      "file": "WD_327.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-25T14:00:00Z",
+      "direction_case": "WD_342",
+      "file": "WD_342.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-25T15:00:00Z",
       "direction_case": "WD_006",
       "file": "WD_006.f32.gz"
     },
     {
-      "time_utc": "2026-11-25T13:00:00Z",
-      "direction_case": "WD_030",
-      "file": "WD_030.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T14:00:00Z",
-      "direction_case": "WD_051",
-      "file": "WD_051.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T15:00:00Z",
-      "direction_case": "WD_066",
-      "file": "WD_066.f32.gz"
-    },
-    {
       "time_utc": "2026-11-25T16:00:00Z",
-      "direction_case": "WD_072",
-      "file": "WD_072.f32.gz"
+      "direction_case": "WD_027",
+      "file": "WD_027.f32.gz"
     },
     {
       "time_utc": "2026-11-25T17:00:00Z",
+      "direction_case": "WD_054",
+      "file": "WD_054.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-25T18:00:00Z",
+      "direction_case": "WD_075",
+      "file": "WD_075.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-25T19:00:00Z",
+      "direction_case": "WD_075",
+      "file": "WD_075.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-25T20:00:00Z",
       "direction_case": "WD_078",
       "file": "WD_078.f32.gz"
     },
     {
-      "time_utc": "2026-11-25T18:00:00Z",
-      "direction_case": "WD_084",
-      "file": "WD_084.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T19:00:00Z",
-      "direction_case": "WD_084",
-      "file": "WD_084.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-25T20:00:00Z",
-      "direction_case": "WD_084",
-      "file": "WD_084.f32.gz"
-    },
-    {
       "time_utc": "2026-11-25T21:00:00Z",
-      "direction_case": "WD_087",
-      "file": "WD_087.f32.gz"
+      "direction_case": "WD_078",
+      "file": "WD_078.f32.gz"
     },
     {
       "time_utc": "2026-11-25T22:00:00Z",
+      "direction_case": "WD_078",
+      "file": "WD_078.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-25T23:00:00Z",
       "direction_case": "WD_081",
       "file": "WD_081.f32.gz"
     },
     {
-      "time_utc": "2026-11-25T23:00:00Z",
-      "direction_case": "WD_066",
-      "file": "WD_066.f32.gz"
-    },
-    {
       "time_utc": "2026-11-26T00:00:00Z",
-      "direction_case": "WD_036",
-      "file": "WD_036.f32.gz"
+      "direction_case": "WD_255",
+      "file": "WD_255.f32.gz"
     },
     {
       "time_utc": "2026-11-26T01:00:00Z",
-      "direction_case": "WD_057",
-      "file": "WD_057.f32.gz"
+      "direction_case": "WD_060",
+      "file": "WD_060.f32.gz"
     },
     {
       "time_utc": "2026-11-26T02:00:00Z",
@@ -234,38 +114,158 @@
     },
     {
       "time_utc": "2026-11-26T03:00:00Z",
-      "direction_case": "WD_066",
-      "file": "WD_066.f32.gz"
+      "direction_case": "WD_063",
+      "file": "WD_063.f32.gz"
     },
     {
       "time_utc": "2026-11-26T04:00:00Z",
-      "direction_case": "WD_060",
-      "file": "WD_060.f32.gz"
+      "direction_case": "WD_054",
+      "file": "WD_054.f32.gz"
     },
     {
       "time_utc": "2026-11-26T05:00:00Z",
-      "direction_case": "WD_051",
-      "file": "WD_051.f32.gz"
-    },
-    {
-      "time_utc": "2026-11-26T06:00:00Z",
       "direction_case": "WD_045",
       "file": "WD_045.f32.gz"
     },
     {
+      "time_utc": "2026-11-26T06:00:00Z",
+      "direction_case": "WD_036",
+      "file": "WD_036.f32.gz"
+    },
+    {
       "time_utc": "2026-11-26T07:00:00Z",
-      "direction_case": "WD_048",
-      "file": "WD_048.f32.gz"
+      "direction_case": "WD_042",
+      "file": "WD_042.f32.gz"
     },
     {
       "time_utc": "2026-11-26T08:00:00Z",
-      "direction_case": "WD_051",
-      "file": "WD_051.f32.gz"
+      "direction_case": "WD_048",
+      "file": "WD_048.f32.gz"
     },
     {
       "time_utc": "2026-11-26T09:00:00Z",
       "direction_case": "WD_054",
       "file": "WD_054.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T10:00:00Z",
+      "direction_case": "WD_051",
+      "file": "WD_051.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T11:00:00Z",
+      "direction_case": "WD_048",
+      "file": "WD_048.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T12:00:00Z",
+      "direction_case": "WD_045",
+      "file": "WD_045.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T13:00:00Z",
+      "direction_case": "WD_039",
+      "file": "WD_039.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T14:00:00Z",
+      "direction_case": "WD_033",
+      "file": "WD_033.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T15:00:00Z",
+      "direction_case": "WD_027",
+      "file": "WD_027.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T16:00:00Z",
+      "direction_case": "WD_018",
+      "file": "WD_018.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T17:00:00Z",
+      "direction_case": "WD_006",
+      "file": "WD_006.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T18:00:00Z",
+      "direction_case": "WD_342",
+      "file": "WD_342.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T19:00:00Z",
+      "direction_case": "WD_327",
+      "file": "WD_327.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T20:00:00Z",
+      "direction_case": "WD_312",
+      "file": "WD_312.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T21:00:00Z",
+      "direction_case": "WD_294",
+      "file": "WD_294.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T22:00:00Z",
+      "direction_case": "WD_297",
+      "file": "WD_297.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-26T23:00:00Z",
+      "direction_case": "WD_297",
+      "file": "WD_297.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T00:00:00Z",
+      "direction_case": "WD_300",
+      "file": "WD_300.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T01:00:00Z",
+      "direction_case": "WD_300",
+      "file": "WD_300.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T02:00:00Z",
+      "direction_case": "WD_303",
+      "file": "WD_303.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T03:00:00Z",
+      "direction_case": "WD_306",
+      "file": "WD_306.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T04:00:00Z",
+      "direction_case": "WD_300",
+      "file": "WD_300.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T05:00:00Z",
+      "direction_case": "WD_294",
+      "file": "WD_294.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T06:00:00Z",
+      "direction_case": "WD_288",
+      "file": "WD_288.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T07:00:00Z",
+      "direction_case": "WD_348",
+      "file": "WD_348.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T08:00:00Z",
+      "direction_case": "WD_033",
+      "file": "WD_033.f32.gz"
+    },
+    {
+      "time_utc": "2026-11-27T09:00:00Z",
+      "direction_case": "WD_045",
+      "file": "WD_045.f32.gz"
     }
   ]
 }
