@@ -393,11 +393,18 @@
     if(!sidebar||!metric||!oldToggle||!oldBody||!route||!date||
        !thermal||!weatherHead||!weatherGrid||!info||!brand)return false;
 
-    const host=metric.parentElement;
-    if(!host||!host.classList.contains('side-scroll')||
-       ![metric,oldToggle,oldBody,route,date,thermal,weatherHead,
-         weatherGrid,info,brand].every(x=>host.contains(x))){
-      console.warn('UCY V6.2: Required original sidebar nodes are not all in .side-scroll');
+    // UCY_SIDEBAR_HOST_RESOLUTION_V63
+    // Earlier UCY Heat scripts may wrap metricStack and the original
+    // time/weather controls in <details> elements *inside* side-scroll.
+    // Derive the stable sidebar scrolling host from the sidebar itself,
+    // not from metricStack.parentElement (which may be a nested wrapper).
+    const host=sidebar.querySelector(':scope > .side-scroll');
+    const required=[metric,oldToggle,oldBody,route,date,thermal,
+      weatherHead,weatherGrid,info,brand];
+    if(!host||!required.every(x=>host.contains(x))){
+      const outside=required.filter(x=>!host||!host.contains(x))
+        .map(x=>x.id||x.className||x.tagName);
+      console.warn('UCY V6.3: Sidebar anchors outside .side-scroll:',outside);
       return false;
     }
     function top(el){
@@ -410,7 +417,7 @@
     if(!dt||!tt||!wh||!wg||!abt ||
        [dt,tt].some(n=>[wh,wg,abt].includes(n)) ||
        [dt,tt,wh,wg,abt].some(n=>fixed.some(f=>n===top(f))) ){
-      console.warn('UCY V6.2: Sidebar original sections overlap; no DOM changes');
+      console.warn('UCY V6.3: Sidebar original sections overlap; no DOM changes');
       return false;
     }
     function section(id,label,expanded){
@@ -483,7 +490,7 @@
       },0));
     }
     installSidebarResize();
-    console.info('UCY V6.2: anchored sidebar sections installed: Time > Layers > Display > Analysis > Weather > About');
+    console.info('UCY V6.3: anchored sidebar sections installed: Time > Layers > Display > Analysis > Weather > About');
     return true;
   }
 
