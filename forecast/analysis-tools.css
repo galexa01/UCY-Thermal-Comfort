@@ -1,0 +1,82 @@
+/* UCY Heat — Route/Area local preview V5 only. */
+#ucy-analysis-stage{padding:0 0 10px;margin:14px 6px 12px;border-bottom:1px solid rgba(148,189,217,.22);color:inherit;font:inherit}
+#ucy-analysis-stage *{box-sizing:border-box}
+#ucy-analysis-stage .ucya-accordion{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;padding:12px 5px;background:transparent;color:inherit;border:0;cursor:pointer;text-align:left;font:inherit;font-size:14px;font-weight:750}
+#ucy-analysis-stage .ucya-accordion small{font-size:9px;letter-spacing:.06em;padding:3px 5px;margin-left:4px;background:#684e20;color:#ffdda0;border-radius:4px}
+#ucy-analysis-stage .ucya-chevron{font-size:17px;transition:transform .15s ease;color:#b3cfe3}
+#ucy-analysis-stage .ucya-accordion[aria-expanded="false"] .ucya-chevron{transform:rotate(180deg)}
+#ucy-analysis-stage .ucya-body[hidden],#ucy-analysis-window[hidden],#ucy-analysis-window-body[hidden]{display:none!important}
+.ucy-analysis-buttons{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}
+.ucy-analysis-buttons button{border:1px solid #5078a6;background:#15375f;color:#f2fbff;border-radius:7px;padding:8px 7px;font:inherit;font-size:11px;cursor:pointer;flex:1 1 auto}
+.ucy-analysis-buttons button.chosen{background:#6d3bad;border-color:#d59fff}
+.ucy-analysis-buttons button:hover{filter:brightness(1.2)}
+.ucy-analysis-buttons button:disabled{opacity:.48;cursor:not-allowed}
+.ucy-analysis-info,.ucy-analysis-hover,.ucy-analysis-note,.ucy-analysis-meta{font-size:11px;line-height:1.55;color:inherit;margin:8px 0;opacity:.96}
+.ucy-analysis-note{opacity:.76;font-size:10px}
+#ucy-analysis-count{opacity:.75}
+#ucy-analysis-topshortcut{display:flex;align-items:center;justify-content:center;flex:0 0 37px;width:37px;height:37px;border:1px solid #5c7b9b;border-radius:11px;background:rgba(35,65,96,.93);color:#e3edfb;cursor:pointer;margin:0 3px;padding:0}
+#ucy-analysis-topshortcut:hover{background:#365b82;border-color:#85c9f4}
+/* A floating, moveable, browser-resizable results panel. */
+#ucy-analysis-window{position:fixed;top:150px;right:145px;z-index:10050;width:min(595px,calc(100vw - 30px));height:min(535px,calc(100vh - 170px));min-width:min(310px,calc(100vw - 15px));min-height:210px;max-width:calc(100vw - 12px);max-height:calc(100vh - 12px);resize:both;overflow:hidden;display:flex;flex-direction:column;border-radius:15px;border:1px solid #6084aa;background:rgba(13,38,63,.97);color:#eaf6ff;box-shadow:0 12px 36px rgba(2,12,29,.55);font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+#ucy-analysis-window *{box-sizing:border-box}
+.ucya-window-header{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 15px;background:linear-gradient(110deg,#1e4771,#172a48);cursor:move;touch-action:none;user-select:none;border-bottom:1px solid rgba(158,205,232,.28)}
+.ucya-window-kicker{font-size:9px;letter-spacing:.10em;font-weight:800;color:#95c9e3;margin-bottom:4px}
+.ucya-window-header strong{font-size:15px;color:#fff}
+.ucya-window-buttons{display:flex;align-items:center;gap:5px}
+.ucya-window-buttons button{width:30px;height:30px;border-radius:7px;border:1px solid #537d9f;background:#1b3c61;color:#fff;font-size:19px;cursor:pointer}
+.ucya-window-buttons button:hover{background:#335a80}
+.ucya-window-body{padding:12px 16px 22px;flex:1 1 auto;min-height:0;overflow:auto}
+.ucy-analysis-select{display:block;font-size:11px;color:#d1e7f4;font-weight:650;margin:0 0 12px}
+.ucy-analysis-select select{display:block;width:100%;background:#204968;color:#fff;border:1px solid #638daf;border-radius:7px;padding:8px;margin-top:5px}
+.ucy-analysis-table-wrap{max-width:100%;overflow-x:auto}
+.ucy-analysis-table-wrap table{width:100%;border-collapse:collapse;font-size:11px;text-align:right;margin:10px 0 15px;white-space:nowrap}
+.ucy-analysis-table-wrap th,.ucy-analysis-table-wrap td{padding:9px 7px;border-bottom:1px solid rgba(157,194,225,.20)}
+.ucy-analysis-table-wrap th{font-size:10px;color:#bcd7ee;letter-spacing:.03em}
+.ucy-analysis-table-wrap th:first-child,.ucy-analysis-table-wrap td:first-child{text-align:left;font-weight:650}
+.ucya-value{display:inline-block;color:#fff;min-width:45px;padding:4px 5px;border-radius:5px;border-left:4px solid var(--ucya-value-color);background:color-mix(in srgb,var(--ucya-value-color) 22%,transparent);font-variant-numeric:tabular-nums}
+.ucya-nodata{opacity:.55}
+.ucya-stress{margin:10px 0 15px;border-top:1px solid rgba(176,204,231,.22);padding-top:13px}
+.ucya-stress h4{margin:0 0 9px;font-size:13px;color:#e9f3ff}
+.ucya-stress-bar{display:flex;width:100%;height:10px;overflow:hidden;border-radius:6px;background:#1f405d;margin-bottom:10px}
+.ucya-stress-bar span{height:100%;flex:0 0 auto}
+.ucya-stress-row{display:grid;grid-template-columns:11px 1fr auto;gap:8px;align-items:center;font-size:11px;line-height:1.55;margin:4px 0}
+.ucya-stress-dot{width:10px;height:10px;border-radius:3px}
+.ucya-small{font-size:10px;opacity:.76;margin:8px 0}
+#ucy-analysis-chart{width:100%;margin-top:15px}
+#ucy-analysis-chart svg{display:block;width:100%;height:auto;min-height:185px;max-height:295px}
+#ucy-analysis-hover{background:rgba(28,62,97,.8);border:1px solid rgba(97,153,204,.3);border-radius:8px;padding:8px;margin-top:10px}
+@media(max-width:670px){#ucy-analysis-window{left:10px;right:10px;top:145px;width:calc(100vw - 20px);height:min(56vh,520px);min-width:280px}#ucy-analysis-topshortcut{width:32px;height:32px;flex-basis:32px}#ucy-analysis-window .ucya-window-header{padding:10px}}
+@media(prefers-reduced-motion:reduce){#ucy-analysis-stage .ucya-chevron{transition:none}}
+/* Put the route profile directly below metric selection; detailed stats follow. */
+#ucy-analysis-window-body{display:flex;flex-direction:column}
+#ucy-analysis-window-body>.ucy-analysis-select{order:0;flex-shrink:0}
+#ucy-analysis-window-body>#ucy-analysis-chart{order:1;flex-shrink:0}
+#ucy-analysis-window-body>#ucy-analysis-summary{order:2;flex-shrink:0}
+#ucy-analysis-window-body>#ucy-analysis-hover{order:3;flex-shrink:0}
+.ucya-main-classes{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 11px;font-size:11px}
+.ucya-main-classes span{line-height:1.5}
+
+#ucy-analysis-window::after{content:"↘";position:absolute;bottom:0;right:3px;pointer-events:none;font-size:15px;color:#9cc1e1;opacity:.8}
+
+/* UCY_ANALYSIS_SIDEBAR_V6: separate accordion for map appearance settings */
+#ucya-v6-map-display{margin:3px 6px 12px;padding:0 0 11px;border-bottom:1px solid rgba(148,189,217,.22);color:inherit}
+#ucya-v6-map-display>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:750;font-size:14px;padding:12px 5px;color:inherit}
+#ucya-v6-map-display>summary::-webkit-details-marker{display:none}
+#ucya-v6-map-display>summary::after{content:'›';font-size:22px;color:#b3cfe3;font-weight:450;line-height:1;transform:rotate(0deg);transition:transform .15s}
+#ucya-v6-map-display[open]>summary::after{transform:rotate(90deg)}
+#ucya-v6-map-display .ucya-v6-display-content{padding:7px 0 2px}
+#ucya-v6-map-display #layerToggle.ucya-v6-legacy-toggle{display:none!important}
+#ucya-v6-map-display #layerBody{display:block!important;max-width:100%;}
+#ucya-v6-map-display:not([open]) #layerBody{display:none!important}
+#ucy-analysis-stage{margin-top:3px}
+#ucy-analysis-stage .ucya-accordion{border-radius:6px}
+/* Existing .ucy-v4-comfort/.ucy-v4-layers use their native collapse actions. */
+
+/* UCY_SIDEBAR_LEGACY_ADAPTER_V61: old live sidebar DOM. */
+#sidebar .ucya-v6-details{margin:3px 6px 12px;padding:0 0 11px;border-bottom:1px solid rgba(148,189,217,.22);color:inherit}
+#sidebar .ucya-v6-details>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:14px;font-weight:750;padding:12px 5px;color:inherit}
+#sidebar .ucya-v6-details>summary::-webkit-details-marker{display:none}
+#sidebar .ucya-v6-details>summary::after{content:'›';font-size:22px;color:#b3cfe3;line-height:1;transform:rotate(0deg);transition:transform .15s}
+#sidebar .ucya-v6-details[open]>summary::after{transform:rotate(90deg)}
+#sidebar #ucya-v61-map-layers .ucya-v61-layer-content{padding:4px 0 2px}
+#sidebar .ucya-v61-original-label-hidden{display:none!important}

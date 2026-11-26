@@ -1576,6 +1576,7 @@ window.addEventListener('beforeinstallprompt', function(event) {
   }
 }
 </style>
+<link rel="stylesheet" href="analysis-tools.css?v=ucy-v61-live2">
 </head>
 <body>
 <div id="ucy-heat-splash" aria-label="UCY Heat loading">
@@ -1802,6 +1803,17 @@ window.requestAnimationFrame(v83SetBottomHeight);
 
 const palettes={UTCI:'Universal Thermal Climate Index (°C)',PET:'Physiological Equivalent Temperature (°C)',Stress:'Thermal Stress (UTCI)',Wind:'Wind speed at 1.5 m (m/s)'};
 let v5=null,v6=null,map=null,cursor=0,metric='Stress',playing=null,mapReady=false,bounds=null;
+/* UCY_ROUTE_AREA_BRIDGE_V4: production read-only bridge */
+window.__UCY_ROUTE_AREA_BRIDGE_V4__=Object.freeze({
+  getMap(){return map;},
+  getManifest(){return pointManifest;},
+  getCursor(){return cursor;},
+  isNowcast(){return typeof v9Nowcast==='function' && v9Nowcast();},
+  getForecastHour(i){return loadNumericHour(i);},
+  getNowcastMeta(){return typeof v9Meta!=='undefined'?v9Meta:null;},
+  getNowcastNumeric(){return typeof v9Numeric!=='undefined'?v9Numeric:null;}
+});
+
 let firstVisible=-1; // initialized from the user's current clock on manifest load
 let pointManifest=null,selectedPoint=null,pointPopup=null,weatherEnabled=true, rainRaf=null,rainStreaks=[];
 let valueCache=new Map(),requestSequence=0;
@@ -3840,7 +3852,7 @@ async function init(){try{
   map.addLayer({id:'field-layer',type:'raster',source:'field-image',paint:{'raster-opacity':1,'raster-fade-duration':0}});
   map.addSource('buildings-data',{type:'geojson',data:buildings});map.addLayer({id:'buildings-3d',type:'fill-extrusion',source:'buildings-data',paint:{'fill-extrusion-color':'#acb9b6','fill-extrusion-height':['get','height_m'],'fill-extrusion-base':0,'fill-extrusion-opacity':1}});
   map.addSource('vegetation-data',{type:'geojson',data:vegetation});map.addLayer({id:'vegetation-3d',type:'fill-extrusion',source:'vegetation-data',paint:{'fill-extrusion-color':'#2d835f','fill-extrusion-height':['get','height_m'],'fill-extrusion-base':0,'fill-extrusion-opacity':1}});
-  v84InitTerrain();mapReady=true;v85InitArrows();document.getElementById('v85-vector-toggle').checked=true;changeBasemap();fitCampus();updateLayers();updateWeatherEffects();map.on('click',v9SelectPoint);v9Init();
+  v84InitTerrain();mapReady=true;v85InitArrows();document.getElementById('v85-vector-toggle').checked=true;changeBasemap();fitCampus();updateLayers();updateWeatherEffects();map.on('click',function(e){if(window.__UCY_ANALYSIS_DRAWING__)return;v9SelectPoint(e);});v9Init();
  });
  }catch(err){console.error('V7 init failure',err);setText('status','Forecast unavailable: '+err.message);setText('dateDisplay','No forecast available');}
 }
@@ -6046,5 +6058,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 }
 </style>
 
+<!-- UCY_SPATIAL_ANALYSIS_LIVE_V61: production Route/Area UI; model data unchanged -->
+<script>window.__UCY_ANALYSIS_NOWCAST_VERIFIED__=true;</script>
+<script defer src="analysis-tools.js?v=ucy-v61-live2"></script>
 </body>
 </html>
