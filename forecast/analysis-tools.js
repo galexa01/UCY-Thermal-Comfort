@@ -374,127 +374,176 @@
     overlay.addEventListener('pointerleave',()=>{cross.setAttribute('visibility','hidden');clearFocus();elements().hover.textContent='Move over the graph to locate a point on the map.';});
     holder.append(svg);
   }
-  // UCY_SIDEBAR_LEGACY_ADAPTER_V61
-  // The current live Forecast may use the original metricStack/layerToggle/layerBody
-  // structure rather than the older ucy-v4-* accordion IDs. Move DOM nodes;
-  // do not clone/replace existing scientific controls or their listeners.
+  // UCY_SIDEBAR_ANCHOR_ADAPTER_V62
+  // Build sections from stable original control anchors, never guessed headings.
+  // Existing controls (and their listeners) are *moved*, not copied or rebuilt.
   function ucyaOrganizeSidebar(){
-    if(document.getElementById('ucya-v6-map-display'))return true;
-
-    const metricStack=document.getElementById('metricStack');
+    if(document.getElementById('ucya-v62-time'))return true;
+    const sidebar=document.getElementById('sidebar');
+    const metric=document.getElementById('metricStack');
     const oldToggle=document.getElementById('layerToggle');
     const oldBody=document.getElementById('layerBody');
     const route=document.getElementById('ucy-analysis-stage');
-    const sidebar=document.getElementById('sidebar');
-    if(!metricStack||!oldToggle||!oldBody||!route||!sidebar)return false;
+    const date=document.querySelector('#sidebar .date-row');
+    const thermal=document.querySelector('#sidebar .v83-summary');
+    const weatherHead=document.querySelector('#sidebar .weather-heading');
+    const weatherGrid=document.querySelector('#sidebar .weather-grid');
+    const info=document.getElementById('infoOpen');
+    const brand=sidebar?.querySelector('.sidebar-brand');
+    if(!sidebar||!metric||!oldToggle||!oldBody||!route||!date||
+       !thermal||!weatherHead||!weatherGrid||!info||!brand)return false;
 
-    // Original controls must share their real sidebar host. Never reorganize
-    // a different view or move the entire sidebar/brand by accident.
-    const host=metricStack.parentElement;
-    if(!host||!sidebar.contains(host)||!host.contains(oldToggle)||
-       !host.contains(oldBody)||!host.contains(route)){
-      console.warn('UCY V6.1: sidebar controls not in the same host; layout unchanged');
+    const host=metric.parentElement;
+    if(!host||!host.classList.contains('side-scroll')||
+       ![metric,oldToggle,oldBody,route,date,thermal,weatherHead,
+         weatherGrid,info,brand].every(x=>host.contains(x))){
+      console.warn('UCY V6.2: Required original sidebar nodes are not all in .side-scroll');
       return false;
     }
-
-    const topChild = node => {
-      if(!node||node===host)return null;
-      let el=node;
-      while(el.parentElement && el.parentElement!==host)el=el.parentElement;
-      return el.parentElement===host?el:null;
-    };
-    const equalLabel=(text,target)=>
-       text.replace(/\s+/g,' ').trim().toLowerCase()===target.toLowerCase();
-    const findSection=(label)=>{
-      const choices=[...host.querySelectorAll('summary,button,h2,h3,h4,div,span')]
-         .filter(el=>equalLabel(el.textContent||'',label));
-      // Prefer the most specific heading, but relocate its existing top-level
-      // section (not an unrelated parent containing multiple subpanels).
-      for(const heading of choices){
-        const direct=topChild(heading);
-        if(direct && direct!==metricStack && direct!==oldToggle &&
-           direct!==oldBody && direct!==route)return direct;
-      }
-      return null;
-    };
-
-    // Existing installations with ucy-v4 wrappers remain supported.
-    const comfort=document.getElementById('ucy-v4-comfort') ||
-      findSection('Time & thermal comfort');
-    const weather=document.getElementById('ucy-v4-weather') ||
-      findSection('Weather conditions');
-    const about=findSection('About the data and tools');
-    const time=topChild(comfort),meteo=topChild(weather),aboutNode=topChild(about);
-    // Do not move a shared ancestor if time/weather live in one container.
-    if(!time||!meteo||time===meteo || time===metricStack || meteo===metricStack){
-      console.warn('UCY V6.1: Time/Weather sections not independently identified; layout unchanged');
+    function top(el){
+      while(el && el.parentElement!==host)el=el.parentElement;
+      return el&&el.parentElement===host?el:null;
+    }
+    const dt=top(date),tt=top(thermal),wh=top(weatherHead),wg=top(weatherGrid),abt=top(info);
+    // Never move a mixed wrapper containing unrelated map controls.
+    const fixed=[metric,oldToggle,oldBody,route,brand];
+    if(!dt||!tt||!wh||!wg||!abt ||
+       [dt,tt].some(n=>[wh,wg,abt].includes(n)) ||
+       [dt,tt,wh,wg,abt].some(n=>fixed.some(f=>n===top(f))) ){
+      console.warn('UCY V6.2: Sidebar original sections overlap; no DOM changes');
       return false;
     }
-
-    const originalLabel=[...host.querySelectorAll('.section-label')]
-      .find(el=>equalLabel(el.textContent||'','Map layers'));
-
-    const layers=document.getElementById('ucy-v4-layers') || document.createElement('details');
-    if(!layers.id)layers.id='ucya-v61-map-layers';
-    layers.classList.add('ucya-v6-details');
-    const display=document.createElement('details');
-    display.id='ucya-v6-map-display';
-    display.className='ucya-v6-details';
-
-    if(!layers.querySelector('summary')){
-      const summary=document.createElement('summary');
-      summary.textContent='Map Layers';
-      layers.prepend(summary);
+    function section(id,label,expanded){
+      const wrapper=document.createElement('details');
+      wrapper.id=id;
+      wrapper.className='ucya-v6-details ucya-v62-section';
+      wrapper.open=expanded;
+      const summary=document.createElement('summary');summary.textContent=label;
+      const content=document.createElement('div');content.className='ucya-v62-content';
+      wrapper.append(summary,content);
+      return {wrapper,content};
     }
-    const layerContent=document.createElement('div');
-    layerContent.className='ucya-v61-layer-content';
-    layers.append(layerContent);
-    layerContent.append(metricStack);
-
-    const summary=document.createElement('summary');
-    summary.textContent='Map Display';
-    display.append(summary);
-    const content=document.createElement('div');
-    content.className='ucya-v6-display-content';
-    display.append(content);
-    content.append(oldToggle,oldBody);
+    // Compute before moving any node, including an optional pre-existing
+    // accordion wrapper around the original elements.
+    const timeNodes=[...new Set([dt,tt])];
+    const weatherNodes=[...new Set([wh,wg])];
+    const existingMapLabel=[...host.querySelectorAll('.section-label')]
+      .find(x=>/map\s+layers/i.test(x.textContent||''));
+    const originalLabel=existingMapLabel?top(existingMapLabel):null;
+    const sections={
+      time:section('ucya-v62-time','Time & Thermal Comfort',true),
+      layers:section('ucya-v62-map-layers','Map Layers',true),
+      display:section('ucya-v6-map-display','Map Display',false),
+      weather:section('ucya-v62-weather','Weather Conditions',false),
+      about:section('ucya-v62-about','About the Data & Tools',false)
+    };
+    // Parent insertions first; preserve existing brand as the first block.
+    const afterBrand=top(brand).nextSibling;
+    const order=[sections.time.wrapper,sections.layers.wrapper,
+      sections.display.wrapper,route,sections.weather.wrapper,
+      sections.about.wrapper];
+    for(const node of order)host.insertBefore(node,afterBrand);
+    const move=(nodes,target)=>nodes.forEach(n=>target.append(n));
+    move(timeNodes,sections.time.content);
+    sections.layers.content.append(metric);
+    sections.display.content.append(oldToggle,oldBody);
+    move(weatherNodes,sections.weather.content);
+    sections.about.content.append(abt);
+    if(originalLabel && originalLabel.parentElement===host)
+      originalLabel.classList.add('ucya-v62-original-label-hidden');
     oldToggle.classList.add('ucya-v6-legacy-toggle');
-    oldBody.hidden=false;
     oldToggle.setAttribute('aria-expanded','true');
-
-    // Preserve original sections; never reconstruct their cards/handlers.
-    // Keep the existing brand at the top of its parent.
-    if(layers.parentElement!==host)host.insertBefore(layers,time);
-    host.insertBefore(time,layers);
-    layers.after(display);
-    display.after(route);
-    route.after(meteo);
-    if(aboutNode && aboutNode!==time && aboutNode!==meteo &&
-       aboutNode!==layers && aboutNode!==display && aboutNode!==route){
-      meteo.after(aboutNode);
+    oldBody.hidden=false;
+    // Existing nested accordions may already have their own disclosure
+    // button. Keep the content open but suppress the duplicate title.
+    for(const node of [...timeNodes,...weatherNodes]){
+      if(node.tagName==='DETAILS')node.open=true;
+      if(node!==date&&node!==thermal&&node!==weatherHead&&node!==weatherGrid){
+        node.classList.add('ucya-v62-embedded-wrapper');
+        const summary=node.querySelector(':scope > summary');
+        if(summary)summary.classList.add('ucya-v62-original-label-hidden');
+      }
     }
-    if(originalLabel && !layers.contains(originalLabel))
-      originalLabel.classList.add('ucya-v61-original-label-hidden');
-
-    if(time.tagName==='DETAILS')time.open=true;
-    if(meteo.tagName==='DETAILS')meteo.open=false;
-    layers.open=true;
-    display.open=false;
+    // Keep existing Spatial Analysis controls, but position their accordion
+    // at the same hierarchy as the other sections.
     toggleAnalysis(false);
-
-    display.addEventListener('toggle',()=>{
-      if(display.open){oldBody.hidden=false;oldToggle.setAttribute('aria-expanded','true');}
-    });
+    const restoreLayerContent=()=>{
+      if(sections.display.wrapper.open){
+        oldBody.hidden=false;
+        oldToggle.setAttribute('aria-expanded','true');
+      }
+    };
+    sections.display.wrapper.addEventListener('toggle',restoreLayerContent);
     const toolbar=document.getElementById('toggleLayersTop');
-    if(toolbar)toolbar.addEventListener('click',()=>setTimeout(()=>{
-      display.open=true;
-      oldBody.hidden=false;
-      oldToggle.setAttribute('aria-expanded','true');
-      display.scrollIntoView({block:'nearest',behavior:'smooth'});
-    },0));
-
-    console.info('UCY V6.1: Time > Map Layers > Map Display > Spatial Analysis > Weather > About');
+    if(toolbar && !toolbar.dataset.ucyaV62Bound){
+      toolbar.dataset.ucyaV62Bound='1';
+      toolbar.addEventListener('click',()=>setTimeout(()=>{
+        sections.display.wrapper.open=true;restoreLayerContent();
+        sections.display.wrapper.scrollIntoView({block:'nearest',behavior:'smooth'});
+      },0));
+    }
+    installSidebarResize();
+    console.info('UCY V6.2: anchored sidebar sections installed: Time > Layers > Display > Analysis > Weather > About');
     return true;
+  }
+
+  // UCY_SIDEBAR_WIDTH_RESIZE_V62
+  function installSidebarResize(){
+    const sidebar=document.getElementById('sidebar');
+    if(!sidebar || document.getElementById('ucya-v62-sidebar-grip'))return;
+    const grip=document.createElement('div');
+    grip.id='ucya-v62-sidebar-grip';
+    grip.setAttribute('role','separator');
+    grip.setAttribute('aria-label','Resize sidebar horizontally');
+    grip.setAttribute('aria-orientation','vertical');
+    grip.tabIndex=0;
+    const min=290,baseMax=560;
+    let width=344;
+    const maximum=()=>Math.max(min,Math.min(baseMax,window.innerWidth-165));
+    function apply(value,persist){
+      if(!window.matchMedia('(min-width: 781px)').matches)return;
+      width=Math.round(Math.max(min,Math.min(maximum(),Number(value)||344)));
+      document.documentElement.style.setProperty('--ucya-sidebar-width',width+'px');
+      grip.setAttribute('aria-valuemin',min);
+      grip.setAttribute('aria-valuemax',maximum());
+      grip.setAttribute('aria-valuenow',width);
+      if(persist){try{localStorage.setItem('ucy-heat-sidebar-width-v62',String(width));}catch(_){}}
+      try{bridge?.getMap()?.resize();}catch(_){}
+    }
+    document.body.classList.add('ucya-v62-resizable');
+    sidebar.append(grip);
+    try{
+      const saved=Number(localStorage.getItem('ucy-heat-sidebar-width-v62'));
+      if(Number.isFinite(saved)&&saved>0)width=saved;
+    }catch(_){}
+    apply(width,false);
+    let drag=null;
+    grip.addEventListener('pointerdown',e=>{
+      if(e.button!==0||!window.matchMedia('(min-width: 781px)').matches)return;
+      e.preventDefault();e.stopPropagation();
+      drag={x:e.clientX,width};
+      grip.setPointerCapture(e.pointerId);
+      grip.classList.add('ucya-v62-grabbing');
+    });
+    grip.addEventListener('pointermove',e=>{
+      if(!drag)return;
+      apply(drag.width+e.clientX-drag.x,false);
+    });
+    const stop=()=>{
+      if(!drag)return;
+      drag=null;grip.classList.remove('ucya-v62-grabbing');
+      apply(width,true);
+    };
+    grip.addEventListener('pointerup',stop);
+    grip.addEventListener('pointercancel',stop);
+    grip.addEventListener('lostpointercapture',stop);
+    grip.addEventListener('keydown',e=>{
+      if(e.key==='ArrowLeft'||e.key==='ArrowRight'){
+        e.preventDefault();apply(width+(e.key==='ArrowRight'?16:-16),true);
+      }else if(e.key==='Home'){e.preventDefault();apply(min,true);}
+      else if(e.key==='End'){e.preventDefault();apply(maximum(),true);}
+    });
+    window.addEventListener('resize',()=>apply(width,false));
   }
 
   function buildUI(){
@@ -564,7 +613,7 @@
       try { buildUI(); }
       catch(e){console.error('UCY Analysis V6 controls:',e);return;}
     }
-    if(!document.getElementById('ucya-v6-map-display'))ucyaOrganizeSidebar();
+    if(!document.getElementById('ucya-v62-time'))ucyaOrganizeSidebar();
     if(!ready()){
       message('Connecting to UCY Heat map… '+(!bridge?'Bridge missing':!map?'Map not initialized':!pointManifest?'Grid metadata missing':'Raster source not ready'));
       setTimeout(initialize,650);
@@ -593,7 +642,7 @@
         state.hourlyCheckAttached=true;
         setInterval(()=>{
           if(!ready())return;
-          if(!document.getElementById('ucya-v6-map-display'))ucyaOrganizeSidebar();
+          if(!document.getElementById('ucya-v62-time'))ucyaOrganizeSidebar();
           if(!map.getSource('ucy-analysis-line') || !map.getLayer('ucy-analysis-line-layer')){
             initialize();
             return;

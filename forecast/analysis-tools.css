@@ -80,3 +80,32 @@
 #sidebar .ucya-v6-details[open]>summary::after{transform:rotate(90deg)}
 #sidebar #ucya-v61-map-layers .ucya-v61-layer-content{padding:4px 0 2px}
 #sidebar .ucya-v61-original-label-hidden{display:none!important}
+
+
+/* UCY_SIDEBAR_V62: six peer accordion sections using original DOM controls. */
+#sidebar .ucya-v62-section{margin:3px 6px 12px;padding:0 0 11px;border-bottom:1px solid rgba(148,189,217,.22)}
+#sidebar .ucya-v62-content{padding:5px 0 6px}
+#sidebar .ucya-v62-content[hidden]{display:none!important}
+#sidebar .ucya-v62-original-label-hidden{display:none!important}
+#sidebar .ucya-v62-embedded-wrapper{margin:0!important;padding:0!important;border:0!important}
+#sidebar .ucya-v62-embedded-wrapper>summary.ucya-v62-original-label-hidden{display:none!important}
+#ucya-v62-map-layers #metricStack{display:flex;flex-direction:column;gap:8px;margin:2px 0 0}
+#ucya-v62-map-layers #metricStack .metric-button{min-width:0}
+#ucya-v62-weather .weather-grid{margin:4px 0 0}
+#ucya-v62-about #infoOpen{width:100%}
+#ucya-v6-map-display .ucya-v6-legacy-toggle{display:none!important}
+#ucya-v6-map-display .ucya-v62-content{padding:7px 0 3px}
+#sidebar #ucya-v62-time .date-row{margin-top:4px}
+/* Horizontal resize is desktop-only and leaves mobile CSS untouched. */
+@media (min-width: 781px){
+ body.ucya-v62-resizable #sidebar{width:var(--ucya-sidebar-width,344px)!important;max-width:calc(100vw - 120px)!important}
+ body.ucya-v62-resizable:not(.sidebar-closed) .collapse-toggle{left:calc(24px + var(--ucya-sidebar-width,344px))!important}
+ body.ucya-v62-resizable:not(.sidebar-closed) .bottom-panel{left:calc(31px + var(--ucya-sidebar-width,344px))!important}
+ body.ucya-v62-resizable:not(.sidebar-closed) .small-status{left:calc(36px + var(--ucya-sidebar-width,344px))!important}
+ body.ucya-v62-resizable:not(.sidebar-closed) .top-controls{max-width:calc(100vw - 42px - var(--ucya-sidebar-width,344px))!important}
+ #ucya-v62-sidebar-grip{position:absolute;z-index:15;top:15%;bottom:16%;right:0;width:10px;cursor:col-resize;touch-action:none;background:transparent;outline-offset:-3px;border-radius:4px}
+ #ucya-v62-sidebar-grip::after{content:'';position:absolute;right:2px;top:30%;bottom:30%;width:3px;border-radius:6px;background:rgba(143,205,248,.58)}
+ #ucya-v62-sidebar-grip:hover,#ucya-v62-sidebar-grip:focus-visible,#ucya-v62-sidebar-grip.ucya-v62-grabbing{background:rgba(83,178,236,.16)}
+ #ucya-v62-sidebar-grip:hover::after,#ucya-v62-sidebar-grip:focus-visible::after{background:#a9e3ff}
+}
+@media (max-width: 780px){#ucya-v62-sidebar-grip{display:none!important}}
