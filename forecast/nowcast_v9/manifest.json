@@ -1,10 +1,10 @@
 {
   "schema": "ucy-v9-nowcast-maps-1",
   "version": "9.0",
-  "release": "20261127T133000Z",
-  "observation_utc": "2026-11-27T13:30:00+00:00",
+  "release": "20261127T143000Z",
+  "observation_utc": "2026-11-27T14:30:00+00:00",
   "source": "AURA",
-  "urock_scenario": "WS_03p0_WD_108",
+  "urock_scenario": "WS_02p1_WD_120",
   "width": 499,
   "height": 263,
   "bounds": [
@@ -53,19 +53,19 @@
   "meteo": {
     "iy": "2026",
     "id": "331",
-    "it": "13",
+    "it": "14",
     "imin": "30",
     "qn": "-999",
     "qh": "-999",
     "qe": "-999",
     "qs": "-999",
     "qf": "-999",
-    "U": "2.87",
-    "RH": "49.49",
-    "Tair": "22.2",
-    "pres": "100.006",
+    "U": "2.01",
+    "RH": "58.32",
+    "Tair": "20.05",
+    "pres": "100.057",
     "rain": "-999",
-    "kdown": "81.41",
+    "kdown": "0.0",
     "snow": "-999",
     "ldown": "-999",
     "fcld": "-999",
@@ -74,7 +74,7 @@
     "lai": "-999",
     "kdiff": "-999",
     "kdir": "-999",
-    "wdir": "106.98"
+    "wdir": "118.79"
   },
   "colour_scales": {
     "UTCI": {
